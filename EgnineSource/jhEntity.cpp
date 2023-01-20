@@ -3,8 +3,8 @@
 namespace jh
 {
 	Entity::Entity()
-		: mName{}
-		, mID(reinterpret_cast<UINT32>(this))
+		: mID{reinterpret_cast<UINT32>(this)}
+		, mName{}
 	{
 	}
 	Entity::~Entity()

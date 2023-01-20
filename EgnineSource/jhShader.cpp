@@ -1,5 +1,4 @@
 #include "jhShader.h"
-#include "jhGraphicDeviceDX11.h"
 
 namespace jh
 {
@@ -34,8 +33,8 @@ namespace jh
 	void Shader::Create(graphics::eShaderStage eStage, const std::wstring& shaderFileName, const std::string& entryFuncName)
 	{
 		// VertexShader 
-		std::filesystem::path path = std::filesystem::current_path().parent_path();
-		path += "SHADER_SOURCE\\";
+		std::filesystem::path path = std::filesystem::current_path();
+		path += "\\SHADER_SOURCE\\";
 
 		std::wstring vsPath(path.c_str());
 		std::wstring psPath(path.c_str());
@@ -79,7 +78,7 @@ namespace jh
 				nullptr,
 				D3D_COMPILE_STANDARD_FILE_INCLUDE,
 				entryFuncName.c_str(),
-				"ps_4_0",
+				"ps_5_0",
 				0,
 				0,
 				mcpPixelShaderBlob.ReleaseAndGetAddressOf(),
@@ -107,14 +106,6 @@ namespace jh
 			assert(false);
 			break;
 		}
-	}
-
-	void Shader::Binds()
-	{
-		graphics::GetDevice()->SetPrimitiveTopology(mPrimitiveTopology);
-		graphics::GetDevice()->SetInputLayout(mcpInputLayout.Get());
-		graphics::GetDevice()->SetVertexShader(mcpVertexShader.Get(), nullptr, 0);
-		graphics::GetDevice()->SetPixelShader(mcpPixelShader.Get(), nullptr, 0);
 	}
 }
 

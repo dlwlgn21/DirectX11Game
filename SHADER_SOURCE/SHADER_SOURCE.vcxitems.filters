@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="VertexShader">
+      <UniqueIdentifier>{00e6c87b-219c-47ef-b8cb-df5ee3e477f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PixelShader">
+      <UniqueIdentifier>{ed10ef5f-8a64-4413-85e3-8b5089671748}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="$(MSBuildThisFileDirectory)jhVertexShader.hlsl">
+      <Filter>VertexShader</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)jhPixelShader.hlsl">
+      <Filter>PixelShader</Filter>
+    </FxCompile>
+  </ItemGroup>
+</Project>

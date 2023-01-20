@@ -1,5 +1,6 @@
 #pragma once
 #include "jhGraphics.h"
+#include "jhEnums.h"
 
 namespace jh::graphics
 {
@@ -29,10 +30,9 @@ namespace jh::graphics
 		void SetVertexShader(ID3D11VertexShader* pVertexShader, ID3D11ClassInstance* const* ppClassInstance, UINT numClassInstances);
 		void SetPixelShader(ID3D11PixelShader* pPixelShader, ID3D11ClassInstance* const* ppClassInstance, UINT numClassInstances);
 
-
 		ID3D11DeviceContext* GetContext() const { return mcpContext.Get(); }
 		ID3D11Device* GetID3D11Device() const { return mcpDevice.Get(); }
-		void Draw();
+		void Render();
 		void DrawIndexed(UINT idxCount, UINT startIdxLocation, UINT baseVertexLocation);
 
 
@@ -50,19 +50,14 @@ namespace jh::graphics
 	private:
 		__forceinline void ifFailed(HRESULT hr) { if (FAILED(hr)) { assert(false); } }
 	private:
-		// GPU 개체 생성. 그래픽카드와 연결되는 기본적인 개체
 		Microsoft::WRL::ComPtr<ID3D11Device>				mcpDevice;
-		// GPU Read Write 디바에스에 직접 접근하지 않고, 이 컨텍스트를 통해서 GPU에 명령을 내린다.
 		Microsoft::WRL::ComPtr<ID3D11DeviceContext>			mcpContext;
 
-		// 최종적으로 그려지는 도화지.
 		Microsoft::WRL::ComPtr<ID3D11Texture2D>				mcpRenderTarget;
 		Microsoft::WRL::ComPtr<ID3D11RenderTargetView>		mcpRenderTargetView;
 		Microsoft::WRL::ComPtr<ID3D11Texture2D>				mcpDepthStencilBuffer;
 		Microsoft::WRL::ComPtr<ID3D11DepthStencilView>		mcpDepthStencilView;
 
-		// 화면에 최종적으로 그려지는 백버퍼(FrameBuffer)를 관리하고,
-		// 실제로 화면에 렌더링하는 역할을 담당하는 개체.
 		Microsoft::WRL::ComPtr<IDXGISwapChain>				mcpSwapChain;
 		Microsoft::WRL::ComPtr<ID3D11SamplerState>			mcpSamplerState;
 		D3D11_VIEWPORT mViewport;

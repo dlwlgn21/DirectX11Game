@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="리소스 파일">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="HighLevelInterface">
       <UniqueIdentifier>{1923d7c0-415c-45a7-aaa7-d917b9ab4f07}</UniqueIdentifier>
     </Filter>
@@ -47,6 +43,24 @@
     <Filter Include="Engine">
       <UniqueIdentifier>{330b2965-84de-49fc-93c8-1e213de42fde}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene\Manager">
+      <UniqueIdentifier>{cf76299f-40aa-426b-b8bd-f3d5bc1cfe77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Base">
+      <UniqueIdentifier>{3fcf2a52-6064-4e7c-9095-5b0e6e293da9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Layer">
+      <UniqueIdentifier>{ee6b6049-c73a-44f7-a455-85a576dccae9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject">
+      <UniqueIdentifier>{9772976a-0c64-4d3a-9014-dd225fad77cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component">
+      <UniqueIdentifier>{057a413c-cf98-4b82-bbdd-08b0870314f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Base">
+      <UniqueIdentifier>{82f147c9-71f3-4fd6-9df9-83ad64cbfc07}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EgnineSource.cpp" />
@@ -73,6 +87,39 @@
     </ClCompile>
     <ClCompile Include="jhShader.cpp">
       <Filter>Resource\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="jhTime.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="jhPlayScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="jhScene.cpp">
+      <Filter>Scene\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="jhLayer.cpp">
+      <Filter>Scene\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="jhSceneManager.cpp">
+      <Filter>Scene\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="jhComponent.cpp">
+      <Filter>Component\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="jhTransform.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="jhGameObject.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="jhInput.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="jhMeterial.cpp">
+      <Filter>Resource\Merterial</Filter>
+    </ClCompile>
+    <ClCompile Include="jhMeshRenderer.cpp">
+      <Filter>Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -115,6 +162,39 @@
     </ClInclude>
     <ClInclude Include="jhEnums.h">
       <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="jhTime.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="jhPlayScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="jhScene.h">
+      <Filter>Scene\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="jhLayer.h">
+      <Filter>Scene\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="jhSceneManager.h">
+      <Filter>Scene\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="jhComponent.h">
+      <Filter>Component\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="jhTransform.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="jhGameObject.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="jhInput.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="jhMeterial.h">
+      <Filter>Resource\Merterial</Filter>
+    </ClInclude>
+    <ClInclude Include="jhMeshRenderer.h">
+      <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

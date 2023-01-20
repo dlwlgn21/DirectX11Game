@@ -9,9 +9,9 @@ namespace jh
 		Entity();
 		virtual ~Entity();
 
-		void SetName(const std::wstring name) { mName = name; }
-		std::wstring GetName() { return mName; }
-		inline UINT32 GetID() { return mID; }
+		void SetName(const std::wstring& name) { mName = name; }
+		__forceinline const std::wstring& GetName() { return mName; }
+		__forceinline UINT32 GetID() { return mID; }
 
 	private:
 		std::wstring mName;

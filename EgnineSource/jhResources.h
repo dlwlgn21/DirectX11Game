@@ -1,9 +1,9 @@
 #pragma once
 #include "Engine.h"
+#include "jhResource.h"
 
 namespace jh
 {
-	class Resource;
 	class Resources
 	{
 	public:

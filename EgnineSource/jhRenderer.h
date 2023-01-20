@@ -5,7 +5,7 @@
 
 
 #include "jhMesh.h"
-//#include "jhShader.h"
+#include "jhShader.h"
 constexpr const UINT VERTEX_COUNT = 4;
 
 using namespace jh::math;

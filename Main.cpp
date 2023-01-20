@@ -119,6 +119,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
       return FALSE;
    }
 
+   jh::Application::GetInstance().SetWindowAndGraphicDevice(hWnd, 1600, 900);
+   jh::Application::GetInstance().Initialize();
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
 

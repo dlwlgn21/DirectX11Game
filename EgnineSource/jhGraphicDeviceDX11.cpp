@@ -441,7 +441,7 @@ namespace jh::graphics
 		// 넘겨준 데이터를 매핑하여 매핑된 서브 리소스 구조체를 채워줌.
 		// 성공하면 이 리소스에 GPU의 읽기가 금지 됨.
 		HRESULT hr;
-		hr = graphics::GetDevice()->GetContext()->Map(
+		hr = mcpContext->Map(
 			pBuffer,							// 매핑할 리소스. 
 			0,									// 서브리소스의 인덱스. 우리는 통째로 넘겨주므로 지정할 필요 없음
 			D3D11_MAP_WRITE_DISCARD,			// 매핑방식을 지정. D3D11_MAP_WRITE_DISCARD 의미는 값을 쓰고 이전에 있던 값은 버리라는 의미.
@@ -453,7 +453,7 @@ namespace jh::graphics
 		// 위 과정들을 거쳐 안전하게 값을 복사해도 되면 복사하게 됨.
 		// 매핑된 서브리소스의 pData에 버텍스 구조체들을 메모리 복사하면 됨.
 		memcpy(mappedSubResource.pData, pData, size);
-		graphics::GetDevice()->GetContext()->Unmap(pBuffer, 0);
+		mcpContext->Unmap(pBuffer, 0);
 
 	}
 
@@ -515,22 +515,16 @@ namespace jh::graphics
 		mcpContext->PSSetShader(pPixelShader, ppClassInstance, numClassInstances);
 	}
 
-	void GraphicDevice_DX11::Draw()
+	void GraphicDevice_DX11::Render()
 	{
 		ClearRenderTargetViewAndDepthStencilView();
 
-		// 상수 버퍼를 셰이더에 세팅.
 		SetConstantBufferAtShader(eShaderStage::VERTEX_SHADER, eCBType::TRANSFORM, renderer::cpConstantBuffer.Get());
-
-		// Input-Assembler에 버텍스버퍼를 연결함.
 		renderer::pMesh->SetVertexAndIndexBufferAtIA();
 
-		// 기본 도형이 어떻게 이루어지는가
-		//mcpContext->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-		//SetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		renderer::pShader->SetPrimitiveTopologyAndIA();
+		renderer::pShader->SetVertexAndPixelShader();
 		renderer::pMesh->Render();
-		renderer::pShader->Binds();
-		// 최종 화면에 뿌려주기
 		mcpSwapChain->Present(0, 0);
 	}
 	void GraphicDevice_DX11::DrawIndexed(UINT idxCount, UINT startIdxLocation, UINT baseVertexLocation)
