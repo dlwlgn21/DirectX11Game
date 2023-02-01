@@ -15,3 +15,4 @@
 
 
 #include "CommonInclude.h"
+#include "jhEnums.h"

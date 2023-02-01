@@ -16,10 +16,6 @@ namespace jh::renderer
 	Shader* pShader = nullptr;
 	Microsoft::WRL::ComPtr<ID3D11Buffer>			cpConstantBuffer;
 
-
-
-
-
 	__forceinline void LoadAndSetShader()
 	{
 		pShader = new Shader();

@@ -48,7 +48,7 @@ namespace jh::graphics
 			);
 		}
 	private:
-		__forceinline void ifFailed(HRESULT hr) { if (FAILED(hr)) { assert(false); } }
+		void ifFailed(HRESULT hr) { if (FAILED(hr)) { assert(false); } }
 	private:
 		Microsoft::WRL::ComPtr<ID3D11Device>				mcpDevice;
 		Microsoft::WRL::ComPtr<ID3D11DeviceContext>			mcpContext;

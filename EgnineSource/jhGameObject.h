@@ -1,8 +1,9 @@
 #pragma once
 #include "jhEntity.h"
-#include "jhComponent.h"
+
 namespace jh
 {
+	class Component;
 	class GameObject : public Entity
 	{
 	public:
@@ -18,13 +19,13 @@ namespace jh
 		virtual ~GameObject();
 
 		virtual void Initialize();
-		virtual void Tick();
+		virtual void Update();
 		virtual void FixedUpdate();
 		virtual void Render();
 
 		void AddComponent(Component* pComponent);
 
-		__forceinline Component* GetComponentOrNull(eComponentType eType)
+		__forceinline Component* GetComponentOrNull(const eComponentType eType)
 		{
 			Component* pRet = mComponents[static_cast<UINT>(eType)];
 			return pRet;
@@ -32,5 +33,6 @@ namespace jh
 
 	private:
 		std::vector<Component*> mComponents;
+		eState meState;
 	};
 }

@@ -4,7 +4,7 @@
 namespace jh
 {
 	class GameObject;
-	class Layer
+	class Layer : public Entity
 	{
 	public:
 		Layer();
@@ -15,7 +15,7 @@ namespace jh
 		virtual void FixedUpdate();
 		virtual void Render();
 
-		void AddGameObject(const GameObject* gameObject);
+		void AddGameObject(GameObject* gameObject);
 
 	private:
 		std::vector<GameObject*> mGameObjects;

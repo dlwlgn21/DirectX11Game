@@ -11,34 +11,34 @@ namespace jh
 	}
 	void Scene::Initalize()
 	{
-		for (Layer& layer : mLayers)
+		for (auto& layer : mLayers)
 		{
 			layer.Initalize();
 		}
 	}
 	void Scene::Update()
 	{
-		for (Layer& layer : mLayers)
+		for (auto& layer : mLayers)
 		{
 			layer.Update();
 		}
 	}
 	void Scene::FixedUpdate()
 	{
-		for (Layer& layer : mLayers)
+		for (auto& layer : mLayers)
 		{
 			layer.FixedUpdate();
 		}
 	}
 	void Scene::Render()
 	{
-		for (Layer& layer : mLayers)
+		for (auto& layer : mLayers)
 		{
 			layer.Render();
 		}
 	}
-	void Scene::AddGameObject(const GameObject* gameObj, const eLayerType type)
+	void Scene::AddGameObject(GameObject* pGameObj, const eLayerType eType)
 	{
-		mLayers[(UINT)type].AddGameObject(gameObj);
+		mLayers[(UINT)eType].AddGameObject(pGameObj);
 	}
 }

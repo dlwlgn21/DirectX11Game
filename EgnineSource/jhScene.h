@@ -17,7 +17,7 @@ namespace jh
 		virtual void FixedUpdate();
 		virtual void Render();
 
-		void AddGameObject(const GameObject* gameObj, const eLayerType type);
+		void AddGameObject(GameObject* pGameObj, const  eLayerType type);
 
 	private:
 		std::vector<Layer> mLayers;

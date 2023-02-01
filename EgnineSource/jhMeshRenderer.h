@@ -8,6 +8,12 @@ namespace jh
 	public:
 		MeshRenderer();
 		virtual ~MeshRenderer();
+
+		void Initialize() override;
+		void Update() override;
+		void FixedUpdate() override;
+		void Render() override;
+
 	private:
 	};
 }
