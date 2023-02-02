@@ -30,6 +30,12 @@ namespace jh
 		return S_OK;
 	}
 
+	void Shader::SetPrimitiveTopologyAndIASetVertexAndPixelShader()
+	{
+		setPrimitiveTopologyAndIA();
+		setVertexAndPixelShader();
+	}
+
 	void Shader::Create(graphics::eShaderStage eStage, const std::wstring& shaderFileName, const std::string& entryFuncName)
 	{
 		// VertexShader 

@@ -1,36 +1,44 @@
 #include "jhSceneManager.h"
 #include "jhScene.h"
+#include "jhGameObject.h"
+#include "jhTransform.h"
+#include "jhMeshRenderer.h"
+#include "jhRenderer.h"
 
 namespace jh
 {
+
+	Scene* SceneManager::mpPlayScene = nullptr;
+
 	void SceneManager::Initalize()
 	{
-		//mPlayScene = new Scene();
-		//mPlayScene->Initalize();
+		mpPlayScene = new Scene();
+		mpPlayScene->Initalize();
 
-		//GameObject* obj = new GameObject();
-		//Transform* tr = new Transform();
-		//obj->AddComponent(tr);
-		//
-		//MeshRenderer* meshRenderer = new MeshRenderer;
-		//obj->AddComponent(meshRenderer);
-
-		//mPlayScene->AddGameObject(obj);
-
+		GameObject* obj = new GameObject();
+		Transform* tr = new Transform();
+		tr->SetPosition(Vector3(-0.2f, 0.2f, 0.2f));
+		obj->AddComponent(tr);
+		MeshRenderer* meshRenderer = new MeshRenderer;
+		meshRenderer->SetShader(renderer::pShader);
+		meshRenderer->SetMesh(renderer::pMesh);
+		obj->AddComponent(meshRenderer);
+		
+		mpPlayScene->AddGameObject(obj, eLayerType::PLAYER);
 	}
 
 	void SceneManager::Update()
 	{
-		mPlayScene->Update();
+		mpPlayScene->Update();
 	}
 
 	void SceneManager::FixedUpdate()
 	{
-		mPlayScene->FixedUpdate();
+		mpPlayScene->FixedUpdate();
 	}
 
 	void SceneManager::Render()
 	{
-		mPlayScene->Render();
+		mpPlayScene->Render();
 	}
 }

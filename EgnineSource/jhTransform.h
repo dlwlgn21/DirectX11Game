@@ -15,8 +15,7 @@ namespace jh
 		void Update() override;
 		void FixedUpdate() override;
 		void Render() override;
-
-		void SetConstantBufferAtGPU();
+		void WriteContantBufferAtGPUAndSetConstantBufferAtShader();
 
 		__forceinline void SetPosition(const Vector3 pos)		{ mPosition = pos; }
 		__forceinline void SetRotation(const Vector3 rotation)	{ mRotation = rotation; }

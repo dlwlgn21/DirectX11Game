@@ -53,7 +53,7 @@ namespace jh
 			mKeys.push_back(key);
 		}
 	}
-	void Input::Tick()
+	void Input::Update()
 	{
 		if (GetFocus())
 		{

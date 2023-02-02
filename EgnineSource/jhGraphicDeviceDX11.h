@@ -22,17 +22,17 @@ namespace jh::graphics
 		void BindViewports(D3D11_VIEWPORT* pViewport);
 		void BindViewports();
 		void WriteConstantBufferAtGPU(ID3D11Buffer* pBuffer, void* pData, UINT size);
-		void SetConstantBufferAtShader(eShaderStage shaderStage, eCBType eType, ID3D11Buffer* pBuffer);
+		void SetConstantBufferAtShader(eShaderStage shaderStage, eConstantBufferType eType, ID3D11Buffer* pBuffer);
 		void SetVertexBufferAtIA(UINT startSlot, UINT numBuffers, ID3D11Buffer* const* pBuffer, const UINT* pStride, const UINT* pOffeset);
 		void SetIndexBufferAtIA(ID3D11Buffer* pIdxBufferm, DXGI_FORMAT format, UINT offset);
 		void SetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY topology);
 		void SetInputLayout(ID3D11InputLayout* pInputLayout);
 		void SetVertexShader(ID3D11VertexShader* pVertexShader, ID3D11ClassInstance* const* ppClassInstance, UINT numClassInstances);
 		void SetPixelShader(ID3D11PixelShader* pPixelShader, ID3D11ClassInstance* const* ppClassInstance, UINT numClassInstances);
+		void Present();
 
 		ID3D11DeviceContext* GetContext() const { return mcpContext.Get(); }
 		ID3D11Device* GetID3D11Device() const { return mcpDevice.Get(); }
-		void Render();
 		void DrawIndexed(UINT idxCount, UINT startIdxLocation, UINT baseVertexLocation);
 
 

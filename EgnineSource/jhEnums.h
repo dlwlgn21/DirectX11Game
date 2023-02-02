@@ -2,7 +2,7 @@
 
 namespace jh
 {
-	enum class eCBType
+	enum class eConstantBufferType
 	{
 		TRANSFORM,
 		COUNT,

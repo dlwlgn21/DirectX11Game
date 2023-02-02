@@ -39,7 +39,7 @@ namespace jh
 
 	}
 
-	void Time::Tick()
+	void Time::Update()
 	{
 		//QueryPerformanceCounter(&mCurFrequency);
 		//float differntFrequency

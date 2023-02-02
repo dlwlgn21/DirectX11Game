@@ -2,12 +2,13 @@
 #include "jhRenderer.h"
 #include "jhTime.h"
 #include "jhInput.h"
+#include "jhSceneManager.h"
 
 namespace jh
 {
 	void Application::Run()
 	{
-		Tick();
+		Update();
 		FixedUpdate();
 		Render();
 	}
@@ -15,20 +16,27 @@ namespace jh
 	{
 		Time::Initialize();
 		Input::Initialize();
-		renderer::Initialize();
+		renderer::Initialize(); 
+		SceneManager::Initalize();
 	}
-	void Application::Tick()
+	void Application::Update()
 	{
-		Time::Tick();
-		Input::Tick();
+		Time::Update();
+		Input::Update();
+		SceneManager::Update();
 	}
 	void Application::FixedUpdate()
 	{
+		SceneManager::FixedUpdate();
 	}
 	void Application::Render()
 	{
 		Time::Render(mHdc);
-		mspGraphicDevice->Render();
+		mspGraphicDevice->ClearRenderTargetViewAndDepthStencilView();
+
+		SceneManager::Render();
+
+		mspGraphicDevice->Present();
 	}
 	void Application::SetWindowAndGraphicDevice(HWND hwnd, UINT width, UINT height)
 	{

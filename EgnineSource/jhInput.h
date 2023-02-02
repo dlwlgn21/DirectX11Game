@@ -50,7 +50,7 @@ namespace jh
 
 	public:
 		static void Initialize();
-		static void Tick();
+		static void Update();
 		static void Render(HDC hdc);
 		static eKeyState GetKeyState(eKeyCode keyCode);
 		static Vector2 GetMousePos() { return mMousePos; }

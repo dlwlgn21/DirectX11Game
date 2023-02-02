@@ -164,6 +164,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="jhApplication.h" />
     <ClInclude Include="jhComponent.h" />
+    <ClInclude Include="jhConstantBuffer.h" />
     <ClInclude Include="jhEntity.h" />
     <ClInclude Include="jhEnums.h" />
     <ClInclude Include="jhGameObject.h" />
@@ -189,6 +190,7 @@
     <ClCompile Include="EgnineSource.cpp" />
     <ClCompile Include="jhApplication.cpp" />
     <ClCompile Include="jhComponent.cpp" />
+    <ClCompile Include="jhConstantBuffer.cpp" />
     <ClCompile Include="jhEntity.cpp" />
     <ClCompile Include="jhGameObject.cpp" />
     <ClCompile Include="jhGraphicDeviceDX11.cpp" />

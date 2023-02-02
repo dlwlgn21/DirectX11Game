@@ -7,7 +7,7 @@ namespace jh
 	{
 	public:
 		static void Initialize();
-		static void Tick();
+		static void Update();
 		static void Render(HDC hdc);
 
 		static void StartTimeCounting();

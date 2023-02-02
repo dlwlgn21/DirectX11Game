@@ -12,6 +12,6 @@ namespace jh
 		static void Render();
 
 	private:
-		static Scene* mPlayScene;
+		static Scene* mpPlayScene;
 	};
 }

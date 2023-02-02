@@ -63,6 +63,7 @@ namespace jh
 	void GameObject::AddComponent(Component* pComponent)
 	{
 		assert(pComponent != nullptr);
+		assert(mComponents[pComponent->GetOrder()] == nullptr);
 		mComponents[pComponent->GetOrder()] = pComponent;
 		mComponents[pComponent->GetOrder()]->SetOwner(this);
 	}

@@ -19,7 +19,7 @@ namespace jh
 		// Running main engine loop
 		void Run();
 		// 게임 로직, 캐릭터 이동 등등
-		void Tick();
+		void Update();
 		// CPU Update
 		void FixedUpdate();
 		// GPU Update

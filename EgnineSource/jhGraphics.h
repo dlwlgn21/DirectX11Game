@@ -28,4 +28,19 @@ namespace jh::graphics
 		COUNT,
 	};
 
+	struct GPUBuffer
+	{
+		enum class eBufferType
+		{
+			BUFFER,
+			TEXTURE,
+			UNKNOWN_TYPE,
+		} Type = eBufferType::UNKNOWN_TYPE;
+
+		D3D11_BUFFER_DESC ConstantBufferDesc = {};
+		Microsoft::WRL::ComPtr<ID3D11Buffer> CpBuffer;
+
+		GPUBuffer() = default;
+		virtual ~GPUBuffer() = default;
+	};
 }

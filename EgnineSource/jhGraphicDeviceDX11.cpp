@@ -2,6 +2,7 @@
 #include "jhApplication.h"
 #include "jhRenderer.h"
 #include "jhMesh.h"
+#include "jhConstantBuffer.h"
 
 namespace jh::graphics
 {
@@ -457,7 +458,7 @@ namespace jh::graphics
 
 	}
 
-	void GraphicDevice_DX11::SetConstantBufferAtShader(eShaderStage shaderStage, eCBType eType, ID3D11Buffer* pBuffer)
+	void GraphicDevice_DX11::SetConstantBufferAtShader(eShaderStage shaderStage, eConstantBufferType eType, ID3D11Buffer* pBuffer)
 	{
 		switch (shaderStage)
 		{
@@ -515,18 +516,11 @@ namespace jh::graphics
 		mcpContext->PSSetShader(pPixelShader, ppClassInstance, numClassInstances);
 	}
 
-	void GraphicDevice_DX11::Render()
+	void GraphicDevice_DX11::Present()
 	{
-		ClearRenderTargetViewAndDepthStencilView();
-
-		SetConstantBufferAtShader(eShaderStage::VERTEX_SHADER, eCBType::TRANSFORM, renderer::cpConstantBuffer.Get());
-		renderer::pMesh->SetVertexAndIndexBufferAtIA();
-
-		renderer::pShader->SetPrimitiveTopologyAndIA();
-		renderer::pShader->SetVertexAndPixelShader();
-		renderer::pMesh->Render();
 		mcpSwapChain->Present(0, 0);
 	}
+
 	void GraphicDevice_DX11::DrawIndexed(UINT idxCount, UINT startIdxLocation, UINT baseVertexLocation)
 	{
 		mcpContext->DrawIndexed(idxCount, startIdxLocation, baseVertexLocation);

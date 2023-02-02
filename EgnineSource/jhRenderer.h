@@ -6,9 +6,12 @@
 
 #include "jhMesh.h"
 #include "jhShader.h"
+#include "jhConstantBuffer.h"
+
 constexpr const UINT VERTEX_COUNT = 4;
 
 using namespace jh::math;
+using namespace jh::graphics;
 
 namespace jh::renderer
 {
@@ -21,8 +24,8 @@ namespace jh::renderer
 	extern Vertex											vertices[VERTEX_COUNT];
 	extern Mesh*											pMesh;
 	extern Shader*											pShader;
-	extern Microsoft::WRL::ComPtr<ID3D11Buffer>				cpConstantBuffer;
-
+	//extern Microsoft::WRL::ComPtr<ID3D11Buffer>				cpConstantBuffer;
+	extern ConstantBuffer*									pConstantBuffers[];
 
 	__forceinline void ifFailed(HRESULT hr) { if (FAILED(hr)) { assert(false); } }
 	void Initialize();

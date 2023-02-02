@@ -121,6 +121,9 @@
     <ClCompile Include="jhMeshRenderer.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="jhConstantBuffer.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -195,6 +198,9 @@
     </ClInclude>
     <ClInclude Include="jhMeshRenderer.h">
       <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="jhConstantBuffer.h">
+      <Filter>Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

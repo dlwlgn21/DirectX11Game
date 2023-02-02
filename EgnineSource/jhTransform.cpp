@@ -1,6 +1,6 @@
 #include "jhTransform.h"
 #include "jhRenderer.h"
-
+#include "jhConstantBuffer.h"
 
 namespace jh
 {
@@ -19,16 +19,17 @@ namespace jh
 	}
 	void Transform::FixedUpdate()
 	{
+		WriteContantBufferAtGPUAndSetConstantBufferAtShader();
 	}
 	void Transform::Render()
 	{
 	}
 
-	void Transform::SetConstantBufferAtGPU()
+	void Transform::WriteContantBufferAtGPUAndSetConstantBufferAtShader()
 	{
-		// ConstantBuffer를 가져와서 해당 ConstantBuffer에
-		// SetConstantBufferAtShader(eShaderStage::VERTEX_SHADER, eCBType::TRANSFORM, renderer::cpConstantBuffer.Get());
-		// 예시처럼 값을 세팅해주어야 한다.
-		
+		Vector4 passVector(mPosition.x, mPosition.y, mPosition.z, 0.0f);
+		ConstantBuffer* pConstantBuffer = renderer::pConstantBuffers[static_cast<UINT>(eConstantBufferType::TRANSFORM)];
+		pConstantBuffer->WriteConstantBufferAtGPU(&passVector);
+		pConstantBuffer->SetConstantBufferAtShader(eShaderStage::VERTEX_SHADER);
 	}
 }

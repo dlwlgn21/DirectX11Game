@@ -1,6 +1,8 @@
 #include "jhRenderer.h"
 #include "jhResources.h"
 
+
+using namespace jh::graphics;
 namespace jh::renderer
 {
 
@@ -14,7 +16,7 @@ namespace jh::renderer
 
 	Mesh* pMesh = nullptr;
 	Shader* pShader = nullptr;
-	Microsoft::WRL::ComPtr<ID3D11Buffer>			cpConstantBuffer;
+	ConstantBuffer* pConstantBuffers[static_cast<UINT>(eConstantBufferType::COUNT)] = {};
 
 	__forceinline void LoadAndSetShader()
 	{
@@ -71,17 +73,10 @@ namespace jh::renderer
 
 	__forceinline void CreateConstantBufferAndWriteAtGPU()
 	{
-		// 상수 버퍼
-		D3D11_BUFFER_DESC constantBufferDesc = {};
-		constantBufferDesc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
-		constantBufferDesc.ByteWidth = sizeof(Vector4);
-		constantBufferDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_CONSTANT_BUFFER;
-		constantBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-
-		graphics::GetDevice()->CreateBuffer(&constantBufferDesc, nullptr, cpConstantBuffer.ReleaseAndGetAddressOf());
-
 		Vector4 pos(0.2f, 0.2f, 0.0f, 0.0f);
-		graphics::GetDevice()->WriteConstantBufferAtGPU(cpConstantBuffer.Get(), &pos, sizeof(Vector4));
+		pConstantBuffers[static_cast<UINT>(eConstantBufferType::TRANSFORM)] = new ConstantBuffer(eConstantBufferType::TRANSFORM);
+		pConstantBuffers[static_cast<UINT>(eConstantBufferType::TRANSFORM)]->CreateBuffer(sizeof(Vector4));
+		pConstantBuffers[static_cast<UINT>(eConstantBufferType::TRANSFORM)]->WriteConstantBufferAtGPU(&pos);
 	}
 
 	void Initialize()
@@ -94,7 +89,7 @@ namespace jh::renderer
 	}
 	void Release()
 	{
-		cpConstantBuffer.Reset();
+		//cpConstantBuffer.Reset();
 		//cpIndexBuffer.Reset();
 		//cpVertexBuffer.Reset();
 		//if (pMesh != nullptr)
@@ -106,6 +101,15 @@ namespace jh::renderer
 		if (pShader)
 		{
 			delete pShader;
+		}
+		for (int i = 0; i < static_cast<UINT>(eConstantBufferType::COUNT); ++i) 
+		{
+			if (pConstantBuffers[i] == nullptr)
+			{
+				continue;
+			}
+			delete pConstantBuffers[i];
+			pConstantBuffers[i] = nullptr;
 		}
 	}
 

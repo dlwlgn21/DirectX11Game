@@ -5,6 +5,8 @@ namespace jh
 {
 	Scene::Scene()
 	{
+		mLayers.reserve(static_cast<UINT>(eLayerType::COUNT));
+		mLayers.resize(static_cast<UINT>(eLayerType::COUNT));
 	}
 	Scene::~Scene()
 	{
