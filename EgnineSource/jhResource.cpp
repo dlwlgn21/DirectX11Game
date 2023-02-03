@@ -2,7 +2,8 @@
 
 namespace jh
 {
-	Resource::Resource()
+	Resource::Resource(const eResourceType eType)
+		: meType(eType)
 	{
 	}
 	Resource::~Resource()

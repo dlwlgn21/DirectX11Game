@@ -401,7 +401,11 @@ namespace jh::graphics
 			pClassLinkage,
 			ppVertexShader
 		);
-		if (FAILED(hr)) assert(false);
+		if (FAILED(hr))
+		{
+			assert(false);
+			return false;
+		}
 		return true;
 	}
 
@@ -413,7 +417,22 @@ namespace jh::graphics
 			pClassLinkage,
 			ppPixelShader
 		);
-		if (FAILED(hr)) assert(false);
+		if (FAILED(hr))
+		{
+			assert(false);
+			return false;
+		}
+		return true;
+	}
+
+	bool GraphicDevice_DX11::CreateSamplerState(const D3D11_SAMPLER_DESC* pSamplerDesc, ID3D11SamplerState** ppSamplerState)
+	{
+		HRESULT hr = mcpDevice->CreateSamplerState(pSamplerDesc, ppSamplerState);
+		if (FAILED(hr))
+		{
+			assert(false);
+			return false;
+		}
 		return true;
 	}
 
@@ -458,9 +477,9 @@ namespace jh::graphics
 
 	}
 
-	void GraphicDevice_DX11::SetConstantBufferAtShader(eShaderStage shaderStage, eConstantBufferType eType, ID3D11Buffer* pBuffer)
+	void GraphicDevice_DX11::SetConstantBufferAtShader(eShaderStage eStage, eConstantBufferType eType, ID3D11Buffer* pBuffer)
 	{
-		switch (shaderStage)
+		switch (eStage)
 		{
 		case jh::graphics::eShaderStage::VERTEX_SHADER:
 			mcpContext->VSSetConstantBuffers(static_cast<UINT>(eType), 1, &pBuffer);
@@ -496,7 +515,7 @@ namespace jh::graphics
 		);
 	}
 
-	void graphics::GraphicDevice_DX11::SetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY topology)
+	void graphics::GraphicDevice_DX11::SetPrimitiveTopologyAtIA(D3D11_PRIMITIVE_TOPOLOGY topology)
 	{
 		mcpContext->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	}
@@ -514,6 +533,48 @@ namespace jh::graphics
 	void graphics::GraphicDevice_DX11::SetPixelShader(ID3D11PixelShader* pPixelShader, ID3D11ClassInstance* const* ppClassInstance, UINT numClassInstances)
 	{
 		mcpContext->PSSetShader(pPixelShader, ppClassInstance, numClassInstances);
+	}
+
+	void GraphicDevice_DX11::SetShaderResourceView(eShaderStage eStage, UINT slot, ID3D11ShaderResourceView* const* ppShaderResourceViews)
+	{
+		switch (eStage)
+		{
+		case jh::graphics::eShaderStage::VERTEX_SHADER:
+			mcpContext->VSSetShaderResources(slot, 1, ppShaderResourceViews);
+			break;
+		case jh::graphics::eShaderStage::PIXEL_SHADER:
+			mcpContext->PSSetShaderResources(slot, 1, ppShaderResourceViews);
+			break;
+		case jh::graphics::eShaderStage::COUNT:
+			assert(false);
+			break;
+		default:
+			break;
+		}
+	}
+
+	void GraphicDevice_DX11::SetSamplersAtShader(eShaderStage eStage, UINT slot, UINT numSamplers,  ID3D11SamplerState* const* ppSamplerState)
+	{
+		switch (eStage)
+		{
+		case jh::graphics::eShaderStage::VERTEX_SHADER:
+			mcpContext->VSSetSamplers(slot, numSamplers, ppSamplerState);
+			break;
+		case jh::graphics::eShaderStage::PIXEL_SHADER:
+			mcpContext->PSSetSamplers(slot, numSamplers, ppSamplerState);
+			break;
+		case jh::graphics::eShaderStage::COUNT:
+			assert(false);
+			break;
+		default:
+			break;
+		}
+	}
+
+	void GraphicDevice_DX11::SetSamplerAtALLShaders(UINT slot, UINT numSamplers, ID3D11SamplerState* const* ppSamplerState)
+	{
+		mcpContext->VSSetSamplers(slot, numSamplers, ppSamplerState);
+		mcpContext->PSSetSamplers(slot, numSamplers, ppSamplerState);
 	}
 
 	void GraphicDevice_DX11::Present()

@@ -27,7 +27,7 @@ namespace jh
 	private:
 		__forceinline void setPrimitiveTopologyAndIA()
 		{
-			graphics::GetDevice()->SetPrimitiveTopology(mPrimitiveTopology);
+			graphics::GetDevice()->SetPrimitiveTopologyAtIA(mPrimitiveTopology);
 			graphics::GetDevice()->SetInputLayout(mcpInputLayout.Get());
 		}
 

@@ -25,6 +25,8 @@ namespace jh
 		// GPU Update
 		void Render();
 
+		void Release();
+
 		void SetWindowAndGraphicDevice(HWND hwnd, UINT width, UINT height);
 		HWND GetHwnd() const { return mHwnd; }
 		UINT GetWidth() const { return mWidth; }

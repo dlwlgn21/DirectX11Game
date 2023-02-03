@@ -3,7 +3,22 @@
 
 #include "framework.h"
 #include "DirectX11Game.h"
-#include "EgnineSource/jhApplication.h"  
+#include "EgnineSource/jhApplication.h"
+
+//#include "\\DirectX11Game\\Debug\\Lib\\EgnineSource.lib"
+
+#ifdef _DEBUG
+#pragma comment(lib, "D:\\DirectX11Game\\Debug\\Lib\\EgnineSource.lib")
+#else
+#pragma comment(lib, "D:\\DirectX11Game\\Release\\Lib\\EgnineSource.lib")
+#endif
+
+//#ifdef _DEBUG
+//#pragma comment(lib, "\\Debug\\Lib\\EgnineSource.lib")
+//#else
+//#pragma comment(lib, "\\Release\\Lib\\EgnineSource.lib")
+//#endif
+
 #define MAX_LOADSTRING 100
 
 // 전역 변수:
@@ -43,7 +58,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_DIRECTX11GAME));
 
     MSG msg;
-
+    jh::Application& app = jh::Application::GetInstance();
     while (true)
     {
         if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
@@ -58,15 +73,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
         else
         {
-            jh::Application::GetInstance().Run();
+            app.Run();
         }
     }
 
-    if (WM_QUIT == msg.message)
-    {
-        // 메모리 해제작업
-    }
-
+    app.Release();
     return (int)msg.wParam;
 }
 

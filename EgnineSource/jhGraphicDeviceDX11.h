@@ -19,16 +19,22 @@ namespace jh::graphics
 		bool CreateAndSetShader();
 		bool CreateVertexShader(const void* pShaderByteCode, SIZE_T byteCodeLength, ID3D11ClassLinkage* pClassLincage, ID3D11VertexShader** ppVertexShader);
 		bool CreatePixelShader(const void* pShaderByteCode, SIZE_T byteCodeLength, ID3D11ClassLinkage* pClassLinkage, ID3D11PixelShader** ppPixelShader);
+		bool CreateSamplerState(const D3D11_SAMPLER_DESC* pSamplerDesc, ID3D11SamplerState** ppSamplerState);
+
 		void BindViewports(D3D11_VIEWPORT* pViewport);
 		void BindViewports();
 		void WriteConstantBufferAtGPU(ID3D11Buffer* pBuffer, void* pData, UINT size);
-		void SetConstantBufferAtShader(eShaderStage shaderStage, eConstantBufferType eType, ID3D11Buffer* pBuffer);
+		
+		void SetConstantBufferAtShader(eShaderStage eStage, eConstantBufferType eType, ID3D11Buffer* pBuffer);
 		void SetVertexBufferAtIA(UINT startSlot, UINT numBuffers, ID3D11Buffer* const* pBuffer, const UINT* pStride, const UINT* pOffeset);
 		void SetIndexBufferAtIA(ID3D11Buffer* pIdxBufferm, DXGI_FORMAT format, UINT offset);
-		void SetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY topology);
+		void SetPrimitiveTopologyAtIA(D3D11_PRIMITIVE_TOPOLOGY topology);
 		void SetInputLayout(ID3D11InputLayout* pInputLayout);
 		void SetVertexShader(ID3D11VertexShader* pVertexShader, ID3D11ClassInstance* const* ppClassInstance, UINT numClassInstances);
 		void SetPixelShader(ID3D11PixelShader* pPixelShader, ID3D11ClassInstance* const* ppClassInstance, UINT numClassInstances);
+		void SetShaderResourceView(eShaderStage eStage, UINT slot, ID3D11ShaderResourceView* const* ppShaderResourceViews);
+		void SetSamplersAtShader(eShaderStage eStage, UINT slot, UINT numSamplers, ID3D11SamplerState* const* ppSamplerState);
+		void SetSamplerAtALLShaders(UINT slot, UINT numSamplers, ID3D11SamplerState* const* ppSamplerState);
 		void Present();
 
 		ID3D11DeviceContext* GetContext() const { return mcpContext.Get(); }

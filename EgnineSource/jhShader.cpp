@@ -3,7 +3,8 @@
 namespace jh
 {
 	Shader::Shader()
-		: mcpVertexShaderBlob(nullptr)
+		: Resource(eResourceType::GRAPHIC_SHADER)
+		, mcpVertexShaderBlob(nullptr)
 		, mcpVertexShader(nullptr)
 		, mcpPixelShaderBlob(nullptr)
 		, mcpPixelShader(nullptr)

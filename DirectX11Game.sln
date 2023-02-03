@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Client", "DirectX11Game.vcxproj", "{7DFA234B-1C73-4F87-BD65-4CE51BA6A7C8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2BBA2159-8B10-4911-93F7-C38BD253299B} = {2BBA2159-8B10-4911-93F7-C38BD253299B}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EgnineSource", "EgnineSource\EgnineSource.vcxproj", "{2BBA2159-8B10-4911-93F7-C38BD253299B}"
 EndProject

@@ -72,12 +72,14 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)$(Configuration)\Lib\</OutDir>
+    <IntDir>$(ProjectDir)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)$(Configuration)\Lib\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)$(Configuration)\Lib\</OutDir>
+    <IntDir>$(ProjectDir)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)$(Configuration)\Lib\</OutDir>
@@ -183,6 +185,7 @@
     <ClInclude Include="jhScene.h" />
     <ClInclude Include="jhSceneManager.h" />
     <ClInclude Include="jhShader.h" />
+    <ClInclude Include="jhTexture.h" />
     <ClInclude Include="jhTime.h" />
     <ClInclude Include="jhTransform.h" />
   </ItemGroup>
@@ -206,6 +209,7 @@
     <ClCompile Include="jhScene.cpp" />
     <ClCompile Include="jhSceneManager.cpp" />
     <ClCompile Include="jhShader.cpp" />
+    <ClCompile Include="jhTexture.cpp" />
     <ClCompile Include="jhTime.cpp" />
     <ClCompile Include="jhTransform.cpp" />
   </ItemGroup>

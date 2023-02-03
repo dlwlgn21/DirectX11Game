@@ -17,15 +17,14 @@ namespace jh::renderer
 {
 	struct Vertex
 	{
-		FLOAT X, Y, Z;
-		FLOAT Color[4];
+		Vector3 Position;
+		Vector4 Color;
+		Vector2 UV;
 	};
 
 	extern Vertex											vertices[VERTEX_COUNT];
-	extern Mesh*											pMesh;
-	extern Shader*											pShader;
-	//extern Microsoft::WRL::ComPtr<ID3D11Buffer>				cpConstantBuffer;
 	extern ConstantBuffer*									pConstantBuffers[];
+	extern Microsoft::WRL::ComPtr<ID3D11SamplerState>		cpSamplerState[];
 
 	__forceinline void ifFailed(HRESULT hr) { if (FAILED(hr)) { assert(false); } }
 	void Initialize();

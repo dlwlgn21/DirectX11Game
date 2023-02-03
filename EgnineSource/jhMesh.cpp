@@ -5,7 +5,8 @@
 namespace jh
 {
 	Mesh::Mesh()
-		: mcpVertexBuffer(nullptr)
+		: Resource(eResourceType::MESH)
+		, mcpVertexBuffer(nullptr)
 		, mVertexBufferDesc{}
 		, mcpIndexBuffer(nullptr)
 		, mIndexBufferDesc{}

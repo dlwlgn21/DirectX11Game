@@ -43,4 +43,12 @@ namespace jh::graphics
 		GPUBuffer() = default;
 		virtual ~GPUBuffer() = default;
 	};
+
+	enum class eSamplerType
+	{
+		POINT,
+		LINEAR,
+		ANISOTROPIC,
+		COUNT
+	};
 }

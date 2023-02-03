@@ -13,7 +13,6 @@ namespace jh
 		NONE = 0,
 		MONSTER, 
 		PLAYER,
-
 		COUNT = 16,
 	};
 
@@ -30,4 +29,17 @@ namespace jh
 		COUNT
 	};
 
+	enum class eResourceType
+	{
+		MESH,
+		TEXTURE,
+		METERIAL,
+		SOUND,
+		PREFAB,
+		MESH_DATA,
+		GRAPHIC_SHADER,
+		COMPUTE_SHADER,
+		SCRPIT,
+		COUNT
+	};
 }

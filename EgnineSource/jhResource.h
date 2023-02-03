@@ -6,7 +6,7 @@ namespace jh
 	class Resource : public Entity
 	{
 	public:
-		Resource();
+		Resource(const eResourceType eType);
 		virtual ~Resource();
 
 		virtual HRESULT Load(const std::wstring& path) = 0;
@@ -21,5 +21,6 @@ namespace jh
 	protected:
 		std::wstring mPath;
 		std::wstring mKey;
+		const eResourceType meType;
 	};
 }
