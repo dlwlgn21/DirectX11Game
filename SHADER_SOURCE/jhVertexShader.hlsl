@@ -19,7 +19,12 @@ cbuffer Transform : register(b0)
 
 cbuffer MaterialData : register(b1)
 {
-    
+    int iData;
+    float fData;
+    float2 Xy;
+    float3 Xyz;
+    float4 Xyzw;
+    Matrix mat;
 }
 
 SamplerState pointSampler : register(s0);

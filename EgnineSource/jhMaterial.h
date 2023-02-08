@@ -1,8 +1,10 @@
 #pragma once
 #include "jhResource.h"
-#include "jhConstantBuffer.h"
+#include "jhRenderer.h"
 
 using namespace jh::graphics;
+using namespace jh::renderer;
+
 namespace jh
 {
 	class Shader;
@@ -15,14 +17,14 @@ namespace jh
 		HRESULT Load(const std::wstring& path) override;
 
 		void SetDataAtConstantBuffer(eGPUPrameterType eGPUParamType, void* pData);
-		void WriteConstantBufferAtGPU();
+		void BindConstantBufferAndShader();
 
 		__forceinline void SetShader(Shader* pShader)	{ assert(pShader != nullptr); mpShader = pShader; }
 		__forceinline Shader* GetShader() const			{ return mpShader; }
 
 	private:
 		Shader* mpShader;
-		ConstantBuffer* mpConstantBuffer;
+		renderer::MaterialConstantBuffer mMaterialConstantBuffer;
 	};
 }
 

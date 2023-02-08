@@ -1,5 +1,7 @@
 #include "jhRenderer.h"
 #include "jhResources.h"
+#include "jhMaterial.h"
+
 
 using namespace jh::graphics;
 namespace jh::renderer
@@ -114,16 +116,21 @@ namespace jh::renderer
 		pMesh->CreateIndexBuffer(indexes.data(), static_cast<UINT>(indexes.size()));
 	}
 
-	__forceinline void CreateConstantBufferAndWriteAtGPU()
+	__forceinline void CreateConstantBuffer()
 	{
-		Vector4 pos(0.0f, 0.0f, 0.0f, 0.0f);
 		pConstantBuffers[static_cast<UINT>(eConstantBufferType::TRANSFORM)] = new ConstantBuffer(eConstantBufferType::TRANSFORM);
 		pConstantBuffers[static_cast<UINT>(eConstantBufferType::TRANSFORM)]->CreateBuffer(sizeof(TransformConstantBuffer));
-		pConstantBuffers[static_cast<UINT>(eConstantBufferType::TRANSFORM)]->WriteConstantBufferAtGPU(&pos);
 
 		pConstantBuffers[static_cast<UINT>(eConstantBufferType::MATERIAL)] = new ConstantBuffer(eConstantBufferType::MATERIAL);
 		pConstantBuffers[static_cast<UINT>(eConstantBufferType::MATERIAL)]->CreateBuffer(sizeof(MaterialConstantBuffer));
-		pConstantBuffers[static_cast<UINT>(eConstantBufferType::MATERIAL)]->WriteConstantBufferAtGPU(&pos);
+	}
+
+	__forceinline void CreateMeterial() {
+		Material* pDefaultMaterial = new Material();
+		pDefaultMaterial->SetShader(Resources::Find<Shader>(L"RectShader"));
+		pDefaultMaterial->BindConstantBufferAndShader();
+
+		Resources::Insert<Material>(L"RectMaterial", pDefaultMaterial);
 	}
 
 	void Initialize()
@@ -148,7 +155,8 @@ namespace jh::renderer
 		CreateSamplerState();
 		SetupInputLayout();
 		CreateVertexAndIndexBuffer();
-		CreateConstantBufferAndWriteAtGPU();
+		CreateConstantBuffer();
+		CreateMeterial();
 	}
 	void Release()
 	{

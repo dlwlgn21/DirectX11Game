@@ -2,8 +2,6 @@
 
 namespace jh
 {
-
-
 	enum class eLayerType
 	{
 		NONE = 0,

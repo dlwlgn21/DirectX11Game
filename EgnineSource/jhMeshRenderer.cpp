@@ -2,15 +2,14 @@
 #include "jhGameObject.h"
 #include "jhTransform.h"
 #include "jhMesh.h"
-#include "jhShader.h"
-
+#include "jhMaterial.h"
 
 namespace jh
 {
 	MeshRenderer::MeshRenderer()
 		: Component(eComponentType::MESH_RENDERER)
 		, mpMesh(nullptr)
-		, mpShader(nullptr)
+		, mpMaterial(nullptr)
 	{
 	}
 	MeshRenderer::~MeshRenderer()
@@ -30,10 +29,10 @@ namespace jh
 		Transform* pTrasform = static_cast<Transform*>(GetOwner()->GetComponentOrNull(eComponentType::TRANSFORM));
 		assert(pTrasform != nullptr);
 		pTrasform->WriteContantBufferAtGPUAndSetConstantBufferAtShader();
-		assert(mpShader != nullptr);
+		assert(mpMaterial != nullptr);
 		assert(mpMesh != nullptr);
 
-		mpShader->SetPrimitiveTopologyAndIASetVertexAndPixelShader();
+		mpMaterial->BindConstantBufferAndShader();
 		mpMesh->SetVertexAndIndexBufferAtIA();
 
 		mpMesh->Render();
