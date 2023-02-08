@@ -24,20 +24,20 @@ namespace jh::renderer
 		const UINT ELEMENT_DESC_COUNT = 3;
 		D3D11_INPUT_ELEMENT_DESC inputDesc[ELEMENT_DESC_COUNT] = {};
 		inputDesc[0].AlignedByteOffset =			0;
-		inputDesc[0].Format =						DXGI_FORMAT_R32G32B32_FLOAT;
+		inputDesc[0].Format =						DXGI_FORMAT_R32G32B32A32_FLOAT;
 		inputDesc[0].InputSlot =					0;
 		inputDesc[0].InputSlotClass =				D3D11_INPUT_PER_VERTEX_DATA;
 		inputDesc[0].SemanticName =					"POSITION";
 		inputDesc[0].SemanticIndex =				0;
 
-		inputDesc[1].AlignedByteOffset =			12;
+		inputDesc[1].AlignedByteOffset =			16;
 		inputDesc[1].Format =						DXGI_FORMAT_R32G32B32A32_FLOAT;
 		inputDesc[1].InputSlot =					0;
 		inputDesc[1].InputSlotClass =				D3D11_INPUT_PER_VERTEX_DATA;
 		inputDesc[1].SemanticName =					"COLOR";
 		inputDesc[1].SemanticIndex =				0;
 
-		inputDesc[2].AlignedByteOffset =			28;
+		inputDesc[2].AlignedByteOffset =			32;
 		inputDesc[2].Format =						DXGI_FORMAT_R32G32_FLOAT;
 		inputDesc[2].InputSlot =					0;
 		inputDesc[2].InputSlotClass =				D3D11_INPUT_PER_VERTEX_DATA;
@@ -118,25 +118,29 @@ namespace jh::renderer
 	{
 		Vector4 pos(0.0f, 0.0f, 0.0f, 0.0f);
 		pConstantBuffers[static_cast<UINT>(eConstantBufferType::TRANSFORM)] = new ConstantBuffer(eConstantBufferType::TRANSFORM);
-		pConstantBuffers[static_cast<UINT>(eConstantBufferType::TRANSFORM)]->CreateBuffer(sizeof(Vector4));
+		pConstantBuffers[static_cast<UINT>(eConstantBufferType::TRANSFORM)]->CreateBuffer(sizeof(TransformConstantBuffer));
 		pConstantBuffers[static_cast<UINT>(eConstantBufferType::TRANSFORM)]->WriteConstantBufferAtGPU(&pos);
+
+		pConstantBuffers[static_cast<UINT>(eConstantBufferType::MATERIAL)] = new ConstantBuffer(eConstantBufferType::MATERIAL);
+		pConstantBuffers[static_cast<UINT>(eConstantBufferType::MATERIAL)]->CreateBuffer(sizeof(MaterialConstantBuffer));
+		pConstantBuffers[static_cast<UINT>(eConstantBufferType::MATERIAL)]->WriteConstantBufferAtGPU(&pos);
 	}
 
 	void Initialize()
 	{
-		vertices[0].Position =	Vector3(-1.0f, 1.0f, 0.5f);
+		vertices[0].Position =	Vector4(-0.5f, 0.5f, 0.5f, 1.0f);
 		vertices[0].Color =		Vector4(0.0f, 1.0f, 0.0f, 1.0f);
 		vertices[0].UV =		Vector2(0.0f, 0.0f);
 
-		vertices[1].Position =	Vector3(1.0f, 1.0f, 0.5f);
+		vertices[1].Position =	Vector4(0.5f, 0.5f, 0.5f, 1.0f);
 		vertices[1].Color =		Vector4(1.0f, 1.0f, 1.0f, 1.0f);
 		vertices[1].UV =		Vector2(1.0f, 0.f);
 
-		vertices[2].Position =	Vector3(1.0f, -1.0f, 0.5f);
+		vertices[2].Position =	Vector4(0.5f, -0.5f, 0.5f, 1.0f);
 		vertices[2].Color =		Vector4(1.0f, 0.0f, 0.0f, 1.0f);
 		vertices[2].UV =		Vector2(1.0f, 1.0f);
 
-		vertices[3].Position =	Vector3(-1.0f, -1.0f, 0.5f);
+		vertices[3].Position =	Vector4(-0.5f, -0.5f, 0.5f, 1.0f);
 		vertices[3].Color =		Vector4(0.0f, 0.0f, 1.0f, 1.0f);
 		vertices[3].UV =		Vector2(0.0f, 1.0f);
 

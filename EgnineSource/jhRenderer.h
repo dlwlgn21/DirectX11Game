@@ -17,9 +17,23 @@ namespace jh::renderer
 {
 	struct Vertex
 	{
-		Vector3 Position;
+		Vector4 Position;
 		Vector4 Color;
 		Vector2 UV;
+	};
+
+	CBUFFER(TransformConstantBuffer, CBSLOT_TRANSFORM)
+	{
+		Vector4 Pos;
+	};
+	CBUFFER(MaterialConstantBuffer, CBSLOT_MATERIAL)
+	{
+		int iData;
+		float fData;
+		Vector2 Xy;
+		Vector3 Xyz;
+		Vector4 Xyzw;
+		Matrix Matrix;
 	};
 
 	extern Vertex											vertices[VERTEX_COUNT];

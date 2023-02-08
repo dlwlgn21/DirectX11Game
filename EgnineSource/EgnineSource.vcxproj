@@ -177,7 +177,7 @@
     <ClInclude Include="jhMath.h" />
     <ClInclude Include="jhMesh.h" />
     <ClInclude Include="jhMeshRenderer.h" />
-    <ClInclude Include="jhMeterial.h" />
+    <ClInclude Include="jhMaterial.h" />
     <ClInclude Include="jhPlayScene.h" />
     <ClInclude Include="jhRenderer.h" />
     <ClInclude Include="jhResource.h" />
@@ -201,7 +201,7 @@
     <ClCompile Include="jhLayer.cpp" />
     <ClCompile Include="jhMesh.cpp" />
     <ClCompile Include="jhMeshRenderer.cpp" />
-    <ClCompile Include="jhMeterial.cpp" />
+    <ClCompile Include="jhMaterial.cpp" />
     <ClCompile Include="jhPlayScene.cpp" />
     <ClCompile Include="jhRenderer.cpp" />
     <ClCompile Include="jhResource.cpp" />

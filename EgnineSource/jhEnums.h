@@ -2,11 +2,7 @@
 
 namespace jh
 {
-	enum class eConstantBufferType
-	{
-		TRANSFORM,
-		COUNT,
-	};
+
 
 	enum class eLayerType
 	{
