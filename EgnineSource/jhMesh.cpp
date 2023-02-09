@@ -15,6 +15,8 @@ namespace jh
 	}
 	Mesh::~Mesh()
 	{
+		mcpVertexBuffer.Reset();
+		mcpIndexBuffer.Reset();
 	}
 	HRESULT Mesh::Load(const std::wstring& path)
 	{

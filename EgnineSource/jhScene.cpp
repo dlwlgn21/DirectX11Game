@@ -39,6 +39,13 @@ namespace jh
 			layer.Render();
 		}
 	}
+	void Scene::Release()
+	{
+		for (auto& layer : mLayers) 
+		{
+			layer.Release();
+		}
+	}
 	void Scene::AddGameObject(GameObject* pGameObj, const eLayerType eType)
 	{
 		mLayers[(UINT)eType].AddGameObject(pGameObj);

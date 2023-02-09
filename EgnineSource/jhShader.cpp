@@ -23,7 +23,23 @@ namespace jh
 	}
 	Shader::~Shader()
 	{
+		mcpVertexShaderBlob.Reset();
+		mcpVertexShader.Reset();
 
+		mcpPixelShaderBlob.Reset();
+		mcpPixelShader.Reset();
+
+		mcpHullShader.Reset();
+		mcpHullShaderBlob.Reset();
+
+		mcpDomainShader.Reset();
+		mcpDomainShaderBlob.Reset();
+
+		mcpGeoShader.Reset();
+		mcpGeoShaderBlob.Reset();
+
+		mcpErrorBlob.Reset();
+		mcpInputLayout.Reset();
 	}
 
 	HRESULT Shader::Load(const std::wstring& path)

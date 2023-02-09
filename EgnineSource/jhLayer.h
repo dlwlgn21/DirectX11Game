@@ -14,6 +14,7 @@ namespace jh
 		virtual void Update();
 		virtual void FixedUpdate();
 		virtual void Render();
+		virtual void Release();
 
 		void AddGameObject(GameObject* gameObject);
 

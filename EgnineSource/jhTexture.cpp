@@ -9,6 +9,8 @@ namespace jh
 	}
 	Texture::~Texture()
 	{
+		mcpTexture.Reset();
+		mcpShaderResourceView.Reset();
 	}
 
 	HRESULT Texture::Load(const std::wstring& fileName)

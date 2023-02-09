@@ -16,7 +16,7 @@ namespace jh
 		virtual void Update();
 		virtual void FixedUpdate();
 		virtual void Render();
-
+		virtual void Release();
 		void AddGameObject(GameObject* pGameObj, const  eLayerType type);
 
 	private:

@@ -41,6 +41,8 @@ namespace jh
 
 	void Application::Release()
 	{
+		SceneManager::Release();
+		renderer::Release();
 	}
 
 	void Application::SetWindowAndGraphicDevice(HWND hwnd, UINT width, UINT height)

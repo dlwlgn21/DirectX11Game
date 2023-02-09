@@ -7,6 +7,7 @@ namespace jh
 	Layer::Layer()
 	{
 		mGameObjects.reserve(MAX_GAME_OBJECT_COUNT);
+		mGameObjects.resize(MAX_GAME_OBJECT_COUNT);
 	}
 
 	Layer::~Layer()
@@ -51,6 +52,19 @@ namespace jh
 				{continue;}
 			pGameObj->Render();
 		}
+	}
+
+	void Layer::Release()
+	{
+		for (auto* pGameObj : mGameObjects)
+		{
+			if (pGameObj == nullptr)
+			{
+				continue;
+			}
+			delete pGameObj;
+		}
+		mGameObjects.clear();
 	}
 
 	void Layer::AddGameObject(GameObject* pGameObj)

@@ -9,7 +9,7 @@ namespace jh::renderer
 
 	Vertex vertices[VERTEX_COUNT]{};
 	ConstantBuffer* pConstantBuffers[static_cast<UINT>(eConstantBufferType::COUNT)] = {};
-	Microsoft::WRL::ComPtr<ID3D11SamplerState> cpSamplerState[static_cast<UINT>(graphics::eSamplerType::COUNT)] = {};
+	Microsoft::WRL::ComPtr<ID3D11SamplerState> cpSamplerStates[static_cast<UINT>(graphics::eSamplerType::COUNT)] = {};
 
 
 	__forceinline void LoadAndSetShader()
@@ -66,35 +66,35 @@ namespace jh::renderer
 		samplerDesc.Filter = D3D11_FILTER::D3D11_FILTER_MIN_LINEAR_MAG_MIP_POINT;
 		graphics::GetDevice()->CreateSamplerState(
 			&samplerDesc, 
-			cpSamplerState[static_cast<UINT>(eSamplerType::POINT)].ReleaseAndGetAddressOf()
+			cpSamplerStates[static_cast<UINT>(eSamplerType::POINT)].ReleaseAndGetAddressOf()
 		);
 
 		samplerDesc.Filter = D3D11_FILTER::D3D11_FILTER_MIN_POINT_MAG_MIP_LINEAR;
 		graphics::GetDevice()->CreateSamplerState(
 			&samplerDesc,
-			cpSamplerState[static_cast<UINT>(eSamplerType::LINEAR)].ReleaseAndGetAddressOf()
+			cpSamplerStates[static_cast<UINT>(eSamplerType::LINEAR)].ReleaseAndGetAddressOf()
 		);
 
 		samplerDesc.Filter = D3D11_FILTER::D3D11_FILTER_ANISOTROPIC;
 		graphics::GetDevice()->CreateSamplerState(
 			&samplerDesc,
-			cpSamplerState[static_cast<UINT>(eSamplerType::ANISOTROPIC)].ReleaseAndGetAddressOf()
+			cpSamplerStates[static_cast<UINT>(eSamplerType::ANISOTROPIC)].ReleaseAndGetAddressOf()
 		);
 		
 		graphics::GetDevice()->SetSamplerAtALLShaders(
 			static_cast<UINT>(eSamplerType::POINT),
 			1,
-			cpSamplerState[static_cast<UINT>(eSamplerType::POINT)].GetAddressOf()
+			cpSamplerStates[static_cast<UINT>(eSamplerType::POINT)].GetAddressOf()
 		);
 		graphics::GetDevice()->SetSamplerAtALLShaders(
 			static_cast<UINT>(eSamplerType::LINEAR),
 			1,
-			cpSamplerState[static_cast<UINT>(eSamplerType::LINEAR)].GetAddressOf()
+			cpSamplerStates[static_cast<UINT>(eSamplerType::LINEAR)].GetAddressOf()
 		);
 		graphics::GetDevice()->SetSamplerAtALLShaders(
 			static_cast<UINT>(eSamplerType::ANISOTROPIC),
 			1,
-			cpSamplerState[static_cast<UINT>(eSamplerType::ANISOTROPIC)].GetAddressOf()
+			cpSamplerStates[static_cast<UINT>(eSamplerType::ANISOTROPIC)].GetAddressOf()
 		);
 
 	}
@@ -168,6 +168,11 @@ namespace jh::renderer
 			}
 			delete pConstantBuffers[i];
 			pConstantBuffers[i] = nullptr;
+		}
+
+		for (int i = 0; i < static_cast<UINT>(eSamplerType::COUNT); ++i) 
+		{
+			cpSamplerStates[i].Reset();
 		}
 	}
 

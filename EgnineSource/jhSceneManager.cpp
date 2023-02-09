@@ -56,4 +56,9 @@ namespace jh
 	{
 		mpPlayScene->Render();
 	}
+	void SceneManager::Release()
+	{
+		mpPlayScene->Release();
+		delete mpPlayScene;
+	}
 }
