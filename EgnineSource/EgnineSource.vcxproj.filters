@@ -64,6 +64,30 @@
     <Filter Include="Resource\Texture">
       <UniqueIdentifier>{a96bd83e-96b0-48dc-9b2e-3ab559a3daac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Script">
+      <UniqueIdentifier>{b365cd30-7d6d-4e12-942d-98c447a4cd6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Transform">
+      <UniqueIdentifier>{aa90fefe-8892-46de-9561-44b6698c32fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Renderer">
+      <UniqueIdentifier>{03f809f7-3a84-4d81-817b-e9259dcf0858}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Scenes">
+      <UniqueIdentifier>{989f9632-42e0-46fc-8830-6fae9f31b6ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Input">
+      <UniqueIdentifier>{1654b780-6898-4261-a392-de8868a0ce55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\Time">
+      <UniqueIdentifier>{4a785358-e767-454f-911b-f0730687a7f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Base">
+      <UniqueIdentifier>{1408f53d-1dda-4245-aacc-e65e4622acb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Script\Base">
+      <UniqueIdentifier>{1492f4db-50a5-4099-88c1-9967d633fded}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EgnineSource.cpp" />
@@ -91,12 +115,6 @@
     <ClCompile Include="jhShader.cpp">
       <Filter>Resource\Shader</Filter>
     </ClCompile>
-    <ClCompile Include="jhTime.cpp">
-      <Filter>Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="jhPlayScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
     <ClCompile Include="jhScene.cpp">
       <Filter>Scene\Base</Filter>
     </ClCompile>
@@ -109,26 +127,38 @@
     <ClCompile Include="jhComponent.cpp">
       <Filter>Component\Base</Filter>
     </ClCompile>
-    <ClCompile Include="jhTransform.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
-    <ClCompile Include="jhGameObject.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="jhInput.cpp">
-      <Filter>Manager</Filter>
-    </ClCompile>
     <ClCompile Include="jhMaterial.cpp">
       <Filter>Resource\Merterial</Filter>
-    </ClCompile>
-    <ClCompile Include="jhMeshRenderer.cpp">
-      <Filter>Component</Filter>
     </ClCompile>
     <ClCompile Include="jhConstantBuffer.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
     <ClCompile Include="jhTexture.cpp">
       <Filter>Resource\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="jhMeshRenderer.cpp">
+      <Filter>Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="jhTransform.cpp">
+      <Filter>Component\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="jhPlayScene.cpp">
+      <Filter>Scene\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="jhInput.cpp">
+      <Filter>Manager\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="jhTime.cpp">
+      <Filter>Manager\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="jhGameObject.cpp">
+      <Filter>GameObject\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="jhPlayerScript.cpp">
+      <Filter>Component\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="jhScript.cpp">
+      <Filter>Component\Script\Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -172,12 +202,6 @@
     <ClInclude Include="jhEnums.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="jhTime.h">
-      <Filter>Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="jhPlayScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
     <ClInclude Include="jhScene.h">
       <Filter>Scene\Base</Filter>
     </ClInclude>
@@ -190,26 +214,38 @@
     <ClInclude Include="jhComponent.h">
       <Filter>Component\Base</Filter>
     </ClInclude>
-    <ClInclude Include="jhTransform.h">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="jhGameObject.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="jhInput.h">
-      <Filter>Manager</Filter>
-    </ClInclude>
     <ClInclude Include="jhMaterial.h">
       <Filter>Resource\Merterial</Filter>
-    </ClInclude>
-    <ClInclude Include="jhMeshRenderer.h">
-      <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="jhConstantBuffer.h">
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="jhTexture.h">
       <Filter>Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="jhMeshRenderer.h">
+      <Filter>Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="jhTransform.h">
+      <Filter>Component\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="jhPlayScene.h">
+      <Filter>Scene\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="jhInput.h">
+      <Filter>Manager\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="jhTime.h">
+      <Filter>Manager\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="jhGameObject.h">
+      <Filter>GameObject\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="jhPlayerScript.h">
+      <Filter>Component\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="jhScript.h">
+      <Filter>Component\Script\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

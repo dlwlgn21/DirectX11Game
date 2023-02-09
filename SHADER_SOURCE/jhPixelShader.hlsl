@@ -5,6 +5,21 @@ struct VTX_OUT
     float2 vUV : TEXCOORD;
 };
 
+cbuffer Transform : register(b0)
+{
+    float4 cbPos;
+}
+
+cbuffer MaterialData : register(b1)
+{
+    int iData;
+    float fData;
+    float2 Xy;
+    float3 Xyz;
+    float4 Xyzw;
+    Matrix mat;
+}
+
 texture2D defaultTexture : register(t0);
 
 SamplerState pointSampler : register(s0);
@@ -14,6 +29,12 @@ SamplerState anisotropicSampler : register(s2);
 float4 PS_Test(VTX_OUT _in) : SV_Target
 {
     float4 color = (float) 0.0f;
+    
+    //if (Xy.x == 1.0f)
+    //{
+    //    return float4(1.0f, 1.0f, 0.0f, 1.0f);
+    //}
+    
     color = defaultTexture.Sample(anisotropicSampler, _in.vUV);
     return color;
 }

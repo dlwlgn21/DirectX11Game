@@ -7,6 +7,8 @@
 #include "jhTexture.h"
 #include "jhResources.h"
 #include "jhMaterial.h"
+#include "jhPlayerScript.h"
+
 
 namespace jh
 {
@@ -24,10 +26,16 @@ namespace jh
 		obj->AddComponent(tr);
 		MeshRenderer* pMeshRenderer = new MeshRenderer;
 		pMeshRenderer->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-
-		pMeshRenderer->SetMaterial(Resources::Find<Material>(L"RectMaterial"));
+		Material* pMaterial = Resources::Find<Material>(L"RectMaterial");
+		assert(pMaterial != nullptr);
+		Vector2 passVector2(1.0f, 1.0f);
+		pMaterial->SetDataAtConstantBuffer(eGPUPrameterType::VECTOR2, &passVector2);
+		pMeshRenderer->SetMaterial(pMaterial);
 		obj->AddComponent(pMeshRenderer);
 		
+		PlayerScript* pPlayerScript = new PlayerScript();
+		obj->AddComponent(pPlayerScript);
+
 		Texture* texture = Resources::Load<Texture>(L"GennaroTexture", L"Gennaro.bmp");
 		assert(texture != nullptr);
 		texture->SetShaderResourceView(eShaderStage::PIXEL_SHADER, 0);

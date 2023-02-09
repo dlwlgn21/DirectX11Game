@@ -4,6 +4,7 @@
 namespace jh
 {
 	class Component;
+	class Script;
 	class GameObject : public Entity
 	{
 	public:
@@ -33,6 +34,7 @@ namespace jh
 
 	private:
 		std::vector<Component*> mComponents;
-		eState meState;
+		std::vector<Script*>	mScripts;
+		eState					meState;
 	};
 }

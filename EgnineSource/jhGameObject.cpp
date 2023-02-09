@@ -1,5 +1,6 @@
 #include "jhGameObject.h"
 #include "jhComponent.h"
+#include "jhScript.h"
 
 namespace jh
 {
@@ -8,6 +9,8 @@ namespace jh
 	{
 		mComponents.reserve(static_cast<UINT>(eComponentType::COUNT));
 		mComponents.resize(mComponents.capacity());
+		mScripts.reserve(4);
+		mScripts.resize(mScripts.capacity());
 	}
 
 
@@ -20,8 +23,15 @@ namespace jh
 		for (auto* pComponent : mComponents)
 		{
 			if (pComponent == nullptr) 
-				{ continue; }
+				{continue;}
 			pComponent->Initialize();
+		}
+
+		for (auto* pScript : mScripts)
+		{
+			if (pScript == nullptr)
+				{continue;}
+			pScript->Initialize();
 		}
 	}
 
@@ -30,10 +40,15 @@ namespace jh
 		for (auto* pComponent : mComponents)
 		{
 			if (pComponent == nullptr)
-			{
-				continue;
-			}
+				{continue;}
 			pComponent->Update();
+		}
+
+		for (auto* pScript : mScripts)
+		{
+			if (pScript == nullptr)
+				{continue;}
+			pScript->Update();
 		}
 	}
 
@@ -42,10 +57,15 @@ namespace jh
 		for (auto* pComponent : mComponents)
 		{
 			if (pComponent == nullptr)
-			{
-				continue;
-			}
+				{continue;}
 			pComponent->FixedUpdate();
+		}
+
+		for (auto* pScript : mScripts)
+		{
+			if (pScript == nullptr)
+				{continue;}
+			pScript->FixedUpdate();
 		}
 	}
 	void GameObject::Render()
@@ -53,9 +73,7 @@ namespace jh
 		for (auto* pComponent : mComponents)
 		{
 			if (pComponent == nullptr)
-			{
-				continue;
-			}
+				{continue;}
 			pComponent->Render();
 		}
 	}
@@ -64,7 +82,17 @@ namespace jh
 	{
 		assert(pComponent != nullptr);
 		assert(mComponents[pComponent->GetOrder()] == nullptr);
-		mComponents[pComponent->GetOrder()] = pComponent;
-		mComponents[pComponent->GetOrder()]->SetOwner(this);
+		if (pComponent->getType() != eComponentType::SCRIPT) 
+		{
+			mComponents[pComponent->GetOrder()] = pComponent;
+			mComponents[pComponent->GetOrder()]->SetOwner(this);
+		}
+		else 
+		{
+			mScripts.push_back(static_cast<Script*>(pComponent));
+			pComponent->SetOwner(this);
+		}
+
+
 	}
 }
