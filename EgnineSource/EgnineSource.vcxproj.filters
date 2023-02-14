@@ -88,6 +88,9 @@
     <Filter Include="Component\Script\Base">
       <UniqueIdentifier>{1492f4db-50a5-4099-88c1-9967d633fded}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Camera">
+      <UniqueIdentifier>{0bf0a8ba-ac2d-4771-9271-99dfbca4f9a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EgnineSource.cpp" />
@@ -159,6 +162,18 @@
     </ClCompile>
     <ClCompile Include="jhScript.cpp">
       <Filter>Component\Script\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="jhCamera.cpp">
+      <Filter>Component\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="jhMath.cpp">
+      <Filter>Common\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="jhCameraScript.cpp">
+      <Filter>Component\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="jhSpriteRenderer.cpp">
+      <Filter>Component\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -246,6 +261,15 @@
     </ClInclude>
     <ClInclude Include="jhScript.h">
       <Filter>Component\Script\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="jhCamera.h">
+      <Filter>Component\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="jhCameraScript.h">
+      <Filter>Component\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="jhSpriteRenderer.h">
+      <Filter>Component\Renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

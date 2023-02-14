@@ -24,7 +24,9 @@ namespace jh::renderer
 
 	CBUFFER(TransformConstantBuffer, CBSLOT_TRANSFORM)
 	{
-		Vector4 Pos;
+		Matrix WroldMat;
+		Matrix ViewMat;
+		Matrix ProjectionMat;
 	};
 	CBUFFER(MaterialConstantBuffer, CBSLOT_MATERIAL)
 	{

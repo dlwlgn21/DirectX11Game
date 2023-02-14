@@ -1,5 +1,7 @@
 #include "jhTexture.h"
 
+using namespace jh::graphics;
+
 namespace jh
 {
 	Texture::Texture()
@@ -52,6 +54,17 @@ namespace jh
 	void Texture::SetShaderResourceView(graphics::eShaderStage shaderStage, UINT slot)
 	{
 		graphics::GetDevice()->SetShaderResourceView(shaderStage, slot, mcpShaderResourceView.GetAddressOf());
+	}
+
+	void Texture::Clear()
+	{
+		ID3D11ShaderResourceView* pSrv = nullptr;
+		graphics::GetDevice()->SetShaderResourceView(eShaderStage::VERTEX_SHADER, 0, &pSrv);
+		graphics::GetDevice()->SetShaderResourceView(eShaderStage::PIXEL_SHADER, 0, &pSrv);
+		//graphics::GetDevice()->SetShaderResourceView(eShaderStage::DOMAIN_SHADER, 0, mcpShaderResourceView.GetAddressOf());
+		//graphics::GetDevice()->SetShaderResourceView(eShaderStage::GEOMETRY_SHADER, 0, mcpShaderResourceView.GetAddressOf());
+		//graphics::GetDevice()->SetShaderResourceView(eShaderStage::HULL_SHADER, 0, mcpShaderResourceView.GetAddressOf());
+		//graphics::GetDevice()->SetShaderResourceView(eShaderStage::CS, 0, mcpShaderResourceView.GetAddressOf());
 	}
 
 	void Texture::createShaderResourceView()

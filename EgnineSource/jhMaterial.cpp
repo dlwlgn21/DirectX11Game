@@ -1,5 +1,6 @@
 #include "jhMaterial.h"
 #include "jhShader.h"
+#include "jhTexture.h"
 #include "jhConstantBuffer.h"
 
 using namespace jh::graphics;
@@ -10,6 +11,7 @@ namespace jh
 		: Resource(eResourceType::METERIAL)
 		, mpShader(nullptr)
 		, mMaterialConstantBuffer{}
+		, mpTexture(nullptr)
 	{
 		ZeroMemory(&mMaterialConstantBuffer, sizeof(MaterialConstantBuffer));
 	}
@@ -55,8 +57,11 @@ namespace jh
 			break;
 		}
 	}
-	void Material::BindConstantBufferAndShader()
+	void Material::BindConstantBufferAndShaderAndSetTextureSRVAtShader()
 	{
+		assert(mpTexture != nullptr);
+		mpTexture->SetShaderResourceView(eShaderStage::PIXEL_SHADER, 0);
+
 		ConstantBuffer* pConstantBuffer = renderer::pConstantBuffers[static_cast<UINT>(eConstantBufferType::MATERIAL)];
 		assert(pConstantBuffer != nullptr);
 		pConstantBuffer->WriteConstantBufferAtGPU(&mMaterialConstantBuffer);
@@ -64,5 +69,10 @@ namespace jh
 		pConstantBuffer->SetConstantBufferAtShader(eShaderStage::PIXEL_SHADER);
 		assert(mpShader != nullptr);
 		mpShader->SetPrimitiveTopologyAndIASetVertexAndPixelShader();
+	}
+
+	void Material::Clear()
+	{
+		mpTexture->Clear();
 	}
 }

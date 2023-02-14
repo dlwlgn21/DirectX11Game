@@ -165,6 +165,8 @@
     <ClInclude Include="Engine.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="jhApplication.h" />
+    <ClInclude Include="jhCamera.h" />
+    <ClInclude Include="jhCameraScript.h" />
     <ClInclude Include="jhComponent.h" />
     <ClInclude Include="jhConstantBuffer.h" />
     <ClInclude Include="jhEntity.h" />
@@ -187,6 +189,7 @@
     <ClInclude Include="jhSceneManager.h" />
     <ClInclude Include="jhScript.h" />
     <ClInclude Include="jhShader.h" />
+    <ClInclude Include="jhSpriteRenderer.h" />
     <ClInclude Include="jhTexture.h" />
     <ClInclude Include="jhTime.h" />
     <ClInclude Include="jhTransform.h" />
@@ -194,6 +197,8 @@
   <ItemGroup>
     <ClCompile Include="EgnineSource.cpp" />
     <ClCompile Include="jhApplication.cpp" />
+    <ClCompile Include="jhCamera.cpp" />
+    <ClCompile Include="jhCameraScript.cpp" />
     <ClCompile Include="jhComponent.cpp" />
     <ClCompile Include="jhConstantBuffer.cpp" />
     <ClCompile Include="jhEntity.cpp" />
@@ -201,6 +206,7 @@
     <ClCompile Include="jhGraphicDeviceDX11.cpp" />
     <ClCompile Include="jhInput.cpp" />
     <ClCompile Include="jhLayer.cpp" />
+    <ClCompile Include="jhMath.cpp" />
     <ClCompile Include="jhMesh.cpp" />
     <ClCompile Include="jhMeshRenderer.cpp" />
     <ClCompile Include="jhMaterial.cpp" />
@@ -213,6 +219,7 @@
     <ClCompile Include="jhSceneManager.cpp" />
     <ClCompile Include="jhScript.cpp" />
     <ClCompile Include="jhShader.cpp" />
+    <ClCompile Include="jhSpriteRenderer.cpp" />
     <ClCompile Include="jhTexture.cpp" />
     <ClCompile Include="jhTime.cpp" />
     <ClCompile Include="jhTransform.cpp" />

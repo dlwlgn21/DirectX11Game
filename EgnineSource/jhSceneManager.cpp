@@ -8,7 +8,9 @@
 #include "jhResources.h"
 #include "jhMaterial.h"
 #include "jhPlayerScript.h"
-
+#include "jhCamera.h"
+#include "jhCameraScript.h"
+#include "jhSpriteRenderer.h"
 
 namespace jh
 {
@@ -20,26 +22,59 @@ namespace jh
 		mpPlayScene = new Scene();
 		mpPlayScene->Initalize();
 
+		// Camera Game Obj
+		GameObject* pCameraObj = new GameObject();
+		Transform* pCameraTransform = new Transform();
+		pCameraTransform->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
+		pCameraObj->AddComponent(pCameraTransform);
+		Camera* pCameraComponent = new Camera();
+		pCameraObj->AddComponent(pCameraComponent);
+		mpPlayScene->AddGameObject(pCameraObj, eLayerType::CAMERA);
+		CameraScript* pCameraScript = new CameraScript();
+		pCameraObj->AddComponent(pCameraScript);
+
+
+
+		// Jenaro
 		GameObject* obj = new GameObject();
 		Transform* tr = new Transform();
-		tr->SetPosition(Vector3(0.3f, 0.3f, 0.0f));
+		tr->SetPosition(Vector3(0.0f, 0.0f, 20.0f));
 		obj->AddComponent(tr);
+
 		MeshRenderer* pMeshRenderer = new MeshRenderer;
 		pMeshRenderer->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+
 		Material* pMaterial = Resources::Find<Material>(L"RectMaterial");
 		assert(pMaterial != nullptr);
-		Vector2 passVector2(1.0f, 1.0f);
-		pMaterial->SetDataAtConstantBuffer(eGPUPrameterType::VECTOR2, &passVector2);
 		pMeshRenderer->SetMaterial(pMaterial);
+
 		obj->AddComponent(pMeshRenderer);
 		
-		PlayerScript* pPlayerScript = new PlayerScript();
-		obj->AddComponent(pPlayerScript);
+		//PlayerScript* pPlayerScript = new PlayerScript();
+		//obj->AddComponent(pPlayerScript);
 
-		Texture* texture = Resources::Load<Texture>(L"GennaroTexture", L"Gennaro.bmp");
-		assert(texture != nullptr);
-		texture->SetShaderResourceView(eShaderStage::PIXEL_SHADER, 0);
 		mpPlayScene->AddGameObject(obj, eLayerType::PLAYER);
+
+		// Another Jenaro
+		GameObject* pSriteObj = new GameObject();
+		Transform* pTransform = new Transform();
+		pTransform->SetPosition(Vector3(10.0f, 0.0f, 20.0f));
+		pSriteObj->AddComponent(pTransform);
+
+		SpriteRenderer* pSpriteRenderer = new SpriteRenderer;
+
+		pSpriteRenderer->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		Material* pSpriteMaterial = Resources::Find<Material>(L"SpriteMaterial");
+		assert(pSpriteMaterial != nullptr);
+		pSpriteRenderer->SetMaterial(pSpriteMaterial);
+		pSriteObj->AddComponent(pSpriteRenderer);
+
+		//PlayerScript* pPlayerScript = new PlayerScript();
+		//obj->AddComponent(pPlayerScript);
+
+		mpPlayScene->AddGameObject(pSriteObj, eLayerType::PLAYER);
+
+
 	}
 
 	void SceneManager::Update()

@@ -1,6 +1,7 @@
 #include "jhRenderer.h"
 #include "jhResources.h"
 #include "jhMaterial.h"
+#include "jhTexture.h"
 
 
 using namespace jh::graphics;
@@ -11,18 +12,31 @@ namespace jh::renderer
 	ConstantBuffer* pConstantBuffers[static_cast<UINT>(eConstantBufferType::COUNT)] = {};
 	Microsoft::WRL::ComPtr<ID3D11SamplerState> cpSamplerStates[static_cast<UINT>(graphics::eSamplerType::COUNT)] = {};
 
+	static const std::wstring RECT_SHADER_KEY = L"RectShader";
+	static const std::wstring SPRITE_SHADER_KEY = L"SpriteShader";
 
 	__forceinline void LoadAndSetShader()
 	{
+		// Default
 		Shader* pShader = new Shader();
-		pShader->Create(graphics::eShaderStage::VERTEX_SHADER, L"jhVertexShader.hlsl", "VS_Test");
-		pShader->Create(graphics::eShaderStage::PIXEL_SHADER, L"jhPixelShader.hlsl", "PS_Test");
-		Resources::Insert<Shader>(L"RectShader", pShader);
+		pShader->Create(graphics::eShaderStage::VERTEX_SHADER, L"jhVertexShader.hlsl", "main");
+		pShader->Create(graphics::eShaderStage::PIXEL_SHADER, L"jhPixelShader.hlsl", "main");
+		Resources::Insert<Shader>(RECT_SHADER_KEY, pShader);
+
+
+		// Sprite
+		Shader* pSpriteShader = new Shader();
+		pSpriteShader->Create(graphics::eShaderStage::VERTEX_SHADER, L"SpriteVertexShader.hlsl", "main");
+		pSpriteShader->Create(graphics::eShaderStage::PIXEL_SHADER, L"SpritePixelShader.hlsl", "main");
+
+		Resources::Insert<Shader>(SPRITE_SHADER_KEY, pSpriteShader);
+
 	}
 
 	__forceinline void SetupInputLayout()
 	{
-		Shader* pShader = Resources::Find<Shader>(L"RectShader");
+		Shader* pRectShader = Resources::Find<Shader>(RECT_SHADER_KEY);
+		Shader* pSpriteShader = Resources::Find<Shader>(SPRITE_SHADER_KEY);
 		const UINT ELEMENT_DESC_COUNT = 3;
 		D3D11_INPUT_ELEMENT_DESC inputDesc[ELEMENT_DESC_COUNT] = {};
 		inputDesc[0].AlignedByteOffset =			0;
@@ -49,10 +63,20 @@ namespace jh::renderer
 		graphics::GetDevice()->CreateInputLayout(
 			inputDesc,
 			ELEMENT_DESC_COUNT,
-			pShader->GetVertexShaderBlob(),
-			pShader->GetVertexShaderBlobSize(),
-			pShader->GetInputLayoutAddressOf()
+			pRectShader->GetVertexShaderBlob(),
+			pRectShader->GetVertexShaderBlobSize(),
+			pRectShader->GetInputLayoutAddressOf()
 		);
+
+		graphics::GetDevice()->CreateInputLayout(
+			inputDesc,
+			ELEMENT_DESC_COUNT,
+			pSpriteShader->GetVertexShaderBlob(),
+			pSpriteShader->GetVertexShaderBlobSize(),
+			pSpriteShader->GetInputLayoutAddressOf()
+		);
+
+
 	}
 
 	__forceinline void CreateSamplerState()
@@ -96,7 +120,6 @@ namespace jh::renderer
 			1,
 			cpSamplerStates[static_cast<UINT>(eSamplerType::ANISOTROPIC)].GetAddressOf()
 		);
-
 	}
 	__forceinline void CreateVertexAndIndexBuffer()
 	{
@@ -126,11 +149,22 @@ namespace jh::renderer
 	}
 
 	__forceinline void CreateMeterial() {
-		Material* pDefaultMaterial = new Material();
-		pDefaultMaterial->SetShader(Resources::Find<Shader>(L"RectShader"));
-		pDefaultMaterial->BindConstantBufferAndShader();
 
+		// Default
+		Material* pDefaultMaterial = new Material();
+		pDefaultMaterial->SetShader(Resources::Find<Shader>(RECT_SHADER_KEY));
+		Texture* pTexture = Resources::Load<Texture>(L"GennaroTexture", L"Gennaro.bmp");
+		assert(pTexture != nullptr); 
+		pDefaultMaterial->SetTexture(pTexture);
+
+
+		Texture* pSpriteTexture = Resources::Load<Texture>(L"DefaultTexture", L"DefaultTexture.png");
 		Resources::Insert<Material>(L"RectMaterial", pDefaultMaterial);
+
+		Material* pSpriteMaterial = new Material();
+		pSpriteMaterial->SetShader(Resources::Find<Shader>(SPRITE_SHADER_KEY));
+		pSpriteMaterial->SetTexture(pSpriteTexture);
+		Resources::Insert<Material>(L"SpriteMaterial", pSpriteMaterial);
 	}
 
 	void Initialize()

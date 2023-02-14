@@ -15,5 +15,14 @@
     <FxCompile Include="$(MSBuildThisFileDirectory)jhPixelShader.hlsl">
       <Filter>PixelShader</Filter>
     </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)SpriteVertexShader.hlsl">
+      <Filter>VertexShader</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)SpritePixelShader.hlsl">
+      <Filter>PixelShader</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)globals.hlsli" />
   </ItemGroup>
 </Project>

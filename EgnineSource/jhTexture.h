@@ -27,8 +27,11 @@ namespace jh
 
 		HRESULT Load(const std::wstring& fileName) override;
 		void SetShaderResourceView(graphics::eShaderStage shaderStage, UINT slot);
+		void Clear();
+
 	private:
 		void createShaderResourceView();
+
 	private:
 		ScratchImage										mImage;
 		Microsoft::WRL::ComPtr<ID3D11Texture2D>				mcpTexture;

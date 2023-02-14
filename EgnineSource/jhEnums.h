@@ -7,6 +7,7 @@ namespace jh
 		NONE = 0,
 		MONSTER, 
 		PLAYER,
+		CAMERA,
 		COUNT = 16,
 	};
 
@@ -16,8 +17,9 @@ namespace jh
 		TRANSFORM,								// 위치 데이터 수정하는 컴포넌트
 		CAMERA,
 		MESH,
-		MESH_RENDERER,
 		COLLIDER,
+		MESH_RENDERER,
+		SPRITE_RENDERER,
 		UI,
 		SCRIPT,
 		COUNT

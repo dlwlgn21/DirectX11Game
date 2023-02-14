@@ -1,4 +1,4 @@
-#include "jhMeshRenderer.h"
+#include "jhSpriteRenderer.h"
 #include "jhGameObject.h"
 #include "jhTransform.h"
 #include "jhMesh.h"
@@ -6,25 +6,27 @@
 
 namespace jh
 {
-	MeshRenderer::MeshRenderer()
-		: Component(eComponentType::MESH_RENDERER)
+	SpriteRenderer::SpriteRenderer()
+		: Component(eComponentType::SPRITE_RENDERER)
 		, mpMesh(nullptr)
 		, mpMaterial(nullptr)
 	{
 	}
-	MeshRenderer::~MeshRenderer()
+
+
+	SpriteRenderer::~SpriteRenderer()
 	{
 	}
-	void MeshRenderer::Initialize()
+	void SpriteRenderer::Initialize()
 	{
 	}
-	void MeshRenderer::Update()
+	void SpriteRenderer::Update()
 	{
 	}
-	void MeshRenderer::FixedUpdate()
+	void SpriteRenderer::FixedUpdate()
 	{
 	}
-	void MeshRenderer::Render()
+	void SpriteRenderer::Render()
 	{
 		Transform* pTrasform = static_cast<Transform*>(GetOwner()->GetComponentOrNull(eComponentType::TRANSFORM));
 		assert(pTrasform != nullptr);

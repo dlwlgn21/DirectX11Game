@@ -1,12 +1,21 @@
 #include "jhTransform.h"
 #include "jhRenderer.h"
 #include "jhConstantBuffer.h"
+#include "jhCamera.h"
+
 
 namespace jh
 {
 	Transform::Transform()
 		: Component(eComponentType::TRANSFORM)
+		, mForwardVector(Vector3::Forward)
+		, mRightVector(Vector3::Right)
+		, mUpVector(Vector3::Up)
+		, mPosition(Vector3::Zero)
+		, mRotation(Vector3::Zero)
+		, mScale(Vector3::One)
 	{
+		ZeroMemory(&mWorldMat, sizeof(Matrix));
 	}
 	Transform::~Transform()
 	{
@@ -16,10 +25,39 @@ namespace jh
 	}
 	void Transform::Update()
 	{
+		// 렌더링에 사용 될 위치값들을 업데이트
 	}
 	void Transform::FixedUpdate()
 	{
-		WriteContantBufferAtGPUAndSetConstantBufferAtShader();
+		// 렌더링에 사용 될 위치값들을 업데이트
+
+		// 월드행렬 생성
+
+		Matrix scaleMat = Matrix::CreateScale(mScale);
+
+		Matrix rotationMat;
+		rotationMat = Matrix::CreateRotationX(mRotation.x);
+		rotationMat *= Matrix::CreateRotationY(mRotation.y);
+		rotationMat *= Matrix::CreateRotationZ(mRotation.z);
+
+		Matrix translationMat;
+		//translationMat = Matrix::CreateTranslation(mPosition);
+		translationMat.Translation(mPosition);
+
+		mWorldMat = scaleMat * rotationMat * translationMat;
+
+		mForwardVector = Vector3::TransformNormal(Vector3::Forward, rotationMat);
+		mRightVector = Vector3::TransformNormal(Vector3::Right, rotationMat);
+		mUpVector = Vector3::TransformNormal(Vector3::Up, rotationMat);
+
+
+		// 카메라 컴포넌트에서 세팅해줄 것.
+		// 뷰행렬 세팅
+		// 프로젝션 행렬 세팅
+
+		// 해당 값들을 상수버퍼에 세팅
+
+		//WriteContantBufferAtGPUAndSetConstantBufferAtShader();
 	}
 	void Transform::Render()
 	{
@@ -27,9 +65,16 @@ namespace jh
 
 	void Transform::WriteContantBufferAtGPUAndSetConstantBufferAtShader()
 	{
-		Vector4 passVector(mPosition.x, mPosition.y, mPosition.z, 0.0f);
 		ConstantBuffer* pConstantBuffer = renderer::pConstantBuffers[static_cast<UINT>(eConstantBufferType::TRANSFORM)];
-		pConstantBuffer->WriteConstantBufferAtGPU(&passVector);
+		assert(pConstantBuffer != nullptr);
+
+		renderer::TransformConstantBuffer transformConstantBuffer;
+		ZeroMemory(&transformConstantBuffer, sizeof(renderer::TransformConstantBuffer));
+		transformConstantBuffer.WroldMat = mWorldMat;
+		transformConstantBuffer.ViewMat = Camera::GetViewMatrix();
+		transformConstantBuffer.ProjectionMat = Camera::GetProjectionMatrix();
+
+		pConstantBuffer->WriteConstantBufferAtGPU(&transformConstantBuffer);
 		pConstantBuffer->SetConstantBufferAtShader(eShaderStage::VERTEX_SHADER);
 	}
 }

@@ -1,7 +1,6 @@
 #include "globals.hlsli"
 
 
-
 float4 main(VSOut _in) : SV_Target
 {
     float4 color = (float) 0.0f;
