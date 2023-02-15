@@ -60,11 +60,37 @@ namespace jh::graphics
 		COUNT
 	};
 
+	enum class eRasterizerStateType
+	{
+		SOLID_BACK,
+		SOLID_FRONT,
+		SOLID_NONE,
+		WIRE_FRAME_NONE,
+		COUNT
+	};
+	
+	enum class eDepthStencilStateType
+	{
+		LESS_FIRST,
+		GREATER_FISRT,
+		NO_WRITE,
+		NONE,
+		COUNT
+	};
+
+	enum class eBlendStateType
+	{
+		DEFAULT,
+		ALPHA_BLEND,
+		ONE_ONE,
+		COUNT
+	};
+
 	enum class eConstantBufferType
 	{
 		TRANSFORM,
 		MATERIAL,
-		COUNT,
+		COUNT
 	};
 
 	enum class eGPUPrameterType

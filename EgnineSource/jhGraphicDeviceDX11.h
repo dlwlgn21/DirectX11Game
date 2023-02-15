@@ -20,6 +20,10 @@ namespace jh::graphics
 		bool CreateVertexShader(const void* pShaderByteCode, SIZE_T byteCodeLength, ID3D11ClassLinkage* pClassLincage, ID3D11VertexShader** ppVertexShader);
 		bool CreatePixelShader(const void* pShaderByteCode, SIZE_T byteCodeLength, ID3D11ClassLinkage* pClassLinkage, ID3D11PixelShader** ppPixelShader);
 		bool CreateSamplerState(const D3D11_SAMPLER_DESC* pSamplerDesc, ID3D11SamplerState** ppSamplerState);
+		bool CreateRasterizerState(const D3D11_RASTERIZER_DESC* pRasterizerDesc, ID3D11RasterizerState** ppRasterizerState);
+		bool CreateDepthStencilState(const D3D11_DEPTH_STENCIL_DESC* pDepthStencilDesc, ID3D11DepthStencilState** ppDepthStencilState);
+		bool CreateBlendState(const D3D11_BLEND_DESC* pBlendStateDesc, ID3D11BlendState** ppBlendState);
+
 
 		void BindViewports(D3D11_VIEWPORT* pViewport);
 		void BindViewports();
@@ -35,6 +39,9 @@ namespace jh::graphics
 		void SetShaderResourceView(eShaderStage eStage, UINT slot, ID3D11ShaderResourceView* const* ppShaderResourceViews);
 		void SetSamplersAtShader(eShaderStage eStage, UINT slot, UINT numSamplers, ID3D11SamplerState* const* ppSamplerState);
 		void SetSamplerAtALLShaders(UINT slot, UINT numSamplers, ID3D11SamplerState* const* ppSamplerState);
+		void SetRasterizerState(ID3D11RasterizerState* pRasterizerState);
+		void SetDepthStencilStateAtOM(ID3D11DepthStencilState* pDepthStencilState);
+		void SetBlendStateAtOM(ID3D11BlendState* pBlendState);
 		void Present();
 
 		ID3D11DeviceContext* GetContext() const { return mcpContext.Get(); }

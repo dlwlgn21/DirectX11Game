@@ -37,6 +37,9 @@ namespace jh
 			graphics::GetDevice()->SetPixelShader(mcpPixelShader.Get(), nullptr, 0);
 		}
 
+		void SetRasterizerState(const graphics::eRasterizerStateType eType)		{ meRasterizerStateType = eType; }
+		void SetDepthStencilState(const graphics::eDepthStencilStateType eType) { meDepthStencilStateType = eType; }
+		void SetBlendState(const graphics::eBlendStateType eType)				{ meBlendStateType = eType; }
 
 	private:
 		Microsoft::WRL::ComPtr<ID3DBlob>				mcpVertexShaderBlob;
@@ -54,7 +57,9 @@ namespace jh
 		Microsoft::WRL::ComPtr<ID3D11GeometryShader>	mcpGeoShader;
 		Microsoft::WRL::ComPtr<ID3DBlob>				mcpGeoShaderBlob;
 
-
+		graphics::eRasterizerStateType					meRasterizerStateType;
+		graphics::eDepthStencilStateType				meDepthStencilStateType;
+		graphics::eBlendStateType						meBlendStateType;
 
 		Microsoft::WRL::ComPtr<ID3DBlob>				mcpErrorBlob;
 		Microsoft::WRL::ComPtr<ID3D11InputLayout>		mcpInputLayout;

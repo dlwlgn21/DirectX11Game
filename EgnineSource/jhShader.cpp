@@ -1,4 +1,7 @@
 #include "jhShader.h"
+#include "jhRenderer.h"
+
+using namespace jh::graphics;
 
 namespace jh
 {
@@ -18,6 +21,9 @@ namespace jh
 		, mcpInputLayout(nullptr)
 		, meShaderStage()
 		, mPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
+		, meRasterizerStateType(eRasterizerStateType::SOLID_BACK)
+		, meDepthStencilStateType(eDepthStencilStateType::LESS_FIRST)
+		, meBlendStateType(eBlendStateType::ALPHA_BLEND)
 	{
 
 	}
@@ -51,6 +57,10 @@ namespace jh
 	{
 		setPrimitiveTopologyAndIA();
 		setVertexAndPixelShader();
+
+		GetDevice()->SetRasterizerState(renderer::cpRasterizerStates[static_cast<UINT>(meRasterizerStateType)].Get());
+		GetDevice()->SetDepthStencilStateAtOM(renderer::cpDepthStencilStates[static_cast<UINT>(meDepthStencilStateType)].Get());
+		GetDevice()->SetBlendStateAtOM(renderer::cpBlendStates[static_cast<UINT>(meBlendStateType)].Get());
 	}
 
 	void Shader::Create(graphics::eShaderStage eStage, const std::wstring& shaderFileName, const std::string& entryFuncName)

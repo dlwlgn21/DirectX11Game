@@ -436,6 +436,39 @@ namespace jh::graphics
 		return true;
 	}
 
+	bool GraphicDevice_DX11::CreateRasterizerState(const D3D11_RASTERIZER_DESC* pRasterizerDesc, ID3D11RasterizerState** ppRasterizerState)
+	{
+		HRESULT hr = mcpDevice->CreateRasterizerState(pRasterizerDesc, ppRasterizerState);
+		if (FAILED(hr))
+		{
+			assert(false);
+			return false;
+		}
+		return true;
+	}
+
+	bool GraphicDevice_DX11::CreateDepthStencilState(const D3D11_DEPTH_STENCIL_DESC* pDepthStencilDesc, ID3D11DepthStencilState** ppDepthStencilState)
+	{
+		HRESULT hr = mcpDevice->CreateDepthStencilState(pDepthStencilDesc, ppDepthStencilState);
+		if (FAILED(hr))
+		{
+			assert(false);
+			return false;
+		}
+		return true;
+	}
+
+	bool GraphicDevice_DX11::CreateBlendState(const D3D11_BLEND_DESC* pBlendStateDesc, ID3D11BlendState** ppBlendState)
+	{
+		HRESULT hr = mcpDevice->CreateBlendState(pBlendStateDesc, ppBlendState);
+		if (FAILED(hr))
+		{
+			assert(false);
+			return false;
+		}
+		return true;
+	}
+
 	void GraphicDevice_DX11::BindViewports(D3D11_VIEWPORT* pViewport)
 	{
 		mcpContext->RSSetViewports(1, pViewport);
@@ -575,6 +608,21 @@ namespace jh::graphics
 	{
 		mcpContext->VSSetSamplers(slot, numSamplers, ppSamplerState);
 		mcpContext->PSSetSamplers(slot, numSamplers, ppSamplerState);
+	}
+
+	void GraphicDevice_DX11::SetRasterizerState(ID3D11RasterizerState* pRasterizerState)
+	{
+		mcpContext->RSSetState(pRasterizerState);
+	}
+
+	void GraphicDevice_DX11::SetDepthStencilStateAtOM(ID3D11DepthStencilState* pDepthStencilState)
+	{
+		mcpContext->OMSetDepthStencilState(pDepthStencilState, 0);
+	}
+
+	void GraphicDevice_DX11::SetBlendStateAtOM(ID3D11BlendState* pBlendState)
+	{
+		mcpContext->OMSetBlendState(pBlendState, nullptr, 0xffffffff);
 	}
 
 	void GraphicDevice_DX11::Present()

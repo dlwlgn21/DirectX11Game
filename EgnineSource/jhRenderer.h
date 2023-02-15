@@ -41,6 +41,11 @@ namespace jh::renderer
 	extern Vertex											vertices[VERTEX_COUNT];
 	extern ConstantBuffer*									pConstantBuffers[];
 	extern Microsoft::WRL::ComPtr<ID3D11SamplerState>		cpSamplerStates[];
+	extern Microsoft::WRL::ComPtr<ID3D11RasterizerState>	cpRasterizerStates[];
+	extern Microsoft::WRL::ComPtr<ID3D11DepthStencilState>	cpDepthStencilStates[];
+	extern Microsoft::WRL::ComPtr<ID3D11BlendState>			cpBlendStates[];
+
+
 
 	__forceinline void ifFailed(HRESULT hr) { if (FAILED(hr)) { assert(false); } }
 	void Initialize();
