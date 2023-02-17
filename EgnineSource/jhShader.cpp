@@ -132,9 +132,6 @@ namespace jh
 				mcpPixelShader.ReleaseAndGetAddressOf()
 			);
 			break;
-		case jh::graphics::eShaderStage::COUNT:
-			assert(false);
-			break;
 		default:
 			assert(false);
 			break;

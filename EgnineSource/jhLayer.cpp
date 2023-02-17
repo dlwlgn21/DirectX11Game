@@ -7,7 +7,6 @@ namespace jh
 	Layer::Layer()
 	{
 		mGameObjects.reserve(MAX_GAME_OBJECT_COUNT);
-		mGameObjects.resize(MAX_GAME_OBJECT_COUNT);
 	}
 
 	Layer::~Layer()

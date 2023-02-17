@@ -1,8 +1,8 @@
 #pragma once
+#include "jhScene.h"
 
 namespace jh
 {
-	class Scene;
 	class SceneManager
 	{
 	public:
@@ -11,6 +11,7 @@ namespace jh
 		static void FixedUpdate();
 		static void Render();
 		static void Release();
+		static Scene* GetCurrentScene() { return mpPlayScene; }
 	private:
 		static Scene* mpPlayScene;
 	};

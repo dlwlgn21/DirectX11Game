@@ -1,5 +1,4 @@
 #include "jhScene.h"
-#include "jhLayer.h"
 
 namespace jh
 {
@@ -48,6 +47,6 @@ namespace jh
 	}
 	void Scene::AddGameObject(GameObject* pGameObj, const eLayerType eType)
 	{
-		mLayers[(UINT)eType].AddGameObject(pGameObj);
+		mLayers[static_cast<UINT>(eType)].AddGameObject(pGameObj);
 	}
 }

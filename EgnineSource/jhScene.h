@@ -1,10 +1,10 @@
 #pragma once
 #include "jhEntity.h"
 #include "jhEnums.h"
+#include "jhLayer.h"
 
 namespace jh
 {
-	class Layer;
 	class GameObject;
 	class Scene : public Entity
 	{
@@ -18,6 +18,7 @@ namespace jh
 		virtual void Render();
 		virtual void Release();
 		void AddGameObject(GameObject* pGameObj, const  eLayerType type);
+		__forceinline Layer& GetLayer(const eLayerType eType) { return mLayers[static_cast<UINT>(eType)]; }
 
 	private:
 		std::vector<Layer> mLayers;

@@ -12,6 +12,7 @@ namespace jh
 		, mpShader(nullptr)
 		, mMaterialConstantBuffer{}
 		, mpTexture(nullptr)
+		, meRenderingMode(eRenderingMode::OPAQUEE)
 	{
 		ZeroMemory(&mMaterialConstantBuffer, sizeof(MaterialConstantBuffer));
 	}

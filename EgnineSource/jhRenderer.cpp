@@ -14,6 +14,8 @@ namespace jh::renderer
 	Microsoft::WRL::ComPtr<ID3D11RasterizerState>	cpRasterizerStates[static_cast<UINT>(graphics::eRasterizerStateType::COUNT)] = {};
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilState>	cpDepthStencilStates[static_cast<UINT>(graphics::eDepthStencilStateType::COUNT)] = {};
 	Microsoft::WRL::ComPtr<ID3D11BlendState>		cpBlendStates[static_cast<UINT>(graphics::eBlendStateType::COUNT)] = {};
+	std::vector<Camera*>							pCameras;
+
 
 	static const std::wstring RECT_SHADER_KEY = L"RectShader";
 	static const std::wstring SPRITE_SHADER_KEY = L"SpriteShader";
@@ -238,6 +240,9 @@ namespace jh::renderer
 
 	void Initialize()
 	{
+		pCameras.reserve(8);
+		//pCameras.resize(pCameras.capacity());
+
 		vertices[0].Position =	Vector4(-0.5f, 0.5f, 0.5f, 1.0f);
 		vertices[0].Color =		Vector4(0.0f, 1.0f, 0.0f, 1.0f);
 		vertices[0].UV =		Vector2(0.0f, 0.0f);
@@ -280,4 +285,15 @@ namespace jh::renderer
 		}
 	}
 
+	void Render()
+	{
+		for (auto* pCam : pCameras)
+		{
+			if (pCam == nullptr)
+				{ continue; }
+			pCam->Render();
+		}
+
+		pCameras.clear();
+	}
 }

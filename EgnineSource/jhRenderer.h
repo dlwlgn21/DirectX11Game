@@ -7,6 +7,7 @@
 #include "jhMesh.h"
 #include "jhShader.h"
 #include "jhConstantBuffer.h"
+#include "jhCamera.h"
 
 constexpr const UINT VERTEX_COUNT = 4;
 
@@ -44,12 +45,13 @@ namespace jh::renderer
 	extern Microsoft::WRL::ComPtr<ID3D11RasterizerState>	cpRasterizerStates[];
 	extern Microsoft::WRL::ComPtr<ID3D11DepthStencilState>	cpDepthStencilStates[];
 	extern Microsoft::WRL::ComPtr<ID3D11BlendState>			cpBlendStates[];
-
+	extern std::vector<Camera*>								pCameras;
 
 
 	__forceinline void ifFailed(HRESULT hr) { if (FAILED(hr)) { assert(false); } }
 	void Initialize();
 	void Release();
+	void Render();
 
 }
 

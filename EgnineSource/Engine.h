@@ -6,6 +6,7 @@
 #include <list>
 #include <map>
 #include <unordered_map>
+#include <bitset>
 #include <cassert>
 #include <cmath>
 #include <algorithm>

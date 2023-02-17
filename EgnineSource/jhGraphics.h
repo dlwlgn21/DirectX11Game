@@ -35,6 +35,13 @@ namespace jh::graphics
 		CS,
 		COUNT,
 	};
+	enum class eRenderingMode
+	{
+		OPAQUEE,					// 투명한 영역이 없음
+		CUTOUT,						// 투명영역과 불투명 영역 사이에 하드엣지가 있는 투명효과를 만들 수 있음(나뭇잎).
+		TRANSPARENTT,
+		COUNT
+	};
 
 	struct GPUBuffer
 	{

@@ -18,6 +18,8 @@ namespace jh
 
 		void AddGameObject(GameObject* gameObject);
 
+		const std::vector<GameObject*>& GetGameObjects() const { return mGameObjects; }
+
 	private:
 		std::vector<GameObject*> mGameObjects;
 	};

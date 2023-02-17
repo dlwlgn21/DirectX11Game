@@ -10,7 +10,7 @@ namespace jh
 		mComponents.reserve(static_cast<UINT>(eComponentType::COUNT));
 		mComponents.resize(mComponents.capacity());
 		mScripts.reserve(4);
-		mScripts.resize(mScripts.capacity());
+		//mScripts.resize(mScripts.capacity());
 	}
 
 

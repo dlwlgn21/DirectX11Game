@@ -91,6 +91,9 @@
     <Filter Include="Component\Camera">
       <UniqueIdentifier>{0bf0a8ba-ac2d-4771-9271-99dfbca4f9a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Renderer\Base">
+      <UniqueIdentifier>{9b1e7895-4db8-4892-ba08-01ff20c5c37d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EgnineSource.cpp" />
@@ -174,6 +177,9 @@
     </ClCompile>
     <ClCompile Include="jhSpriteRenderer.cpp">
       <Filter>Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="jhRendererComponent.cpp">
+      <Filter>Component\Renderer\Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -270,6 +276,9 @@
     </ClInclude>
     <ClInclude Include="jhSpriteRenderer.h">
       <Filter>Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="jhRendererComponent.h">
+      <Filter>Component\Renderer\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

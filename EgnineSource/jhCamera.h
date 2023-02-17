@@ -4,6 +4,7 @@
 using namespace jh::math;
 namespace jh
 {
+	class RendererComponent;
 	class Camera final : public Component
 	{
 	public:
@@ -28,6 +29,16 @@ namespace jh
 		void CreateViewMatrix();
 		void CreateProjectionMatrix();
 
+		void TurnONLayerMasks(const eLayerType eLayer, const bool bEnable = true);
+		void EnableAllLayerMasks() { mLayerMasks.set(); }
+		void DisableAllLayerMasks() { mLayerMasks.reset(); }
+	private:
+		void registerCameraAtRenderer();
+		void sortGameObjects();
+		void renderOpaque();
+		void renderCutout();
+		void renderTransparent();
+		void pushGameObjectByMaterialRenderingMode(RendererComponent* pRenderer, GameObject* pGameObject);
 	private:
 		static Matrix sViewMat;
 		static Matrix sProjectionMat;
@@ -42,6 +53,11 @@ namespace jh
 		float mNearPlain;
 		float mFarPlain;
 		float mScale;
+		
+		std::bitset<static_cast<UINT>(eLayerType::COUNT)> mLayerMasks;
+		std::vector<GameObject*> mOpaqueGameObjects;
+		std::vector<GameObject*> mCutoutObjects;
+		std::vector<GameObject*> mTransparentObjects;
 
 
 	};

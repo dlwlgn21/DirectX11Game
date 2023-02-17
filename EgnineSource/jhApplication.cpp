@@ -34,8 +34,8 @@ namespace jh
 		Time::Render(mHdc);
 		mspGraphicDevice->ClearRenderTargetViewAndDepthStencilView();
 
-		SceneManager::Render();
-
+		//SceneManager::Render();
+		renderer::Render();
 		mspGraphicDevice->Present();
 	}
 

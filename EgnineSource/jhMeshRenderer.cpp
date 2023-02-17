@@ -7,9 +7,7 @@
 namespace jh
 {
 	MeshRenderer::MeshRenderer()
-		: Component(eComponentType::MESH_RENDERER)
-		, mpMesh(nullptr)
-		, mpMaterial(nullptr)
+		: RendererComponent(eComponentType::MESH_RENDERER)
 	{
 	}
 	MeshRenderer::~MeshRenderer()

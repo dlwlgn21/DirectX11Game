@@ -1,5 +1,4 @@
 #include "jhSceneManager.h"
-#include "jhScene.h"
 #include "jhGameObject.h"
 #include "jhTransform.h"
 #include "jhMeshRenderer.h"
@@ -41,13 +40,13 @@ namespace jh
 		tr->SetPosition(Vector3(0.0f, 0.0f, 20.0f));
 		obj->AddComponent(tr);
 
-		MeshRenderer* pMeshRenderer = new MeshRenderer;
+		MeshRenderer* pMeshRenderer = new MeshRenderer();
 		pMeshRenderer->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 
 		Material* pMaterial = Resources::Find<Material>(L"RectMaterial");
 		assert(pMaterial != nullptr);
 		pMeshRenderer->SetMaterial(pMaterial);
-
+		pMaterial->SetRenderingMode(eRenderingMode::OPAQUEE);
 		obj->AddComponent(pMeshRenderer);
 		
 		//PlayerScript* pPlayerScript = new PlayerScript();
@@ -66,6 +65,7 @@ namespace jh
 		pSpriteRenderer->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		Material* pSpriteMaterial = Resources::Find<Material>(L"SpriteMaterial");
 		assert(pSpriteMaterial != nullptr);
+		pSpriteMaterial->SetRenderingMode(eRenderingMode::TRANSPARENTT);
 		pSpriteRenderer->SetMaterial(pSpriteMaterial);
 		pSriteObj->AddComponent(pSpriteRenderer);
 
@@ -74,7 +74,7 @@ namespace jh
 
 		mpPlayScene->AddGameObject(pSriteObj, eLayerType::PLAYER);
 
-
+		mpPlayScene->Initalize();
 	}
 
 	void SceneManager::Update()

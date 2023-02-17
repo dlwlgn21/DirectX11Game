@@ -7,12 +7,9 @@
 namespace jh
 {
 	SpriteRenderer::SpriteRenderer()
-		: Component(eComponentType::SPRITE_RENDERER)
-		, mpMesh(nullptr)
-		, mpMaterial(nullptr)
+		: RendererComponent(eComponentType::SPRITE_RENDERER)
 	{
 	}
-
 
 	SpriteRenderer::~SpriteRenderer()
 	{

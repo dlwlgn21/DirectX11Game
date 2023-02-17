@@ -183,6 +183,7 @@
     <ClInclude Include="jhPlayerScript.h" />
     <ClInclude Include="jhPlayScene.h" />
     <ClInclude Include="jhRenderer.h" />
+    <ClInclude Include="jhRendererComponent.h" />
     <ClInclude Include="jhResource.h" />
     <ClInclude Include="jhResources.h" />
     <ClInclude Include="jhScene.h" />
@@ -213,6 +214,7 @@
     <ClCompile Include="jhPlayerScript.cpp" />
     <ClCompile Include="jhPlayScene.cpp" />
     <ClCompile Include="jhRenderer.cpp" />
+    <ClCompile Include="jhRendererComponent.cpp" />
     <ClCompile Include="jhResource.cpp" />
     <ClCompile Include="jhResources.cpp" />
     <ClCompile Include="jhScene.cpp" />
