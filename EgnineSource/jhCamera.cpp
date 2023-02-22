@@ -25,6 +25,7 @@ namespace jh
 		, mViewMat(Matrix::Identity)
 		, mProjectionMat(Matrix::Identity)
 	{
+		EnableAllLayerMasks();
 	}
 
 	Camera::~Camera()
@@ -32,7 +33,7 @@ namespace jh
 	}
 	void Camera::Initialize()
 	{
-		EnableAllLayerMasks();
+		//EnableAllLayerMasks();
 	}
 	void Camera::Update()
 	{
@@ -116,7 +117,7 @@ namespace jh
 	{
 		renderer::pCameras.push_back(this);
 	}
-	void Camera::TurnONLayerMasks(const eLayerType eLayer, const bool bEnable)
+	void Camera::TurnLayerMasks(const eLayerType eLayer, const bool bEnable)
 	{
 		mLayerMasks.set(static_cast<UINT>(eLayer), bEnable);
 	}

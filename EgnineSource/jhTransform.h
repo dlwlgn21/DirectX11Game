@@ -21,15 +21,21 @@ namespace jh
 		__forceinline void SetRotation(const Vector3 rotation)	{ mRotation = rotation; }
 		__forceinline void SetScale(const Vector3 scale)		{ mScale = scale; }
 
-		__forceinline Vector3 GetPosition() const	{ return mPosition; }
-		__forceinline Vector3 GetRotation() const	{ return mRotation; }
-		__forceinline Vector3 GetScale()	const	{ return mScale;	  }
+		__forceinline Vector3 GetPosition() const				{ return mPosition; }
+		__forceinline Vector3 GetRotation() const				{ return mRotation; }
+		__forceinline Vector3 GetScale()	const				{ return mScale;	  }
 
-		__forceinline Vector3 GetForward() const	{ return mForwardVector; }
-		__forceinline Vector3 GetRight()   const	{ return mRightVector; }
-		__forceinline Vector3 GetUp()	   const	{ return mUpVector; }
+		__forceinline Vector3 GetForward() const				{ return mForwardVector; }
+		__forceinline Vector3 GetRight()   const				{ return mRightVector; }
+		__forceinline Vector3 GetUp()	   const				{ return mUpVector; }
+
+
+		__forceinline void			SetParent(Transform* pTransform)			{ assert(pTransform != nullptr); mpParent = pTransform; }
+		__forceinline Transform*	GetParent(Transform* pTransform) const		{ return mpParent; }
 
 	private:
+		Transform* mpParent;
+
 		Vector3 mForwardVector;
 		Vector3 mRightVector;
 		Vector3 mUpVector;
@@ -39,7 +45,6 @@ namespace jh
 		Vector3 mScale;
 
 		Matrix mWorldMat;
-
 
 	};
 }

@@ -29,9 +29,12 @@ namespace jh
 		void CreateViewMatrix();
 		void CreateProjectionMatrix();
 
-		void TurnONLayerMasks(const eLayerType eLayer, const bool bEnable = true);
+		void TurnLayerMasks(const eLayerType eLayer, const bool bEnable = true);
 		void EnableAllLayerMasks() { mLayerMasks.set(); }
 		void DisableAllLayerMasks() { mLayerMasks.reset(); }
+		
+		void setProjectionType(const eProjectionType eType) { meProjectionType = eType; }
+
 	private:
 		void registerCameraAtRenderer();
 		void sortGameObjects();
@@ -39,15 +42,15 @@ namespace jh
 		void renderCutout();
 		void renderTransparent();
 		void pushGameObjectByMaterialRenderingMode(RendererComponent* pRenderer, GameObject* pGameObject);
+
 	private:
 		static Matrix sViewMat;
 		static Matrix sProjectionMat;
 
-
 		Matrix mViewMat;
 		Matrix mProjectionMat;
 
-		const eProjectionType meProjectionType;
+		eProjectionType meProjectionType;
 
 		float mAspectRatio;
 		float mNearPlain;

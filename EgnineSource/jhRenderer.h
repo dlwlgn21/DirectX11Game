@@ -47,6 +47,17 @@ namespace jh::renderer
 	extern Microsoft::WRL::ComPtr<ID3D11BlendState>			cpBlendStates[];
 	extern std::vector<Camera*>								pCameras;
 
+	extern const std::wstring RECT_SHADER_KEY;
+	extern const std::wstring SPRITE_SHADER_KEY;
+	extern const std::wstring UI_SHADER_KEY;
+
+	extern const std::wstring GENNARO_TEXTURE_KEY;
+	extern const std::wstring DEFAULT_TEXTURE_KEY;
+	extern const std::wstring HPBAR_TEXTURE_KEY;
+
+	extern const std::wstring DEFAULT_MATERIAL_KEY;
+	extern const std::wstring SPRITE_MATERIAL_KEY;
+	extern const std::wstring UI_MATERIAL_KEY;
 
 	__forceinline void ifFailed(HRESULT hr) { if (FAILED(hr)) { assert(false); } }
 	void Initialize();

@@ -14,6 +14,7 @@ namespace jh
 		, mPosition(Vector3::Zero)
 		, mRotation(Vector3::Zero)
 		, mScale(Vector3::One)
+		, mpParent(nullptr)
 	{
 		ZeroMemory(&mWorldMat, sizeof(Matrix));
 	}
@@ -58,6 +59,11 @@ namespace jh
 		// 해당 값들을 상수버퍼에 세팅
 
 		//WriteContantBufferAtGPUAndSetConstantBufferAtShader();
+
+		if (mpParent != nullptr)
+		{
+			mWorldMat *= mpParent->mWorldMat; // 부모좌표 따라가는 것. 내 월드에 부모월드 곱해주면, 부모좌표를 따라다닌다.
+		}
 	}
 	void Transform::Render()
 	{

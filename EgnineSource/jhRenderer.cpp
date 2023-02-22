@@ -17,8 +17,27 @@ namespace jh::renderer
 	std::vector<Camera*>							pCameras;
 
 
+	/*
+	Resources::Load<Texture>(L"GennaroTexture", L"Gennaro.bmp");
+		Resources::Load<Texture>(L"DefaultTexture", L"DefaultTexture.png");
+		Resources::Load<Texture>(L"HPBarTexture", L"HPBar.png");
+	
+	*/
+
+
 	static const std::wstring RECT_SHADER_KEY = L"RectShader";
 	static const std::wstring SPRITE_SHADER_KEY = L"SpriteShader";
+	static const std::wstring UI_SHADER_KEY = L"UIShader";
+
+	static const std::wstring GENNARO_TEXTURE_KEY = L"GennaroTexture";
+	static const std::wstring DEFAULT_TEXTURE_KEY = L"DefaultTexture";
+	static const std::wstring HPBAR_TEXTURE_KEY = L"HPBarTexture";
+
+	static const std::wstring DEFAULT_MATERIAL_KEY = L"RectMaterial";
+	static const std::wstring SPRITE_MATERIAL_KEY = L"SpriteMaterial";
+	static const std::wstring UI_MATERIAL_KEY = L"UIMaterial";
+
+
 
 	__forceinline void LoadAndSetShader()
 	{
@@ -33,8 +52,13 @@ namespace jh::renderer
 		Shader* pSpriteShader = new Shader();
 		pSpriteShader->Create(graphics::eShaderStage::VERTEX_SHADER, L"SpriteVertexShader.hlsl", "main");
 		pSpriteShader->Create(graphics::eShaderStage::PIXEL_SHADER, L"SpritePixelShader.hlsl", "main");
-
 		Resources::Insert<Shader>(SPRITE_SHADER_KEY, pSpriteShader);
+
+		// UI
+		Shader* pUIShader = new Shader();
+		pUIShader->Create(graphics::eShaderStage::VERTEX_SHADER, L"jhUIVertexShader.hlsl", "main");
+		pUIShader->Create(graphics::eShaderStage::PIXEL_SHADER, L"jhUIPixelShader.hlsl", "main");
+		Resources::Insert<Shader>(UI_SHADER_KEY, pUIShader);
 
 	}
 
@@ -42,6 +66,7 @@ namespace jh::renderer
 	{
 		Shader* pRectShader = Resources::Find<Shader>(RECT_SHADER_KEY);
 		Shader* pSpriteShader = Resources::Find<Shader>(SPRITE_SHADER_KEY);
+		Shader* pUIShader = Resources::Find<Shader>(UI_SHADER_KEY);
 		const UINT ELEMENT_DESC_COUNT = 3;
 		D3D11_INPUT_ELEMENT_DESC inputDesc[ELEMENT_DESC_COUNT] = {};
 		inputDesc[0].AlignedByteOffset =			0;
@@ -81,6 +106,13 @@ namespace jh::renderer
 			pSpriteShader->GetInputLayoutAddressOf()
 		);
 
+		graphics::GetDevice()->CreateInputLayout(
+			inputDesc,
+			ELEMENT_DESC_COUNT,
+			pUIShader->GetVertexShaderBlob(),
+			pUIShader->GetVertexShaderBlobSize(),
+			pUIShader->GetInputLayoutAddressOf()
+		);
 
 	}
 
@@ -151,7 +183,7 @@ namespace jh::renderer
 		D3D11_DEPTH_STENCIL_DESC dsDesc;
 		ZeroMemory(&dsDesc, sizeof(D3D11_DEPTH_STENCIL_DESC));
 		dsDesc.DepthEnable = true;
-		dsDesc.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_LESS;
+		dsDesc.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_LESS_EQUAL;
 		dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK::D3D11_DEPTH_WRITE_MASK_ALL;
 		dsDesc.StencilEnable = false;
 		GetDevice()->CreateDepthStencilState(&dsDesc, cpDepthStencilStates[static_cast<UINT>(eDepthStencilStateType::LESS_FIRST)].GetAddressOf());
@@ -224,18 +256,33 @@ namespace jh::renderer
 		// Default
 		Material* pDefaultMaterial = new Material();
 		pDefaultMaterial->SetShader(Resources::Find<Shader>(RECT_SHADER_KEY));
-		Texture* pTexture = Resources::Load<Texture>(L"GennaroTexture", L"Gennaro.bmp");
+		Texture* pTexture = Resources::Find<Texture>(GENNARO_TEXTURE_KEY);
 		assert(pTexture != nullptr); 
 		pDefaultMaterial->SetTexture(pTexture);
+		Resources::Insert<Material>(DEFAULT_MATERIAL_KEY, pDefaultMaterial);
 
 
-		Texture* pSpriteTexture = Resources::Load<Texture>(L"DefaultTexture", L"DefaultTexture.png");
-		Resources::Insert<Material>(L"RectMaterial", pDefaultMaterial);
 
 		Material* pSpriteMaterial = new Material();
+		Texture* pSpriteTexture = Resources::Find<Texture>(DEFAULT_TEXTURE_KEY);
 		pSpriteMaterial->SetShader(Resources::Find<Shader>(SPRITE_SHADER_KEY));
 		pSpriteMaterial->SetTexture(pSpriteTexture);
-		Resources::Insert<Material>(L"SpriteMaterial", pSpriteMaterial);
+		Resources::Insert<Material>(SPRITE_MATERIAL_KEY, pSpriteMaterial);
+
+		// UI
+		Shader* pUIShader = Resources::Find<Shader>(UI_SHADER_KEY);
+		Material* pUIMaterial = new Material();
+		pUIMaterial->SetRenderingMode(eRenderingMode::OPAQUEE);
+		pUIMaterial->SetShader(Resources::Find<Shader>(UI_SHADER_KEY));
+		pUIMaterial->SetTexture(Resources::Find<Texture>(HPBAR_TEXTURE_KEY));
+		Resources::Insert<Material>(UI_MATERIAL_KEY, pUIMaterial);
+	}
+
+	__forceinline void CreateTexture()
+	{
+		Resources::Load<Texture>(L"GennaroTexture", L"Gennaro.bmp");
+		Resources::Load<Texture>(L"DefaultTexture", L"DefaultTexture.png");
+		Resources::Load<Texture>(L"HPBarTexture", L"HPBar.png");
 	}
 
 	void Initialize()
@@ -265,6 +312,7 @@ namespace jh::renderer
 		SetupInputLayout();
 		CreateVertexAndIndexBuffer();
 		CreateConstantBuffer();
+		CreateTexture();
 		CreateMeterial();
 	}
 	void Release()

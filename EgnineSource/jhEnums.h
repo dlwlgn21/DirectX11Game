@@ -5,9 +5,12 @@ namespace jh
 	enum class eLayerType
 	{
 		NONE = 0,
+		CAMERA,
 		MONSTER, 
 		PLAYER,
-		CAMERA,
+
+
+		UI,
 		COUNT = 16,
 	};
 

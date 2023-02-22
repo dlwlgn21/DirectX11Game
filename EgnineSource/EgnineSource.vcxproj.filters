@@ -67,9 +67,6 @@
     <Filter Include="Component\Script">
       <UniqueIdentifier>{b365cd30-7d6d-4e12-942d-98c447a4cd6a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Transform">
-      <UniqueIdentifier>{aa90fefe-8892-46de-9561-44b6698c32fb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Component\Renderer">
       <UniqueIdentifier>{03f809f7-3a84-4d81-817b-e9259dcf0858}</UniqueIdentifier>
     </Filter>
@@ -93,6 +90,9 @@
     </Filter>
     <Filter Include="Component\Renderer\Base">
       <UniqueIdentifier>{9b1e7895-4db8-4892-ba08-01ff20c5c37d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Transform">
+      <UniqueIdentifier>{aa90fefe-8892-46de-9561-44b6698c32fb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -211,9 +211,6 @@
     <ClInclude Include="jhMesh.h">
       <Filter>Resource\Mesh</Filter>
     </ClInclude>
-    <ClInclude Include="jhRenderer.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="jhResources.h">
       <Filter>Resource\Manager</Filter>
     </ClInclude>
@@ -279,6 +276,9 @@
     </ClInclude>
     <ClInclude Include="jhRendererComponent.h">
       <Filter>Component\Renderer\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="jhRenderer.h">
+      <Filter>Resource</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
