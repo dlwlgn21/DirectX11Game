@@ -14,6 +14,12 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="$(MSBuildThisFileDirectory)GridPixelShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)GridVertexShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+    </FxCompile>
     <FxCompile Include="$(MSBuildThisFileDirectory)jhPixelShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
     </FxCompile>
