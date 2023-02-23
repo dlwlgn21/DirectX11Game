@@ -29,6 +29,8 @@ namespace jh
 		{
 			if (pGameObj == nullptr)
 				{continue;}
+			if (pGameObj->GetState() != GameObject::eState::ACTIVE)
+				{continue;}
 			pGameObj->Update();
 		}
 	}
@@ -38,6 +40,8 @@ namespace jh
 		for (auto* pGameObj : mGameObjects)
 		{
 			if (pGameObj == nullptr)
+				{continue;}
+			if (pGameObj->GetState() != GameObject::eState::ACTIVE)
 				{continue;}
 			pGameObj->FixedUpdate();
 		}
@@ -49,6 +53,8 @@ namespace jh
 		{
 			if (pGameObj == nullptr)
 				{continue;}
+			if (pGameObj->GetState() != GameObject::eState::ACTIVE)
+				{continue;}
 			pGameObj->Render();
 		}
 	}
@@ -58,9 +64,7 @@ namespace jh
 		for (auto* pGameObj : mGameObjects)
 		{
 			if (pGameObj == nullptr)
-			{
-				continue;
-			}
+				{continue;}
 			delete pGameObj;
 		}
 		mGameObjects.clear();

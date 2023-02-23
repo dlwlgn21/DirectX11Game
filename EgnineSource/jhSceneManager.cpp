@@ -11,6 +11,8 @@
 #include "jhCameraScript.h"
 #include "jhSpriteRenderer.h"
 #include "jhGridScript.h"
+#include "jhObject.h"
+
 
 namespace jh
 {
@@ -23,127 +25,80 @@ namespace jh
 		//mpPlayScene->Initalize();
 
 		// Grid Object
-		GameObject* pGridObj = new GameObject();
-		Transform* pGridTransform = new Transform();
-		pGridObj->AddComponent(pGridTransform);
-
+		GameObject* pGridObj = jh::object::Instantiate(eLayerType::GRID);
 		Material* pGridMaterial = Resources::Find<Material>(GRID_MATERIAL_KEY);
 		pGridMaterial->SetTexture(Resources::Find<Texture>(DEFAULT_TEXTURE_KEY));
-
 		MeshRenderer* pGridMeshRenderer = new MeshRenderer();
 		pGridMeshRenderer->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
 		pGridMeshRenderer->SetMaterial(pGridMaterial);
 		pGridObj->AddComponent(pGridMeshRenderer);
 		pGridObj->AddComponent(new GridScript());
-		mpPlayScene->AddGameObject(pGridObj, eLayerType::GRID);
 
 
 		// Camera Game Obj
-		GameObject* pCameraObj = new GameObject();
-		Transform* pCameraTransform = new Transform();
-		pCameraTransform->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
-		pCameraObj->AddComponent(pCameraTransform);
+		GameObject* pCameraObj = jh::object::Instantiate(eLayerType::CAMERA);
 		Camera* pCameraComponent = new Camera();
 		pCameraComponent->registerCameraAtRenderer();
 		pCameraObj->AddComponent(pCameraComponent);
 		pCameraComponent->TurnLayerMasks(eLayerType::UI, false);
-		mpPlayScene->AddGameObject(pCameraObj, eLayerType::CAMERA);
-		CameraScript* pCameraScript = new CameraScript();
-		pCameraObj->AddComponent(pCameraScript);
+		pCameraObj->AddComponent(new CameraScript());
+
+
 
 		//Camera UI Game Obj
-		GameObject* pCameraUIObj = new GameObject();
-		Transform* pCameraUITransform = new Transform();
-		pCameraUITransform->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
-		pCameraUIObj->AddComponent(pCameraUITransform);
+		GameObject* pCameraUIObj = jh::object::Instantiate(eLayerType::CAMERA);
 		Camera* pCameraUIComponent = new Camera();
 		pCameraUIComponent->SetProjectionType(Camera::eProjectionType::ORTHOGRAPHIC);
 		pCameraUIComponent->DisableAllLayerMasks();
 		pCameraUIComponent->TurnLayerMasks(eLayerType::UI, true);
 		pCameraUIObj->AddComponent(pCameraUIComponent); 
-		mpPlayScene->AddGameObject(pCameraUIObj, eLayerType::CAMERA);
-		
-
 
 
 		// Gennaro
-		GameObject* pGenaroObj = new GameObject();
-		Transform* pGenaroTransform = new Transform();
-		pGenaroTransform->SetPosition(Vector3(-3.0f, 0.0f, 20.0f));
-		pGenaroTransform->SetRotation(Vector3(0.0f, 0.0f, XM_PIDIV2));
-		pGenaroObj->AddComponent(pGenaroTransform);
-
+		GameObject* pGenaroObj = jh::object::Instantiate(eLayerType::PLAYER, Vector3(-3.0f, 0.0f, 20.0f), Vector3(0.0f, 0.0f, XM_PIDIV2));
 		MeshRenderer* pMeshRenderer = new MeshRenderer();
 		pMeshRenderer->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
 		pMeshRenderer->SetMaterial(Resources::Find<Material>(DEFAULT_MATERIAL_KEY));
 		pGenaroObj->AddComponent(pMeshRenderer);
-		
 		PlayerScript* pPlayerScript = new PlayerScript();
 		pGenaroObj->AddComponent(pPlayerScript);
 
-		mpPlayScene->AddGameObject(pGenaroObj, eLayerType::PLAYER);
 
 		// Gennaro Child
-		GameObject* pGenaroChild = new GameObject();
-		Transform* pGenaroChildTransform = new Transform();
-		pGenaroChildTransform->SetPosition(Vector3(2.0f, 0.0f, 0.0f));
-		pGenaroChild->AddComponent(pGenaroChildTransform);
-		pGenaroChildTransform->SetParent(pGenaroTransform);
+		GameObject* pGenaroChild = jh::object::Instantiate(eLayerType::PLAYER, pGenaroObj->GetTransform());
+		Transform* pChildTransform = pGenaroChild->GetTransform();
+		pChildTransform->SetPosition(Vector3(-2.0f, 0.0f, 0.0f));
 		MeshRenderer* pGenaroChildMeshRenderer = new MeshRenderer();
 		pGenaroChildMeshRenderer->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
 		pGenaroChildMeshRenderer->SetMaterial(Resources::Find<Material>(DEFAULT_MATERIAL_KEY));
 		pGenaroChild->AddComponent(pGenaroChildMeshRenderer);
 
-		//PlayerScript* pPlayerScript = new PlayerScript();
-		//obj->AddComponent(pPlayerScript);
-
-		mpPlayScene->AddGameObject(pGenaroChild, eLayerType::PLAYER);
-
-
 
 		// Sprite
-		GameObject* pSriteObj = new GameObject();
-		Transform* pTransform = new Transform();
-		pTransform->SetPosition(Vector3(10.0f, 0.0f, 20.0f));
-		pSriteObj->AddComponent(pTransform);
+		GameObject* pSriteObj = jh::object::Instantiate(eLayerType::PLAYER, Vector3(10.0f, 0.0f, 20.0f), Vector3::Zero);
 
 		SpriteRenderer* pSpriteRenderer = new SpriteRenderer;
-
 		pSpriteRenderer->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
 		Material* pSpriteMaterial = Resources::Find<Material>(SPRITE_MATERIAL_KEY);
 		assert(pSpriteMaterial != nullptr);
 		pSpriteMaterial->SetRenderingMode(eRenderingMode::TRANSPARENTT);
 		pSpriteRenderer->SetMaterial(pSpriteMaterial);
 		pSriteObj->AddComponent(pSpriteRenderer);
-		mpPlayScene->AddGameObject(pSriteObj, eLayerType::PLAYER);
 
 
 		// HPBar
-		GameObject* pHPBarObj = new GameObject();
-		Transform* pHPTransform = new Transform();
-		pHPTransform->SetPosition(Vector3(-1.0f, 0.0f, 20.0f));
+		GameObject* pHPBarObj = jh::object::Instantiate(eLayerType::UI, Vector3(-1.0f, 0.0f, 20.0f), Vector3::Zero);
+		Transform* pHPTransform = pHPBarObj->GetTransform();
 		pHPTransform->SetScale(Vector3(2.0f, 1.0f, 20.0f));
-		pHPBarObj->AddComponent(pHPTransform);
 
 		// SetMaterial
 		Material* pHPBarMaterial = Resources::Find<Material>(UI_MATERIAL_KEY);
-		//assert(pHPBarMaterial != nullptr);
-		//Texture* pHPBarTexture = Resources::Find<Texture>(L"HPBarTexture");
-		//assert(pHPBarTexture != nullptr);
-		//pHPBarMaterial->SetTexture(pHPBarTexture);
-		//pHPBarMaterial->SetRenderingMode(eRenderingMode::OPAQUEE);
-
 		MeshRenderer* pHPBarMeshRenderer = new MeshRenderer();
 		pHPBarMeshRenderer->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
 		pHPBarMeshRenderer->SetMaterial(pHPBarMaterial); 
 		pHPBarObj->AddComponent(pHPBarMeshRenderer);
 
-		//PlayerScript* pPlayerScript = new PlayerScript();
-		//obj->AddComponent(pPlayerScript);
-
-		mpPlayScene->AddGameObject(pHPBarObj, eLayerType::UI);
-
-
+		pHPBarObj->SetPaused();
 		mpPlayScene->Initalize();
 	}
 

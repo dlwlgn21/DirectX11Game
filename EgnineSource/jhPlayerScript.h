@@ -17,6 +17,7 @@ namespace jh
 
 	private:
 		Transform*		mpTranform;
+		float			mSpeed;
 	};
 }
 

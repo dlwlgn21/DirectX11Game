@@ -9,6 +9,7 @@ namespace jh
 	PlayerScript::PlayerScript()
 		: Script()
 		, mpTranform(nullptr)
+		, mSpeed(20.0f)
 	{
 	}
 
@@ -22,30 +23,30 @@ namespace jh
 		Vector3 pos = mpTranform->GetPosition();
 		if (Input::GetKeyState(eKeyCode::UP) == eKeyState::PRESSED)
 		{
-			pos.y += 3.0f * Time::DeltaTime();
+			pos.y += mSpeed * Time::DeltaTime();
 		}
 
 		if (Input::GetKeyState(eKeyCode::DOWN) == eKeyState::PRESSED)
 		{
-			pos.y -= 3.0f * Time::DeltaTime();
+			pos.y -= mSpeed * Time::DeltaTime();
 		}
 		if (Input::GetKeyState(eKeyCode::RIGHT) == eKeyState::PRESSED)
 		{
-			pos.x += 3.0f * Time::DeltaTime();
+			pos.x += mSpeed * Time::DeltaTime();
 		}
 		if (Input::GetKeyState(eKeyCode::LEFT) == eKeyState::PRESSED)
 		{
-			pos.x -= 3.0f * Time::DeltaTime();
+			pos.x -= mSpeed * Time::DeltaTime();
 		}
 
 		if (Input::GetKeyState(eKeyCode::P) == eKeyState::PRESSED)
 		{
-			pos.z -= 3.0f * Time::DeltaTime();
+			pos.z -= mSpeed * Time::DeltaTime();
 		}
 
 		if (Input::GetKeyState(eKeyCode::O) == eKeyState::PRESSED)
 		{
-			pos.z += 3.0f * Time::DeltaTime();
+			pos.z += mSpeed * Time::DeltaTime();
 		}
 
 		mpTranform->SetPosition(pos);

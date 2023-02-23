@@ -11,6 +11,7 @@ namespace jh
 		mComponents.resize(mComponents.capacity());
 		mScripts.reserve(4);
 		//mScripts.resize(mScripts.capacity());
+		AddComponent(new Transform());
 	}
 
 

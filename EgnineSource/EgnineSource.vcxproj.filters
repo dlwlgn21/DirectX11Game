@@ -286,6 +286,9 @@
     <ClInclude Include="jhGridScript.h">
       <Filter>Component\Script</Filter>
     </ClInclude>
+    <ClInclude Include="jhObject.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="jhMath.inl">

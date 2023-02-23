@@ -1,5 +1,6 @@
 #pragma once
 #include "jhEntity.h"
+#include "jhTransform.h"
 
 namespace jh
 {
@@ -16,6 +17,7 @@ namespace jh
 			COUNT
 		};
 
+
 		GameObject();
 		virtual ~GameObject();
 
@@ -31,6 +33,31 @@ namespace jh
 			Component* pRet = mComponents[static_cast<UINT>(eType)];
 			return pRet;
 		}
+
+		__forceinline Transform* GetTransform() const 
+		{ 
+			assert(mComponents[static_cast<UINT>(eComponentType::TRANSFORM)] != nullptr); 
+			return static_cast<Transform*>(mComponents[static_cast<UINT>(eComponentType::TRANSFORM)]); 
+		}
+
+		__forceinline bool IsDead() const
+		{
+			if (meState == eState::DEAD) 
+				{return true;}
+			return false;
+		}
+
+		__forceinline void SetPaused()
+		{
+			meState = eState::PAUSED;
+		}
+
+		__forceinline void SetDead()
+		{
+			meState = eState::DEAD;
+		}
+
+		__forceinline eState GetState() const { return meState; }
 
 	private:
 		std::vector<Component*> mComponents;

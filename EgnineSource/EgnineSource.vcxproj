@@ -181,6 +181,7 @@
     <ClInclude Include="jhMesh.h" />
     <ClInclude Include="jhMeshRenderer.h" />
     <ClInclude Include="jhMaterial.h" />
+    <ClInclude Include="jhObject.h" />
     <ClInclude Include="jhPlayerScript.h" />
     <ClInclude Include="jhPlayScene.h" />
     <ClInclude Include="jhRenderer.h" />
