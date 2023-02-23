@@ -9,7 +9,7 @@ namespace jh
 	{
 	public:
 		RendererComponent(const eComponentType eRendererType);
-		virtual ~RendererComponent();
+		virtual ~RendererComponent() = default;
 
 		virtual void Initialize() = 0;
 		virtual void Update() = 0;

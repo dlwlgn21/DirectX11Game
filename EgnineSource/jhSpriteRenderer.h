@@ -7,7 +7,7 @@ namespace jh
 	{
 	public:
 		SpriteRenderer();
-		virtual ~SpriteRenderer();
+		virtual ~SpriteRenderer() = default;
 
 		void Initialize() override;
 		void Update() override;

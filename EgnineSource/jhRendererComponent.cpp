@@ -9,8 +9,5 @@ namespace jh
 	{
 
 	}
-	RendererComponent::~RendererComponent()
-	{
 
-	}
 }

@@ -7,7 +7,7 @@ namespace jh
 	{
 	public:
 		MeshRenderer();
-		virtual ~MeshRenderer();
+		virtual ~MeshRenderer() = default;
 
 		void Initialize() override;
 		void Update() override;

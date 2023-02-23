@@ -22,8 +22,9 @@ namespace jh
 		void* GetVertexShaderBlob() { return mcpVertexShaderBlob->GetBufferPointer(); }
 		SIZE_T GetVertexShaderBlobSize() { return mcpVertexShaderBlob->GetBufferSize(); }
 		
-
-
+		void SetRasterizerState(const graphics::eRasterizerStateType eType)		{ meRasterizerStateType = eType; }
+		void SetDepthStencilState(const graphics::eDepthStencilStateType eType) { meDepthStencilStateType = eType; }
+		void SetBlendState(const graphics::eBlendStateType eType)				{ meBlendStateType = eType; }
 	private:
 		__forceinline void setPrimitiveTopologyAndIA()
 		{
@@ -37,9 +38,6 @@ namespace jh
 			graphics::GetDevice()->SetPixelShader(mcpPixelShader.Get(), nullptr, 0);
 		}
 
-		void SetRasterizerState(const graphics::eRasterizerStateType eType)		{ meRasterizerStateType = eType; }
-		void SetDepthStencilState(const graphics::eDepthStencilStateType eType) { meDepthStencilStateType = eType; }
-		void SetBlendState(const graphics::eBlendStateType eType)				{ meBlendStateType = eType; }
 
 	private:
 		Microsoft::WRL::ComPtr<ID3DBlob>				mcpVertexShaderBlob;

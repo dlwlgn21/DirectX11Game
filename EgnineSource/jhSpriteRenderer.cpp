@@ -11,9 +11,6 @@ namespace jh
 	{
 	}
 
-	SpriteRenderer::~SpriteRenderer()
-	{
-	}
 	void SpriteRenderer::Initialize()
 	{
 	}

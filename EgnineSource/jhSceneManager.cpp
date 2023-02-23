@@ -10,6 +10,7 @@
 #include "jhCamera.h"
 #include "jhCameraScript.h"
 #include "jhSpriteRenderer.h"
+#include "jhGridScript.h"
 
 namespace jh
 {
@@ -21,12 +22,29 @@ namespace jh
 		mpPlayScene = new Scene();
 		//mpPlayScene->Initalize();
 
+		// Grid Object
+		GameObject* pGridObj = new GameObject();
+		Transform* pGridTransform = new Transform();
+		pGridObj->AddComponent(pGridTransform);
+
+		Material* pGridMaterial = Resources::Find<Material>(GRID_MATERIAL_KEY);
+		pGridMaterial->SetTexture(Resources::Find<Texture>(DEFAULT_TEXTURE_KEY));
+
+		MeshRenderer* pGridMeshRenderer = new MeshRenderer();
+		pGridMeshRenderer->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
+		pGridMeshRenderer->SetMaterial(pGridMaterial);
+		pGridObj->AddComponent(pGridMeshRenderer);
+		pGridObj->AddComponent(new GridScript());
+		mpPlayScene->AddGameObject(pGridObj, eLayerType::GRID);
+
+
 		// Camera Game Obj
 		GameObject* pCameraObj = new GameObject();
 		Transform* pCameraTransform = new Transform();
 		pCameraTransform->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
 		pCameraObj->AddComponent(pCameraTransform);
 		Camera* pCameraComponent = new Camera();
+		pCameraComponent->registerCameraAtRenderer();
 		pCameraObj->AddComponent(pCameraComponent);
 		pCameraComponent->TurnLayerMasks(eLayerType::UI, false);
 		mpPlayScene->AddGameObject(pCameraObj, eLayerType::CAMERA);
@@ -39,7 +57,7 @@ namespace jh
 		pCameraUITransform->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
 		pCameraUIObj->AddComponent(pCameraUITransform);
 		Camera* pCameraUIComponent = new Camera();
-		pCameraUIComponent->setProjectionType(Camera::eProjectionType::ORTHOGRAPHIC);
+		pCameraUIComponent->SetProjectionType(Camera::eProjectionType::ORTHOGRAPHIC);
 		pCameraUIComponent->DisableAllLayerMasks();
 		pCameraUIComponent->TurnLayerMasks(eLayerType::UI, true);
 		pCameraUIObj->AddComponent(pCameraUIComponent); 
@@ -56,7 +74,7 @@ namespace jh
 		pGenaroObj->AddComponent(pGenaroTransform);
 
 		MeshRenderer* pMeshRenderer = new MeshRenderer();
-		pMeshRenderer->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		pMeshRenderer->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
 		pMeshRenderer->SetMaterial(Resources::Find<Material>(DEFAULT_MATERIAL_KEY));
 		pGenaroObj->AddComponent(pMeshRenderer);
 		
@@ -72,7 +90,7 @@ namespace jh
 		pGenaroChild->AddComponent(pGenaroChildTransform);
 		pGenaroChildTransform->SetParent(pGenaroTransform);
 		MeshRenderer* pGenaroChildMeshRenderer = new MeshRenderer();
-		pGenaroChildMeshRenderer->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		pGenaroChildMeshRenderer->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
 		pGenaroChildMeshRenderer->SetMaterial(Resources::Find<Material>(DEFAULT_MATERIAL_KEY));
 		pGenaroChild->AddComponent(pGenaroChildMeshRenderer);
 
@@ -91,7 +109,7 @@ namespace jh
 
 		SpriteRenderer* pSpriteRenderer = new SpriteRenderer;
 
-		pSpriteRenderer->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		pSpriteRenderer->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
 		Material* pSpriteMaterial = Resources::Find<Material>(SPRITE_MATERIAL_KEY);
 		assert(pSpriteMaterial != nullptr);
 		pSpriteMaterial->SetRenderingMode(eRenderingMode::TRANSPARENTT);
@@ -116,7 +134,7 @@ namespace jh
 		//pHPBarMaterial->SetRenderingMode(eRenderingMode::OPAQUEE);
 
 		MeshRenderer* pHPBarMeshRenderer = new MeshRenderer();
-		pHPBarMeshRenderer->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		pHPBarMeshRenderer->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
 		pHPBarMeshRenderer->SetMaterial(pHPBarMaterial); 
 		pHPBarObj->AddComponent(pHPBarMeshRenderer);
 

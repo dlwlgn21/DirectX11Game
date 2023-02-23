@@ -8,7 +8,7 @@ namespace jh
 	{
 	public:
 		PlayerScript();
-		virtual ~PlayerScript();
+		virtual ~PlayerScript() = default;
 
 		void Initialize() override;
 		void Update() override;

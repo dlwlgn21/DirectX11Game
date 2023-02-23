@@ -11,9 +11,7 @@ namespace jh
 		, mpTranform(nullptr)
 	{
 	}
-	PlayerScript::~PlayerScript()
-	{
-	}
+
 	void PlayerScript::Initialize()
 	{
 	}

@@ -10,9 +10,7 @@ namespace jh
 		: RendererComponent(eComponentType::MESH_RENDERER)
 	{
 	}
-	MeshRenderer::~MeshRenderer()
-	{
-	}
+
 	void MeshRenderer::Initialize()
 	{
 	}

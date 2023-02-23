@@ -13,7 +13,7 @@
 
 #define CBSLOT_TRANSFORM (0)
 #define CBSLOT_MATERIAL (1)
-
+#define CBSLOT_GRID (2)
 
 namespace jh::graphics
 {
@@ -97,6 +97,7 @@ namespace jh::graphics
 	{
 		TRANSFORM,
 		MATERIAL,
+		GRID,
 		COUNT
 	};
 

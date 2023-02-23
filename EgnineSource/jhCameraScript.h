@@ -8,7 +8,7 @@ namespace jh
 	{
 	public:
 		CameraScript();
-		virtual ~CameraScript();
+		virtual ~CameraScript() = default;
 
 		void Initialize() override;
 		void Update() override;
@@ -17,5 +17,6 @@ namespace jh
 
 	private:
 		Transform* mpTranform;
+		float mSpeed;
 	};
 }

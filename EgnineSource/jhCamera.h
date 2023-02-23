@@ -19,7 +19,7 @@ namespace jh
 		__forceinline static const Matrix& GetProjectionMatrix()	{ return sProjectionMat; }
 
 		Camera();
-		virtual ~Camera();
+		virtual ~Camera() = default;
 
 		void Initialize() override;
 		void Update() override;
@@ -33,10 +33,12 @@ namespace jh
 		void EnableAllLayerMasks() { mLayerMasks.set(); }
 		void DisableAllLayerMasks() { mLayerMasks.reset(); }
 		
-		void setProjectionType(const eProjectionType eType) { meProjectionType = eType; }
+		void SetProjectionType(const eProjectionType eType) { meProjectionType = eType; }
+
+		__forceinline float GetScale() const { return mScale; }
+		void registerCameraAtRenderer();
 
 	private:
-		void registerCameraAtRenderer();
 		void sortGameObjects();
 		void renderOpaque();
 		void renderCutout();

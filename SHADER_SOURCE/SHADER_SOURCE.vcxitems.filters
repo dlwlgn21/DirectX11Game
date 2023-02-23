@@ -27,10 +27,10 @@
     <FxCompile Include="$(MSBuildThisFileDirectory)jhUIVertexShader.hlsl">
       <Filter>VertexShader</Filter>
     </FxCompile>
-    <FxCompile Include="$(MSBuildThisFileDirectory)GridVertexShader.hlsl">
+    <FxCompile Include="$(MSBuildThisFileDirectory)jhGridVertexShader.hlsl">
       <Filter>VertexShader</Filter>
     </FxCompile>
-    <FxCompile Include="$(MSBuildThisFileDirectory)GridPixelShader.hlsl">
+    <FxCompile Include="$(MSBuildThisFileDirectory)jhGridPixelShader.hlsl">
       <Filter>PixelShader</Filter>
     </FxCompile>
   </ItemGroup>

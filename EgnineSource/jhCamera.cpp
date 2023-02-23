@@ -28,9 +28,7 @@ namespace jh
 		EnableAllLayerMasks();
 	}
 
-	Camera::~Camera()
-	{
-	}
+
 	void Camera::Initialize()
 	{
 		//EnableAllLayerMasks();
@@ -89,8 +87,8 @@ namespace jh
 
 		GetClientRect(Application::GetInstance().GetHwnd(), &windowRect);
 
-		float width = static_cast<float>(windowRect.right - windowRect.left);
-		float height = static_cast<float>(windowRect.bottom - windowRect.top);
+		float width = static_cast<float>(windowRect.right - windowRect.left) * mScale;
+		float height = static_cast<float>(windowRect.bottom - windowRect.top) * mScale;
 
 		mAspectRatio = width / height;
 

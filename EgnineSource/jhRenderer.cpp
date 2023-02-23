@@ -28,6 +28,7 @@ namespace jh::renderer
 	static const std::wstring RECT_SHADER_KEY = L"RectShader";
 	static const std::wstring SPRITE_SHADER_KEY = L"SpriteShader";
 	static const std::wstring UI_SHADER_KEY = L"UIShader";
+	static const std::wstring GRID_SHADER_KEY = L"GridShader";
 
 	static const std::wstring GENNARO_TEXTURE_KEY = L"GennaroTexture";
 	static const std::wstring DEFAULT_TEXTURE_KEY = L"DefaultTexture";
@@ -36,8 +37,9 @@ namespace jh::renderer
 	static const std::wstring DEFAULT_MATERIAL_KEY = L"RectMaterial";
 	static const std::wstring SPRITE_MATERIAL_KEY = L"SpriteMaterial";
 	static const std::wstring UI_MATERIAL_KEY = L"UIMaterial";
+	static const std::wstring GRID_MATERIAL_KEY = L"GridMaterial";
 
-
+	static const std::wstring RECT_MESH_KEY = L"RectMesh";
 
 	__forceinline void LoadAndSetShader()
 	{
@@ -60,6 +62,18 @@ namespace jh::renderer
 		pUIShader->Create(graphics::eShaderStage::PIXEL_SHADER, L"jhUIPixelShader.hlsl", "main");
 		Resources::Insert<Shader>(UI_SHADER_KEY, pUIShader);
 
+
+		// GridShader
+		Shader* pGridShader = new Shader();
+		pGridShader->Create(graphics::eShaderStage::VERTEX_SHADER, L"jhGridVertexShader.hlsl", "main");
+		pGridShader->Create(graphics::eShaderStage::PIXEL_SHADER, L"jhGridPixelShader.hlsl", "main");
+
+		pGridShader->SetRasterizerState(eRasterizerStateType::SOLID_NONE);
+		pGridShader->SetDepthStencilState(eDepthStencilStateType::NO_WRITE);
+		pGridShader->SetBlendState(eBlendStateType::ALPHA_BLEND);
+
+		Resources::Insert<Shader>(GRID_SHADER_KEY, pGridShader); 
+
 	}
 
 	__forceinline void SetupInputLayout()
@@ -67,8 +81,11 @@ namespace jh::renderer
 		Shader* pRectShader = Resources::Find<Shader>(RECT_SHADER_KEY);
 		Shader* pSpriteShader = Resources::Find<Shader>(SPRITE_SHADER_KEY);
 		Shader* pUIShader = Resources::Find<Shader>(UI_SHADER_KEY);
+		Shader* pGridShader = Resources::Find<Shader>(GRID_SHADER_KEY);
 		const UINT ELEMENT_DESC_COUNT = 3;
 		D3D11_INPUT_ELEMENT_DESC inputDesc[ELEMENT_DESC_COUNT] = {};
+
+
 		inputDesc[0].AlignedByteOffset =			0;
 		inputDesc[0].Format =						DXGI_FORMAT_R32G32B32A32_FLOAT;
 		inputDesc[0].InputSlot =					0;
@@ -114,6 +131,13 @@ namespace jh::renderer
 			pUIShader->GetInputLayoutAddressOf()
 		);
 
+		graphics::GetDevice()->CreateInputLayout(
+			inputDesc,
+			ELEMENT_DESC_COUNT,
+			pGridShader->GetVertexShaderBlob(),
+			pGridShader->GetVertexShaderBlobSize(),
+			pGridShader->GetInputLayoutAddressOf()
+		);
 	}
 
 	__forceinline void CreateSamplerState()
@@ -227,7 +251,7 @@ namespace jh::renderer
 	__forceinline void CreateVertexAndIndexBuffer()
 	{
 		Mesh* pMesh = new Mesh();
-		Resources::Insert<Mesh>(L"RectMesh", pMesh);
+		Resources::Insert<Mesh>(RECT_MESH_KEY, pMesh);
 		pMesh->CreateVertexBuffer(vertices, VERTEX_COUNT);
 		// ÀÎµ¦½º ¹öÆÛ
 		std::vector<UINT> indexes;
@@ -249,6 +273,9 @@ namespace jh::renderer
 
 		pConstantBuffers[static_cast<UINT>(eConstantBufferType::MATERIAL)] = new ConstantBuffer(eConstantBufferType::MATERIAL);
 		pConstantBuffers[static_cast<UINT>(eConstantBufferType::MATERIAL)]->CreateBuffer(sizeof(MaterialConstantBuffer));
+
+		pConstantBuffers[static_cast<UINT>(eConstantBufferType::GRID)] = new ConstantBuffer(eConstantBufferType::GRID);
+		pConstantBuffers[static_cast<UINT>(eConstantBufferType::GRID)]->CreateBuffer(sizeof(GridConstantBuffer));
 	}
 
 	__forceinline void CreateMeterial() {
@@ -272,17 +299,24 @@ namespace jh::renderer
 		// UI
 		Shader* pUIShader = Resources::Find<Shader>(UI_SHADER_KEY);
 		Material* pUIMaterial = new Material();
-		pUIMaterial->SetRenderingMode(eRenderingMode::OPAQUEE);
+		pUIMaterial->SetRenderingMode(eRenderingMode::TRANSPARENTT);
 		pUIMaterial->SetShader(Resources::Find<Shader>(UI_SHADER_KEY));
 		pUIMaterial->SetTexture(Resources::Find<Texture>(HPBAR_TEXTURE_KEY));
 		Resources::Insert<Material>(UI_MATERIAL_KEY, pUIMaterial);
+
+
+		// Grid
+		Shader* pGridShader = Resources::Find<Shader>(GRID_SHADER_KEY);
+		Material* pGridMaterial = new Material();
+		pGridMaterial->SetShader(pGridShader);
+		Resources::Insert<Material>(GRID_MATERIAL_KEY, pGridMaterial);
 	}
 
 	__forceinline void CreateTexture()
 	{
-		Resources::Load<Texture>(L"GennaroTexture", L"Gennaro.bmp");
-		Resources::Load<Texture>(L"DefaultTexture", L"DefaultTexture.png");
-		Resources::Load<Texture>(L"HPBarTexture", L"HPBar.png");
+		Resources::Load<Texture>(GENNARO_TEXTURE_KEY, L"Gennaro.bmp");
+		Resources::Load<Texture>(DEFAULT_TEXTURE_KEY, L"DefaultTexture.png");
+		Resources::Load<Texture>(HPBAR_TEXTURE_KEY, L"HPBar.png");
 	}
 
 	void Initialize()

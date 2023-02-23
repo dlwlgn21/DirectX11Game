@@ -12,10 +12,10 @@ struct VSOut
     float4 Pos : SV_Position;
     float2 UV : TEXCOORD;
     
-    float2 WorldPos : SV_Position;
+    float2 WorldPos : POSITION;
 };
 
-float4 main(VSIn _in) : SV_POSITION
+VSOut main(VSIn _in)
 {
     VSOut output = (VSOut) 0.0f;
     
@@ -23,10 +23,10 @@ float4 main(VSIn _in) : SV_POSITION
     worldPos.x = _in.Pos.x * fCameraScale.x * fResolution.x + fCameraPosition.x;
     worldPos.y = _in.Pos.y * fCameraScale.y * fResolution.y + fCameraPosition.y;
     
-    const float meshScale = 1.0f;
-    output.Pos = float4(_in.Pos.xy * meshScale, 0.9f, 1.0f);
+    const float MESH_SCALE = 2.0f;
+    output.Pos = float4(_in.Pos.xy * MESH_SCALE, 0.9f, 1.0f);
     output.UV = _in.UV;
     output.WorldPos = worldPos;
     
-	return pos;
+    return output;
 }
