@@ -55,7 +55,7 @@ namespace jh
 
 	void Camera::CreateViewMatrix()
 	{
-		Transform* pTransform = static_cast<Transform*>(GetOwner()->GetComponentOrNull(eComponentType::TRANSFORM));
+		Transform* pTransform = GetOwner()->GetTransform();
 		assert(pTransform != nullptr);
 
 		// translation info

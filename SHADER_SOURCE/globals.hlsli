@@ -22,6 +22,11 @@ cbuffer Grid : register(b2)
     float2 fCameraScale;
 }
 
+cbuffer FadeOut : register(b3)
+{
+    float4 fDeltaTime;
+}
+
 SamplerState pointSampler : register(s0);
 SamplerState linearSampler : register(s1);
 SamplerState anisotropicSampler : register(s2);

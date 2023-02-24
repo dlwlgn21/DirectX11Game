@@ -12,7 +12,8 @@
 #include "jhSpriteRenderer.h"
 #include "jhGridScript.h"
 #include "jhObject.h"
-
+#include "jhFadeOutScript.h"
+#include "jhFadeInScript.h"
 
 namespace jh
 {
@@ -98,7 +99,18 @@ namespace jh
 		pHPBarMeshRenderer->SetMaterial(pHPBarMaterial); 
 		pHPBarObj->AddComponent(pHPBarMeshRenderer);
 
-		pHPBarObj->SetPaused();
+
+		// Fadeout
+		GameObject* pFadeOut = jh::object::Instantiate(eLayerType::PLAYER);
+		Material* pFadeOutMaterial = Resources::Find<Material>(FADE_OUT_MATERIAL_KEY);
+		MeshRenderer* pFadeOutRenderer = new MeshRenderer();
+		//FadeoutScript* pFadeoutScript = new FadeoutScript();
+		FadeinScript* pFadeInScript = new FadeinScript();
+		pFadeOutRenderer->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
+		pFadeOutRenderer->SetMaterial(pFadeOutMaterial);
+		pFadeOut->AddComponent(pFadeOutRenderer);
+		pFadeOut->AddComponent(pFadeInScript);
+		
 		mpPlayScene->Initalize();
 	}
 

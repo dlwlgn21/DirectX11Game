@@ -171,6 +171,8 @@
     <ClInclude Include="jhConstantBuffer.h" />
     <ClInclude Include="jhEntity.h" />
     <ClInclude Include="jhEnums.h" />
+    <ClInclude Include="jhFadeInScript.h" />
+    <ClInclude Include="jhFadeOutScript.h" />
     <ClInclude Include="jhGameObject.h" />
     <ClInclude Include="jhGraphicDeviceDX11.h" />
     <ClInclude Include="jhGraphics.h" />
@@ -205,6 +207,8 @@
     <ClCompile Include="jhComponent.cpp" />
     <ClCompile Include="jhConstantBuffer.cpp" />
     <ClCompile Include="jhEntity.cpp" />
+    <ClCompile Include="jhFadeInScript.cpp" />
+    <ClCompile Include="jhFadeOutScript.cpp" />
     <ClCompile Include="jhGameObject.cpp" />
     <ClCompile Include="jhGraphicDeviceDX11.cpp" />
     <ClCompile Include="jhGridScript.cpp" />

@@ -29,15 +29,18 @@ namespace jh::renderer
 	static const std::wstring SPRITE_SHADER_KEY = L"SpriteShader";
 	static const std::wstring UI_SHADER_KEY = L"UIShader";
 	static const std::wstring GRID_SHADER_KEY = L"GridShader";
+	static const std::wstring FADE_OUT_SHADER_KEY = L"FadeOutShader";
 
 	static const std::wstring GENNARO_TEXTURE_KEY = L"GennaroTexture";
 	static const std::wstring DEFAULT_TEXTURE_KEY = L"DefaultTexture";
 	static const std::wstring HPBAR_TEXTURE_KEY = L"HPBarTexture";
+	static const std::wstring FADE_OUT_TEXTURE_KEY = L"FadeOutTexture";
 
 	static const std::wstring DEFAULT_MATERIAL_KEY = L"RectMaterial";
 	static const std::wstring SPRITE_MATERIAL_KEY = L"SpriteMaterial";
 	static const std::wstring UI_MATERIAL_KEY = L"UIMaterial";
 	static const std::wstring GRID_MATERIAL_KEY = L"GridMaterial";
+	static const std::wstring FADE_OUT_MATERIAL_KEY = L"FadeOutMaterial";
 
 	static const std::wstring RECT_MESH_KEY = L"RectMesh";
 
@@ -74,14 +77,23 @@ namespace jh::renderer
 
 		Resources::Insert<Shader>(GRID_SHADER_KEY, pGridShader); 
 
+
+		// FadeOutShader
+		Shader* pFadeOutShader = new Shader();
+		pFadeOutShader->Create(graphics::eShaderStage::VERTEX_SHADER, L"jhFadeOutVertexShader.hlsl", "main");
+		pFadeOutShader->Create(graphics::eShaderStage::PIXEL_SHADER, L"jhFadeOutPixelShader.hlsl", "main");
+
+		Resources::Insert<Shader>(FADE_OUT_SHADER_KEY, pFadeOutShader);
 	}
 
 	__forceinline void SetupInputLayout()
 	{
-		Shader* pRectShader = Resources::Find<Shader>(RECT_SHADER_KEY);
-		Shader* pSpriteShader = Resources::Find<Shader>(SPRITE_SHADER_KEY);
-		Shader* pUIShader = Resources::Find<Shader>(UI_SHADER_KEY);
-		Shader* pGridShader = Resources::Find<Shader>(GRID_SHADER_KEY);
+		Shader* pRectShader =		Resources::Find<Shader>(RECT_SHADER_KEY);
+		Shader* pSpriteShader =		Resources::Find<Shader>(SPRITE_SHADER_KEY);
+		Shader* pUIShader =			Resources::Find<Shader>(UI_SHADER_KEY);
+		Shader* pGridShader =		Resources::Find<Shader>(GRID_SHADER_KEY);
+		Shader* pFadeOutShader =	Resources::Find<Shader>(FADE_OUT_SHADER_KEY);
+
 		const UINT ELEMENT_DESC_COUNT = 3;
 		D3D11_INPUT_ELEMENT_DESC inputDesc[ELEMENT_DESC_COUNT] = {};
 
@@ -137,6 +149,14 @@ namespace jh::renderer
 			pGridShader->GetVertexShaderBlob(),
 			pGridShader->GetVertexShaderBlobSize(),
 			pGridShader->GetInputLayoutAddressOf()
+		);
+
+		graphics::GetDevice()->CreateInputLayout(
+			inputDesc,
+			ELEMENT_DESC_COUNT,
+			pFadeOutShader->GetVertexShaderBlob(),
+			pFadeOutShader->GetVertexShaderBlobSize(),
+			pFadeOutShader->GetInputLayoutAddressOf()
 		);
 	}
 
@@ -276,6 +296,9 @@ namespace jh::renderer
 
 		pConstantBuffers[static_cast<UINT>(eConstantBufferType::GRID)] = new ConstantBuffer(eConstantBufferType::GRID);
 		pConstantBuffers[static_cast<UINT>(eConstantBufferType::GRID)]->CreateBuffer(sizeof(GridConstantBuffer));
+
+		pConstantBuffers[static_cast<UINT>(eConstantBufferType::FADE_OUT)] = new ConstantBuffer(eConstantBufferType::FADE_OUT);
+		pConstantBuffers[static_cast<UINT>(eConstantBufferType::FADE_OUT)]->CreateBuffer(sizeof(FadeOutConstantBuffer));
 	}
 
 	__forceinline void CreateMeterial() {
@@ -310,6 +333,13 @@ namespace jh::renderer
 		Material* pGridMaterial = new Material();
 		pGridMaterial->SetShader(pGridShader);
 		Resources::Insert<Material>(GRID_MATERIAL_KEY, pGridMaterial);
+
+		// FadeOut
+		Material* pFadeOutMaterial = new Material();
+		pFadeOutMaterial->SetShader(Resources::Find<Shader>(FADE_OUT_SHADER_KEY));
+		pFadeOutMaterial->SetTexture(Resources::Find<Texture>(FADE_OUT_TEXTURE_KEY));
+		Resources::Insert<Material>(FADE_OUT_MATERIAL_KEY, pFadeOutMaterial);
+
 	}
 
 	__forceinline void CreateTexture()
@@ -317,12 +347,12 @@ namespace jh::renderer
 		Resources::Load<Texture>(GENNARO_TEXTURE_KEY, L"Gennaro.bmp");
 		Resources::Load<Texture>(DEFAULT_TEXTURE_KEY, L"DefaultTexture.png");
 		Resources::Load<Texture>(HPBAR_TEXTURE_KEY, L"HPBar.png");
+		Resources::Load<Texture>(FADE_OUT_TEXTURE_KEY, L"FadeOutTexture.png");
 	}
 
 	void Initialize()
 	{
 		pCameras.reserve(8);
-		//pCameras.resize(pCameras.capacity());
 
 		vertices[0].Position =	Vector4(-0.5f, 0.5f, 0.5f, 1.0f);
 		vertices[0].Color =		Vector4(0.0f, 1.0f, 0.0f, 1.0f);

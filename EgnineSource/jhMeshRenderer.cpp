@@ -22,7 +22,7 @@ namespace jh
 	}
 	void MeshRenderer::Render()
 	{
-		Transform* pTrasform = static_cast<Transform*>(GetOwner()->GetComponentOrNull(eComponentType::TRANSFORM));
+		Transform* pTrasform = GetOwner()->GetTransform();
 		assert(pTrasform != nullptr);
 		pTrasform->WriteContantBufferAtGPUAndSetConstantBufferAtShader();
 		assert(mpMaterial != nullptr);
