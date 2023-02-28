@@ -15,11 +15,12 @@ namespace jh
 		virtual void FixedUpdate();
 		virtual void Render();
 		virtual void Release();
+		virtual void Destroy();
 
-		void AddGameObject(GameObject* gameObject);
+		void AddGameObject(GameObject* pGameObj, const eLayerType eType);
 
 		const std::vector<GameObject*>& GetGameObjects() const { return mGameObjects; }
-
+		std::vector<GameObject*> GetDontDestroyGameObjects();
 	private:
 		std::vector<GameObject*> mGameObjects;
 	};

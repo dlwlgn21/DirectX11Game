@@ -15,6 +15,13 @@ namespace jh
 		COUNT = 16,
 	};
 
+	enum class eSceneType
+	{
+		TITLE,
+		PLAY,
+		ENDING,
+		COUNT
+	};
 	enum class eComponentType
 	{
 		NONE,

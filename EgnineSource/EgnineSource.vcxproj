@@ -197,6 +197,7 @@
     <ClInclude Include="jhSpriteRenderer.h" />
     <ClInclude Include="jhTexture.h" />
     <ClInclude Include="jhTime.h" />
+    <ClInclude Include="jhTitleScene.h" />
     <ClInclude Include="jhTransform.h" />
   </ItemGroup>
   <ItemGroup>
@@ -231,6 +232,7 @@
     <ClCompile Include="jhSpriteRenderer.cpp" />
     <ClCompile Include="jhTexture.cpp" />
     <ClCompile Include="jhTime.cpp" />
+    <ClCompile Include="jhTitleScene.cpp" />
     <ClCompile Include="jhTransform.cpp" />
   </ItemGroup>
   <ItemGroup>

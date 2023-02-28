@@ -190,6 +190,9 @@
     <ClCompile Include="jhFadeInScript.cpp">
       <Filter>Component\Script</Filter>
     </ClCompile>
+    <ClCompile Include="jhTitleScene.cpp">
+      <Filter>Scene\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -300,6 +303,9 @@
     </ClInclude>
     <ClInclude Include="jhFadeInScript.h">
       <Filter>Component\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="jhTitleScene.h">
+      <Filter>Scene\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

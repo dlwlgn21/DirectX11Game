@@ -126,7 +126,7 @@ namespace jh
 		mCutoutObjects.clear();
 		mTransparentObjects.clear();
 
-		Scene* pCurrScene = SceneManager::GetCurrentScene();
+		Scene* pCurrScene = SceneManager::GetInatance().GetCurrentScene();
 
 		for (int i = 0; i < static_cast<UINT>(eLayerType::COUNT); ++i) 
 		{

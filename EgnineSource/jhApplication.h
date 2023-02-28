@@ -25,6 +25,8 @@ namespace jh
 		// GPU Update
 		void Render();
 
+		void Destroy();
+
 		void Release();
 
 		void SetWindowAndGraphicDevice(HWND hwnd, UINT width, UINT height);

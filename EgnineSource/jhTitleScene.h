@@ -1,13 +1,13 @@
 #pragma once
 #include "jhScene.h"
 
-namespace jh 
+namespace jh
 {
-	class PlayScene final : public Scene
+	class TitleScene final : public Scene
 	{
 	public:
-		PlayScene();
-		virtual ~PlayScene();
+		TitleScene();
+		virtual ~TitleScene();
 
 		void Initalize() override;
 		void Update() override;
@@ -17,8 +17,6 @@ namespace jh
 
 		void OnEnter() override;
 		void OnExit() override;
-
 	private:
 	};
 }
-

@@ -11,23 +11,24 @@ namespace jh
 		Update();
 		FixedUpdate();
 		Render();
+		Destroy();
 	}
 	void Application::Initialize()
 	{
 		Time::Initialize();
 		Input::Initialize();
 		renderer::Initialize(); 
-		SceneManager::Initalize();
+		SceneManager::GetInatance().Initalize();
 	}
 	void Application::Update()
 	{
 		Time::Update();
 		Input::Update();
-		SceneManager::Update();
+		SceneManager::GetInatance().Update();
 	}
 	void Application::FixedUpdate()
 	{
-		SceneManager::FixedUpdate();
+		SceneManager::GetInatance().FixedUpdate();
 	}
 	void Application::Render()
 	{
@@ -37,11 +38,16 @@ namespace jh
 		//SceneManager::Render();
 		renderer::Render();
 		mspGraphicDevice->Present();
+
+	}
+
+	void Application::Destroy()
+	{
 	}
 
 	void Application::Release()
 	{
-		SceneManager::Release();
+		SceneManager::GetInatance().Release();
 		renderer::Release();
 	}
 

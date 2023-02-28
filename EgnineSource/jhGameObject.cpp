@@ -6,6 +6,8 @@ namespace jh
 {
 	GameObject::GameObject()
 		: meState(eState::ACTIVE)
+		, mbIsDontDestroy(false)
+		, meLayerType(eLayerType::COUNT)
 	{
 		mComponents.reserve(static_cast<UINT>(eComponentType::COUNT));
 		mComponents.resize(mComponents.capacity());
