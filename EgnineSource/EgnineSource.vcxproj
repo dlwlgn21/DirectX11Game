@@ -167,6 +167,8 @@
     <ClInclude Include="jhApplication.h" />
     <ClInclude Include="jhCamera.h" />
     <ClInclude Include="jhCameraScript.h" />
+    <ClInclude Include="jhCollider.h" />
+    <ClInclude Include="jhColliderManager.h" />
     <ClInclude Include="jhComponent.h" />
     <ClInclude Include="jhConstantBuffer.h" />
     <ClInclude Include="jhEntity.h" />
@@ -199,12 +201,15 @@
     <ClInclude Include="jhTime.h" />
     <ClInclude Include="jhTitleScene.h" />
     <ClInclude Include="jhTransform.h" />
+    <ClInclude Include="Prefab.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EgnineSource.cpp" />
     <ClCompile Include="jhApplication.cpp" />
     <ClCompile Include="jhCamera.cpp" />
     <ClCompile Include="jhCameraScript.cpp" />
+    <ClCompile Include="jhCollider.cpp" />
+    <ClCompile Include="jhColliderManager.cpp" />
     <ClCompile Include="jhComponent.cpp" />
     <ClCompile Include="jhConstantBuffer.cpp" />
     <ClCompile Include="jhEntity.cpp" />
@@ -234,6 +239,7 @@
     <ClCompile Include="jhTime.cpp" />
     <ClCompile Include="jhTitleScene.cpp" />
     <ClCompile Include="jhTransform.cpp" />
+    <ClCompile Include="Prefab.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="jhMath.inl" />

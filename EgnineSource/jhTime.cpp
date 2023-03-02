@@ -5,7 +5,6 @@ namespace jh
 {
 	LARGE_INTEGER Time::mCPUFrequency;
 	float Time::mDeltaTime = 0.0f;
-	float Time::mFpsTimer = 0.0f;
 	HWND Time::mHwnd;
 
 	float Time::mScale = 1.0f;
@@ -35,7 +34,7 @@ namespace jh
 		// ADD PART END
 
 		mHwnd = Application::GetInstance().GetHwnd();
-
+		StartTimeCounting();
 
 	}
 
@@ -68,7 +67,6 @@ namespace jh
 
 	void Time::Render(HDC hdc)
 	{
-		mFpsTimer += Time::DeltaTime();
 		//if (mTime > 1.0f)
 		//{
 		//	wchar_t buffer[64] = {};
@@ -83,22 +81,40 @@ namespace jh
 		//	//SetWindowTextW(mHwnd, buffer);
 		//	mTime = 0.0f;
 		//}
-		if (mFpsTimer >= 0.1f)
-		{
-			wchar_t buffer[64] = {};
-			// DeltaTime == 한 프레임 도는데 걸린 시간.
-			float fps = 1.0f / mDeltaTime;
-			swprintf_s(buffer, 64, L"FramePerSecond : %.0f", fps);
-			size_t strLen = static_cast<size_t>(wcsnlen_s(buffer, 64));
-			TextOutW(hdc, 10, 10, buffer, static_cast<int>(strLen));
+			//wchar_t buffer[64] = {};
+			//// DeltaTime == 한 프레임 도는데 걸린 시간.
+			//float fps = 1.0f / mDeltaTime;
+			//swprintf_s(buffer, 64, L"FramePerSecond : %.0f", fps);
+			//size_t strLen = static_cast<size_t>(wcsnlen_s(buffer, 64));
+			//TextOutW(hdc, 10, 10, buffer, static_cast<int>(strLen));
 
-			swprintf_s(buffer, 64, L"Total Time == %.0f", TotalTime());
-			strLen = wcsnlen_s(buffer, 64);
-			TextOutW(hdc, 30, 30, buffer, static_cast<int>(strLen));
+			//swprintf_s(buffer, 64, L"Total Time == %.0f", TotalTime());
+			//strLen = wcsnlen_s(buffer, 64);
+			//TextOutW(hdc, 30, 30, buffer, static_cast<int>(strLen));
 			//HWND hWnd
 			//	= Application::GetInstance().GetWindowData().hwnd;
 			//SetWindowTextW(mHwnd, buffer);
-			mFpsTimer = 0.0f;
+
+		static int frameCnt = 0;
+		static float timeElapsed = 0.0f;
+
+		++frameCnt;
+
+		// 1초 동안의 평균 프레임 수를 계산한다.
+
+		if ((TotalTime() - timeElapsed) >= 1.0f)
+		{
+			float fps = (float)frameCnt;
+			float mspf = 1000.0f / fps;
+			std::wostringstream outs;
+			outs.precision(6);
+			outs << L"FPS : " << fps << L"	"
+				<< L" Frame Time : " << mspf << L" (ms)";
+			SetWindowText(mHwnd, outs.str().c_str());
+
+			// 다음 평균을 위해 초기화 한다.
+			frameCnt = 0;
+			timeElapsed += 1.0f;
 		}
 	}
 

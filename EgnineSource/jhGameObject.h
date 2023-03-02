@@ -65,7 +65,7 @@ namespace jh
 		__forceinline eLayerType GetLayerType() const {return meLayerType;}
 		__forceinline void SetLayerType(const eLayerType eType) { meLayerType = eType; }
 
-	private:
+	protected:
 		std::vector<Component*> mComponents;
 		std::vector<Script*>	mScripts;
 		eState					meState;

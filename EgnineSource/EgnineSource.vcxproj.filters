@@ -94,6 +94,15 @@
     <Filter Include="Component\Transform">
       <UniqueIdentifier>{aa90fefe-8892-46de-9561-44b6698c32fb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Collider">
+      <UniqueIdentifier>{a939701e-9701-4bf8-a63f-ec02f5a27f41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Prefab">
+      <UniqueIdentifier>{ef66bbff-6681-457b-aa80-183bee7874f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider\Manager">
+      <UniqueIdentifier>{83117e03-43c6-470b-af3b-43014606c709}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EgnineSource.cpp" />
@@ -192,6 +201,15 @@
     </ClCompile>
     <ClCompile Include="jhTitleScene.cpp">
       <Filter>Scene\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="jhCollider.cpp">
+      <Filter>Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="jhColliderManager.cpp">
+      <Filter>Component\Collider\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Prefab.cpp">
+      <Filter>Resource\Prefab</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -306,6 +324,15 @@
     </ClInclude>
     <ClInclude Include="jhTitleScene.h">
       <Filter>Scene\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="jhCollider.h">
+      <Filter>Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="jhColliderManager.h">
+      <Filter>Component\Collider\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Prefab.h">
+      <Filter>Resource\Prefab</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

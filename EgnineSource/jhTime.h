@@ -26,7 +26,6 @@ namespace jh
 		static LARGE_INTEGER mCPUFrequency;		// CPU 진동수
 		static HWND mHwnd;
 		static float mDeltaTime;
-		static float mFpsTimer;
 
 		// 추가된 파트
 		static float mScale;
