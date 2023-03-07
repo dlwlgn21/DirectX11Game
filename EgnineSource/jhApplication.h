@@ -28,6 +28,8 @@ namespace jh
 		void Destroy();
 
 		void Release();
+		
+		void Present();
 
 		void SetWindowAndGraphicDevice(HWND hwnd, UINT width, UINT height);
 		HWND GetHwnd() const { return mHwnd; }

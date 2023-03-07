@@ -4,8 +4,8 @@
 #include "framework.h"
 #include "DirectX11Game.h"
 #include "EgnineSource/jhApplication.h"
-
-//#include "\\DirectX11Game\\Debug\\Lib\\EgnineSource.lib"
+#include "jhEditor.h"
+#include "Editor_Source/jhEditorObject.h"
 
 #ifdef _DEBUG
 #pragma comment(lib, "D:\\DirectX11Game\\Debug\\Lib\\EgnineSource.lib")
@@ -65,6 +65,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     MSG msg;
     jh::Application& app = jh::Application::GetInstance();
+    jh::EditorObject editor;
+    
     while (true)
     {
         if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
@@ -80,6 +82,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         else
         {
             app.Run();
+            jh::Editor::GetInstance().Run();
+            app.Present();
         }
     }
 
@@ -114,16 +118,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     return RegisterClassExW(&wcex);
 }
 
-//
-//   함수: InitInstance(HINSTANCE, int)
-//
-//   용도: 인스턴스 핸들을 저장하고 주 창을 만듭니다.
-//
-//   주석:
-//
-//        이 함수를 통해 인스턴스 핸들을 전역 변수에 저장하고
-//        주 프로그램 창을 만든 다음 표시합니다.
-//
+
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
@@ -138,22 +133,13 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    jh::Application::GetInstance().SetWindowAndGraphicDevice(hWnd, 1600, 900);
    jh::Application::GetInstance().Initialize();
+   jh::Editor::GetInstance().Initialize();
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
 
    return TRUE;
 }
 
-//
-//  함수: WndProc(HWND, UINT, WPARAM, LPARAM)
-//
-//  용도: 주 창의 메시지를 처리합니다.
-//
-//  WM_COMMAND  - 애플리케이션 메뉴를 처리합니다.
-//  WM_PAINT    - 주 창을 그립니다.
-//  WM_DESTROY  - 종료 메시지를 게시하고 반환합니다.
-//
-//
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)

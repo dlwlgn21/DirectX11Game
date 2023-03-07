@@ -37,8 +37,6 @@ namespace jh
 
 		//SceneManager::Render();
 		renderer::Render();
-		mspGraphicDevice->Present();
-
 	}
 
 	void Application::Destroy()
@@ -49,6 +47,11 @@ namespace jh
 	{
 		SceneManager::GetInatance().Release();
 		renderer::Release();
+	}
+
+	void Application::Present()
+	{
+		mspGraphicDevice->Present();
 	}
 
 	void Application::SetWindowAndGraphicDevice(HWND hwnd, UINT width, UINT height)
