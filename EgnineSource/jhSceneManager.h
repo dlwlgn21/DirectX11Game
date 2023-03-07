@@ -22,7 +22,8 @@ namespace jh
 		void Destroy();
 		void Release();
 		void LoadScene(eSceneType eType);
-		Scene* GetCurrentScene() { return mpPlayScene; }
+		Scene* GetCurrentScene() const { return mpPlayScene; }
+		eSceneType GetSceneCurrSceneType() const { mpPlayScene->GetSceneType(); }
 
 
 	private:

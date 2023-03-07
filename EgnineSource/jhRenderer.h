@@ -56,7 +56,7 @@ namespace jh::renderer
 	extern Microsoft::WRL::ComPtr<ID3D11RasterizerState>	cpRasterizerStates[];
 	extern Microsoft::WRL::ComPtr<ID3D11DepthStencilState>	cpDepthStencilStates[];
 	extern Microsoft::WRL::ComPtr<ID3D11BlendState>			cpBlendStates[];
-	extern std::vector<Camera*>								pCameras;
+	extern std::vector<Camera*>								pCameras[];
 
 	extern const std::wstring RECT_SHADER_KEY;
 	extern const std::wstring SPRITE_SHADER_KEY;

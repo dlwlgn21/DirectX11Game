@@ -2,7 +2,7 @@
 #include "jhResources.h"
 #include "jhMaterial.h"
 #include "jhTexture.h"
-
+#include "jhSceneManager.h"
 
 using namespace jh::graphics;
 namespace jh::renderer
@@ -14,7 +14,7 @@ namespace jh::renderer
 	Microsoft::WRL::ComPtr<ID3D11RasterizerState>	cpRasterizerStates[static_cast<UINT>(graphics::eRasterizerStateType::COUNT)] = {};
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilState>	cpDepthStencilStates[static_cast<UINT>(graphics::eDepthStencilStateType::COUNT)] = {};
 	Microsoft::WRL::ComPtr<ID3D11BlendState>		cpBlendStates[static_cast<UINT>(graphics::eBlendStateType::COUNT)] = {};
-	std::vector<Camera*>							pCameras;
+	std::vector<Camera*>							pCameras[static_cast<UINT>(eSceneType::COUNT)];
 
 
 	/*
@@ -352,7 +352,10 @@ namespace jh::renderer
 
 	void Initialize()
 	{
-		pCameras.reserve(8);
+		for (int i = 0; i < static_cast<UINT>(eSceneType::COUNT); ++i)
+		{
+			pCameras[i].reserve(8);
+		}
 
 		vertices[0].Position =	Vector4(-0.5f, 0.5f, 0.5f, 1.0f);
 		vertices[0].Color =		Vector4(0.0f, 1.0f, 0.0f, 1.0f);
@@ -399,13 +402,14 @@ namespace jh::renderer
 
 	void Render()
 	{
-		for (auto* pCam : pCameras)
+		eSceneType eCurrSceneType = SceneManager::GetInatance().GetCurrentScene()->GetSceneType();
+		for (auto* pCam : pCameras[static_cast<UINT>(eCurrSceneType)])
 		{
 			if (pCam == nullptr)
 				{ continue; }
 			pCam->Render();
 		}
 
-		pCameras.clear();
+		pCameras[static_cast<UINT>(eCurrSceneType)].clear();
 	}
 }

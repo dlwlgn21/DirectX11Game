@@ -4,6 +4,7 @@
 #include "jhApplication.h"
 #include "jhConstantBuffer.h"
 #include "jhRenderer.h"
+#include "jhSceneManager.h"
 
 namespace jh
 {
@@ -16,12 +17,17 @@ namespace jh
 	
 	void GridScript::Initialize()
 	{
-		mpCamera = renderer::pCameras[0];
 	}
 	void GridScript::Update()
 	{
+	}
+	void GridScript::FixedUpdate()
+	{
+		mpCamera = renderer::pCameras[static_cast<UINT>(SceneManager::GetInatance().GetCurrentScene()->GetSceneType())][0];
 		if (mpCamera == nullptr)
-			{return;}
+		{
+			return;
+		}
 
 		GameObject* pGameObj = mpCamera->GetOwner();
 		Transform* pTransform = static_cast<Transform*>(pGameObj->GetComponentOrNull(eComponentType::TRANSFORM));
@@ -49,10 +55,6 @@ namespace jh
 		pConstantBuffer->WriteConstantBufferAtGPU(&data);
 		pConstantBuffer->SetConstantBufferAtShader(eShaderStage::VERTEX_SHADER);
 		pConstantBuffer->SetConstantBufferAtShader(eShaderStage::PIXEL_SHADER);
-	}
-	void GridScript::FixedUpdate()
-	{
-
 	}
 	void GridScript::Render()
 	{

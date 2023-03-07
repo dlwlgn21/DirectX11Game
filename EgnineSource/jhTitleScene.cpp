@@ -1,9 +1,15 @@
 #include "jhTitleScene.h"
+#include "jhInput.h"
+#include "jhSceneManager.h"
+#include "jhCamera.h"
+#include "jhCameraScript.h"
+#include "jhObject.h"
+
 
 namespace jh
 {
 	TitleScene::TitleScene()
-		: Scene()
+		: Scene(eSceneType::TITLE)
 	{
 	}
 	TitleScene::~TitleScene()
@@ -11,11 +17,21 @@ namespace jh
 	}
 	void TitleScene::Initalize()
 	{
+		GameObject* pCameraObj = object::Instantiate(eLayerType::CAMERA, this);
+		Camera* pCameraComponent = new Camera();
+		pCameraObj->AddComponent(pCameraComponent);
+		pCameraComponent->TurnLayerMasks(eLayerType::UI, false);
+		pCameraObj->AddComponent(new CameraScript());
+		pCameraObj->SetName(L"Title Scene Main Camera");
 		Scene::Initalize();
 	}
 	void TitleScene::Update()
 	{
-		Scene::Update();
+		if (Input::GetKeyState(eKeyCode::N) == eKeyState::DOWN) 
+		{
+			SceneManager::GetInatance().LoadScene(eSceneType::PLAY);
+		}
+		Scene::Update(); 
 	}
 	void TitleScene::FixedUpdate()
 	{
@@ -31,6 +47,8 @@ namespace jh
 	}
 	void TitleScene::OnEnter()
 	{
+
+
 		Scene::OnEnter();
 	}
 	void TitleScene::OnExit()

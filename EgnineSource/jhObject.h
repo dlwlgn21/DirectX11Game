@@ -7,7 +7,7 @@
 
 namespace jh::object
 {
-	GameObject* Instantiate(eLayerType eLayer)
+	static GameObject* Instantiate(eLayerType eLayer)
 	{
 		GameObject* pGameObj = new GameObject();
 		Scene* pScene = SceneManager::GetInatance().GetCurrentScene();
@@ -18,7 +18,16 @@ namespace jh::object
 		return pGameObj;
 	}
 
-	GameObject* Instantiate(eLayerType eLayer, Transform* pTransformParent)
+	static GameObject* Instantiate(eLayerType eLayer, Scene* pScene)
+	{
+		GameObject* pGameObj = new GameObject();
+		assert(pScene != nullptr);
+		Layer& layer = pScene->GetLayer(eLayer);
+
+		layer.AddGameObject(pGameObj, eLayer);
+		return pGameObj;
+	}
+	static GameObject* Instantiate(eLayerType eLayer, Transform* pTransformParent)
 	{
 		assert(pTransformParent != nullptr);
 		GameObject* pGameObj = new GameObject();
@@ -34,7 +43,7 @@ namespace jh::object
 		return pGameObj;
 	}
 
-	GameObject* Instantiate(eLayerType eLayer, Vector3 position, Vector3 rotation)
+	static GameObject* Instantiate(eLayerType eLayer, Vector3 position, Vector3 rotation)
 	{
 		GameObject* pGameObj = new GameObject();
 		Scene* pScene = SceneManager::GetInatance().GetCurrentScene();
@@ -50,7 +59,7 @@ namespace jh::object
 		return pGameObj;
 	}
 
-	GameObject* Instantiate(eLayerType eLayer, Vector3 position, Vector3 rotation, Transform* pTransformParent)
+	static GameObject* Instantiate(eLayerType eLayer, Vector3 position, Vector3 rotation, Transform* pTransformParent)
 	{
 		assert(pTransformParent != nullptr);
 		GameObject* pGameObj = new GameObject();
@@ -69,13 +78,13 @@ namespace jh::object
 		return pGameObj;
 	}
 
-	void Destroy(GameObject* pGameObj)
+	static void Destroy(GameObject* pGameObj)
 	{
 		assert(pGameObj != nullptr);
 		pGameObj->SetDead();
 	}
 
-	void DontDestroyOnLoad(GameObject* pGameObj)
+	static void DontDestroyOnLoad(GameObject* pGameObj)
 	{
 		assert(pGameObj != nullptr);
 		pGameObj->DontDestroy();

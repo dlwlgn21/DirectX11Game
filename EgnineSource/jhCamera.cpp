@@ -113,7 +113,7 @@ namespace jh
 
 	void Camera::registerCameraAtRenderer()
 	{
-		renderer::pCameras.push_back(this);
+		renderer::pCameras[static_cast<UINT>(SceneManager::GetInatance().GetCurrentScene()->GetSceneType())].push_back(this);
 	}
 	void Camera::TurnLayerMasks(const eLayerType eLayer, const bool bEnable)
 	{
