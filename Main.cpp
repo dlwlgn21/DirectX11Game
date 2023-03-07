@@ -5,7 +5,7 @@
 #include "DirectX11Game.h"
 #include "EgnineSource/jhApplication.h"
 #include "jhEditor.h"
-#include "Editor_Source/jhEditorObject.h"
+#include "jhEditorObject.h"
 
 #ifdef _DEBUG
 #pragma comment(lib, "D:\\DirectX11Game\\Debug\\Lib\\EgnineSource.lib")
@@ -88,6 +88,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     }
 
     app.Release();
+    jh::Editor::GetInstance().Release();
+
     return (int)msg.wParam;
 }
 

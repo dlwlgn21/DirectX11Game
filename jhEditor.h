@@ -1,7 +1,8 @@
 #pragma once
-#include "Editor_Source/jhDebugObject.h"
-#include "Editor_Source/jhWidget.h"
-#include "Editor_Source/jhEditorObject.h"
+#include "jhDebugObject.h"
+#include "jhWidget.h"
+#include "jhEditorObject.h"
+#include "EgnineSource/jhGraphics.h"
 
 namespace jh
 {
@@ -22,7 +23,7 @@ namespace jh
 		void Update();
 		void FixedUpdate();
 		void Render();
-		void DebugRender();
+		void DebugRender(graphics::DebugMesh& mesh);
 		void Destroy();
 		void Release();
 

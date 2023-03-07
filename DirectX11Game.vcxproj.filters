@@ -17,6 +17,9 @@
     <ClInclude Include="jhEditor.h">
       <Filter>Editor</Filter>
     </ClInclude>
+    <ClInclude Include="jhDebugObject.h" />
+    <ClInclude Include="jhEditorObject.h" />
+    <ClInclude Include="jhWidget.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectX11Game.rc">
@@ -36,5 +39,8 @@
     <ClCompile Include="jhEditor.cpp">
       <Filter>Editor</Filter>
     </ClCompile>
+    <ClCompile Include="jhDebugObject.cpp" />
+    <ClCompile Include="jhEditorObject.cpp" />
+    <ClCompile Include="jhWidget.cpp" />
   </ItemGroup>
 </Project>

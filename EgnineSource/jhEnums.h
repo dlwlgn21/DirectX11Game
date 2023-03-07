@@ -49,4 +49,20 @@ namespace jh
 		SCRPIT,
 		COUNT
 	};
+
+	enum class eColliderType
+	{
+		NONE,
+		RECT,
+		CIRCLE,
+		BOX,
+		SPHERE,
+		COUNT
+	};
+
+	//struct Ray
+	//{
+	//	Vector3 origin;
+	//	Vector3 dest;
+	//};
 }

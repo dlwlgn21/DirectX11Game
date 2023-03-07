@@ -22,6 +22,7 @@ namespace jh
 		void* GetVertexShaderBlob() { return mcpVertexShaderBlob->GetBufferPointer(); }
 		SIZE_T GetVertexShaderBlobSize() { return mcpVertexShaderBlob->GetBufferSize(); }
 		
+		void SetTopology(D3D11_PRIMITIVE_TOPOLOGY topology)						{ mPrimitiveTopology = topology; }
 		void SetRasterizerState(const graphics::eRasterizerStateType eType)		{ meRasterizerStateType = eType; }
 		void SetDepthStencilState(const graphics::eDepthStencilStateType eType) { meDepthStencilStateType = eType; }
 		void SetBlendState(const graphics::eBlendStateType eType)				{ meBlendStateType = eType; }

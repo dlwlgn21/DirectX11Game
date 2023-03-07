@@ -113,4 +113,15 @@ namespace jh::graphics
 		MATRIX,
 		COUNT
 	};
+
+	struct DebugMesh
+	{
+		eColliderType EColliderType;
+		math::Vector3 Position;
+		math::Vector3 Rotation;
+		math::Vector3 Scale;
+		float Radius;
+		float Duration;
+		float Time;
+	};
 }

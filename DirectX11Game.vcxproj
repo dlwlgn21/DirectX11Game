@@ -156,12 +156,18 @@
   <ItemGroup>
     <ClInclude Include="DirectX11Game.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="jhDebugObject.h" />
     <ClInclude Include="jhEditor.h" />
+    <ClInclude Include="jhEditorObject.h" />
+    <ClInclude Include="jhWidget.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="jhDebugObject.cpp" />
     <ClCompile Include="jhEditor.cpp" />
+    <ClCompile Include="jhEditorObject.cpp" />
+    <ClCompile Include="jhWidget.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>

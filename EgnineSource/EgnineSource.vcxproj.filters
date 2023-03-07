@@ -103,6 +103,12 @@
     <Filter Include="Component\Collider\Manager">
       <UniqueIdentifier>{83117e03-43c6-470b-af3b-43014606c709}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Collider\2D">
+      <UniqueIdentifier>{73661faf-fcae-4a8f-a86c-fb82624042ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider\3D">
+      <UniqueIdentifier>{b54a3063-f0e4-49fa-a676-9699280a8e79}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EgnineSource.cpp" />
@@ -211,11 +217,11 @@
     <ClCompile Include="Prefab.cpp">
       <Filter>Resource\Prefab</Filter>
     </ClCompile>
-    <ClCompile Include="jhCollider3D.cpp">
-      <Filter>Component\Collider</Filter>
-    </ClCompile>
     <ClCompile Include="jhCollider2D.cpp">
-      <Filter>Component\Collider</Filter>
+      <Filter>Component\Collider\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="jhCollider3D.cpp">
+      <Filter>Component\Collider\3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -340,11 +346,11 @@
     <ClInclude Include="Prefab.h">
       <Filter>Resource\Prefab</Filter>
     </ClInclude>
-    <ClInclude Include="jhCollider3D.h">
-      <Filter>Component\Collider</Filter>
-    </ClInclude>
     <ClInclude Include="jhCollider2D.h">
-      <Filter>Component\Collider</Filter>
+      <Filter>Component\Collider\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="jhCollider3D.h">
+      <Filter>Component\Collider\3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
