@@ -181,11 +181,10 @@ namespace jh
 		else
 		{
 			Vector3 centerDistanceVector = pLeftCollider->GetPosition() - pRightCollider->GetPosition();
-			centerDistanceVector.z = 0.0f;
-			float radiusSumDistance = fabsf(pLeftCollider->GetSize().x + pRightCollider->GetSize().x);
-			float centerDistance = fabsf(centerDistanceVector.Length());
+			float eachCenterDistance = fabsf(centerDistanceVector.LengthSquared());
+			float radiusSumDistance = fabsf((pLeftCollider->GetSize().x / 2) + (pRightCollider->GetSize().x / 2));
 
-			if (centerDistance <= radiusSumDistance)
+			if (eachCenterDistance <= radiusSumDistance)
 			{
 				return true;
 			}
