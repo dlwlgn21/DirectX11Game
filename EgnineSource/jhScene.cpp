@@ -86,4 +86,8 @@ namespace jh
 
 		return retGameObjects;
 	}
+	const std::vector<GameObject*>& Scene::GetAllGameObjectsFromLayer(const eLayerType eType)
+	{
+		return mLayers[static_cast<UINT>(eType)].GetGameObjects();
+	}
 }

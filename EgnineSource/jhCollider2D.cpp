@@ -1,7 +1,7 @@
 #include "jhCollider2D.h"
 #include "jhGameObject.h"
 #include "jhRenderer.h"
-
+#include "jhScript.h"
 
 namespace jh
 {
@@ -11,14 +11,14 @@ namespace jh
 		, mpTransform(nullptr)
 		, mSize(Vector2::One)
 		, mCenter(Vector2::Zero)
-		, mbIsPhysicsTrigger(false)
+		, mbIsUsePhysics(false)
 	{
 	}
 	Collider2D::~Collider2D()
 	{
 	}
 	void Collider2D::Initialize()
-	{
+	{ 
 		//mpTransform = GetOwner()->GetTransform();
 	}
 	void Collider2D::Update()
@@ -57,5 +57,71 @@ namespace jh
 	}
 	void Collider2D::Render()
 	{
+	}
+	void Collider2D::OnCollisionEnter(Collider2D* pOtherCollider)
+	{
+		const std::vector<Script*>& scripts = GetOwner()->GetScripts();
+		for (auto* pScript : scripts)
+		{
+			if (pScript != nullptr)
+			{
+				pScript->OnCollisionEnter(pOtherCollider);
+			}
+		}
+	}
+	void Collider2D::OnCollisionStay(Collider2D* pOtherCollider)
+	{
+		const std::vector<Script*>& scripts = GetOwner()->GetScripts();
+		for (auto* pScript : scripts)
+		{
+			if (pScript != nullptr)
+			{
+				pScript->OnCollisionStay(pOtherCollider);
+			}
+		}
+	}
+	void Collider2D::OnCollisionExit(Collider2D* pOtherCollider)
+	{
+		const std::vector<Script*>& scripts = GetOwner()->GetScripts();
+		for (auto* pScript : scripts)
+		{
+			if (pScript != nullptr)
+			{
+				pScript->OnCollisionExit(pOtherCollider);
+			}
+		}
+	}
+	void Collider2D::OnTriggerEnter(Collider2D* pOtherCollider)
+	{
+		const std::vector<Script*>& scripts = GetOwner()->GetScripts();
+		for (auto* pScript : scripts)
+		{
+			if (pScript != nullptr)
+			{
+				pScript->OnTriggerEnter(pOtherCollider);
+			}
+		}
+	}
+	void Collider2D::OnTriggerStay(Collider2D* pOtherCollider)
+	{
+		const std::vector<Script*>& scripts = GetOwner()->GetScripts();
+		for (auto* pScript : scripts)
+		{
+			if (pScript != nullptr)
+			{
+				pScript->OnTriggerStay(pOtherCollider);
+			}
+		}
+	}
+	void Collider2D::OnTriggerExit(Collider2D* pOtherCollider)
+	{
+		const std::vector<Script*>& scripts = GetOwner()->GetScripts();
+		for (auto* pScript : scripts)
+		{
+			if (pScript != nullptr)
+			{
+				pScript->OnTriggerExit(pOtherCollider);
+			}
+		}
 	}
 }

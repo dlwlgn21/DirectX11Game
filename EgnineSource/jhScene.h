@@ -26,7 +26,7 @@ namespace jh
 		__forceinline Layer& GetLayer(const eLayerType eType) { return mLayers[static_cast<UINT>(eType)]; }
 		eSceneType GetSceneType() const { return meSceneType; }
 		std::vector<GameObject*> GetAllLayerDontDestroyGameObjects();
-
+		const std::vector<GameObject*>& GetAllGameObjectsFromLayer(const eLayerType eType);
 	protected:
 		std::vector<Layer> mLayers;
 		eSceneType meSceneType;

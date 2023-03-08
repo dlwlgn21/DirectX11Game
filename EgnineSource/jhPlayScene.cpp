@@ -16,8 +16,9 @@
 #include "jhFadeInScript.h"
 #include "jhInput.h"
 #include "jhCollider2D.h"
-
-
+#include "jhPlayer.h"
+#include "jhMonster.h"
+ 
 namespace jh
 {
 	PlayScene::PlayScene()
@@ -48,35 +49,33 @@ namespace jh
 		pCameraUIObj->AddComponent(pCameraUIComponent);
 		pCameraUIComponent->SetName(L"UI Camera");
 
-		// Gennaro
-		GameObject* pGenaroObj = jh::object::Instantiate(eLayerType::PLAYER, Vector3(-3.0f, 0.0f, 20.0f), Vector3(0.0f, 0.0f, XM_PIDIV2));
+		// Player
+		Player* pPlayerObj = jh::object::Instantiate<Player>(eLayerType::PLAYER, Vector3(-3.0f, 0.0f, 20.0f), Vector3(0.0f, 0.0f, XM_PIDIV2));
 		MeshRenderer* pMeshRenderer = new MeshRenderer();
 		pMeshRenderer->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
 		pMeshRenderer->SetMaterial(Resources::Find<Material>(DEFAULT_MATERIAL_KEY));
-		pGenaroObj->AddComponent(pMeshRenderer);
+		pPlayerObj->AddComponent(pMeshRenderer);
 		PlayerScript* pPlayerScript = new PlayerScript();
-		pGenaroObj->AddComponent(pPlayerScript);
-		pGenaroObj->SetName(L"Genaro");
+		pPlayerObj->AddComponent(pPlayerScript);
+		pPlayerObj->SetName(L"Player");
 		Collider2D* pCollider2D = new Collider2D();
 		pCollider2D->SetType(eColliderType::RECT); 
-		pGenaroObj->AddComponent(pCollider2D);
-		object::DontDestroyOnLoad(pGenaroObj);
+		pPlayerObj->AddComponent(pCollider2D);
+		object::DontDestroyOnLoad(pPlayerObj);
 		//pCollider2D->SetSize(Vector2(1.5f, 1.5f));
 
-
-		GameObject* pGenaroObjTwo = jh::object::Instantiate(eLayerType::PLAYER, Vector3(5.0f, 0.0f, 20.0f), Vector3(0.0f, 0.0f, 0.0f));
+		// Monster
+		Monster* pMonsterObjTwo = jh::object::Instantiate<Monster>(eLayerType::MONSTER, Vector3(5.0f, 0.0f, 20.0f), Vector3(0.0f, 0.0f, 0.0f));
 		MeshRenderer* pMeshRendererTwo = new MeshRenderer();
 		pMeshRendererTwo->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
 		pMeshRendererTwo->SetMaterial(Resources::Find<Material>(DEFAULT_MATERIAL_KEY));
-		pGenaroObjTwo->AddComponent(pMeshRendererTwo);
-		PlayerScript* pPlayerScriptTwo = new PlayerScript();
+		pMonsterObjTwo->AddComponent(pMeshRendererTwo);
 
-		pGenaroObjTwo->AddComponent(pPlayerScriptTwo);
-		pGenaroObjTwo->SetName(L"GenaroTwo");
+		pMonsterObjTwo->SetName(L"Monster");
 		Collider2D* pCollider2DTwo = new Collider2D();
 		pCollider2DTwo->SetType(eColliderType::CIRCLE);
-		pGenaroObjTwo->AddComponent(pCollider2DTwo);
-		object::DontDestroyOnLoad(pGenaroObjTwo);
+		pMonsterObjTwo->AddComponent(pCollider2DTwo);
+		object::DontDestroyOnLoad(pMonsterObjTwo);
 
 		// Gennaro Child
 		//GameObject* pGenaroChild = jh::object::Instantiate(eLayerType::PLAYER, pGenaroObj->GetTransform());

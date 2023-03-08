@@ -109,6 +109,12 @@
     <Filter Include="Component\Collider\3D">
       <UniqueIdentifier>{b54a3063-f0e4-49fa-a676-9699280a8e79}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Collider\Base">
+      <UniqueIdentifier>{90b09b5a-6533-4a2a-9d1b-f7788c48343f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents">
+      <UniqueIdentifier>{e7aa98cf-e5b7-42b0-9779-ef83db56a1f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EgnineSource.cpp" />
@@ -208,10 +214,7 @@
     <ClCompile Include="jhTitleScene.cpp">
       <Filter>Scene\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="jhCollider.cpp">
-      <Filter>Component\Collider</Filter>
-    </ClCompile>
-    <ClCompile Include="jhColliderManager.cpp">
+    <ClCompile Include="jhCollisionManager.cpp">
       <Filter>Component\Collider\Manager</Filter>
     </ClCompile>
     <ClCompile Include="Prefab.cpp">
@@ -222,6 +225,15 @@
     </ClCompile>
     <ClCompile Include="jhCollider3D.cpp">
       <Filter>Component\Collider\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="jhCollider.cpp">
+      <Filter>Component\Collider\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="jhPlayer.cpp">
+      <Filter>Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="jhMonster.cpp">
+      <Filter>Contents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -337,10 +349,7 @@
     <ClInclude Include="jhTitleScene.h">
       <Filter>Scene\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="jhCollider.h">
-      <Filter>Component\Collider</Filter>
-    </ClInclude>
-    <ClInclude Include="jhColliderManager.h">
+    <ClInclude Include="jhCollisionManager.h">
       <Filter>Component\Collider\Manager</Filter>
     </ClInclude>
     <ClInclude Include="Prefab.h">
@@ -351,6 +360,15 @@
     </ClInclude>
     <ClInclude Include="jhCollider3D.h">
       <Filter>Component\Collider\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="jhCollider.h">
+      <Filter>Component\Collider\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="jhPlayer.h">
+      <Filter>Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="jhMonster.h">
+      <Filter>Contents</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -104,7 +104,7 @@ namespace jh::renderer
 		// Create RectDebugMesh
 		Mesh* pDebugMesh = new Mesh();
 		pDebugMesh->CreateVertexBuffer(vertices, VERTEX_COUNT);
-		pDebugMesh->CreateIndexBuffer(indexes.data(), indexes.size());
+		pDebugMesh->CreateIndexBuffer(indexes.data(), static_cast<UINT>(indexes.size()));
 		Resources::Insert<Mesh>(RECT_DEBUG_MESH_KEY, pDebugMesh);
 
 		// Create CircleDebugMesh
