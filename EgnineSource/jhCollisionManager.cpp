@@ -127,7 +127,13 @@ namespace jh
 		// 0 --- 1
 		// |     |
 		// 3 --- 2
+
 		static const int RECT_VECTEX_COUNT = 4;
+		Transform* pLeftTransform = pLeftCollider->GetOwner()->GetTransform();
+		Transform* pRightTransform = pRightCollider->GetOwner()->GetTransform();
+
+		const Matrix& leftWorldMat = pLeftTransform->GetWorldMatrix();
+		const Matrix& rightWorldMat = pRightTransform->GetWorldMatrix();
 
 		static const Vector3 ARR_LOCAL_POS[RECT_VECTEX_COUNT] =
 		{
@@ -136,47 +142,57 @@ namespace jh
 			Vector3{0.5f, -0.5f, 0.0f},
 			Vector3{-0.5f, -0.5f, 0.0f}
 		};
-
-		Transform* pLeftTransform = pLeftCollider->GetOwner()->GetTransform();
-		Transform* pRightTransform = pRightCollider->GetOwner()->GetTransform();
-
-		const Matrix& leftWorldMat = pLeftTransform->GetWorldMatrix();
-		const Matrix& rightWorldMat = pRightTransform->GetWorldMatrix();
-
-
-		// ∫–∏Æ√‡ ∫§≈Õ.
-		Vector3 axisVectors[RECT_VECTEX_COUNT] = {};
-		axisVectors[0] = Vector3::Transform(ARR_LOCAL_POS[1], leftWorldMat)	 -	Vector3::Transform(ARR_LOCAL_POS[0], leftWorldMat);
-		axisVectors[1] = Vector3::Transform(ARR_LOCAL_POS[3], leftWorldMat)	 -	Vector3::Transform(ARR_LOCAL_POS[0], leftWorldMat);
-		axisVectors[2] = Vector3::Transform(ARR_LOCAL_POS[1], rightWorldMat) -	Vector3::Transform(ARR_LOCAL_POS[0], rightWorldMat);
-		axisVectors[3] = Vector3::Transform(ARR_LOCAL_POS[3], rightWorldMat) -	Vector3::Transform(ARR_LOCAL_POS[0], rightWorldMat);
-		
-		for (int i = 0; i < RECT_VECTEX_COUNT; ++i)
+		if (pLeftCollider->GetColliderType() == eColliderType::RECT && pRightCollider->GetColliderType() == eColliderType::RECT)
 		{
-			axisVectors[i].z = 0.0f;
-		}
-		Vector3 centerDistanceVector = pLeftCollider->GetPosition() - pRightCollider->GetPosition();
-		centerDistanceVector.z = 0.0f;
+			// ∫–∏Æ√‡ ∫§≈Õ.
+			Vector3 axisVectors[RECT_VECTEX_COUNT] = {};
+			axisVectors[0] = Vector3::Transform(ARR_LOCAL_POS[1], leftWorldMat) - Vector3::Transform(ARR_LOCAL_POS[0], leftWorldMat);
+			axisVectors[1] = Vector3::Transform(ARR_LOCAL_POS[3], leftWorldMat) - Vector3::Transform(ARR_LOCAL_POS[0], leftWorldMat);
+			axisVectors[2] = Vector3::Transform(ARR_LOCAL_POS[1], rightWorldMat) - Vector3::Transform(ARR_LOCAL_POS[0], rightWorldMat);
+			axisVectors[3] = Vector3::Transform(ARR_LOCAL_POS[3], rightWorldMat) - Vector3::Transform(ARR_LOCAL_POS[0], rightWorldMat);
 
-		Vector3 centerDir = centerDistanceVector;
-
-		// ≈ıøµ Ω√≈¥
-		for (int i = 0; i < RECT_VECTEX_COUNT; ++i)
-		{
-			Vector3 axisDirectionVector = axisVectors[i];
-			axisDirectionVector.Normalize();
-
-			float projectionDistance = 0.0f;
-			for (int j = 0; j < RECT_VECTEX_COUNT; ++j)
+			for (int i = 0; i < RECT_VECTEX_COUNT; ++i)
 			{
-				projectionDistance += fabsf(axisVectors[j].Dot(axisDirectionVector) / 2.0f);
+				axisVectors[i].z = 0.0f;
+			}
+			Vector3 centerDistanceVector = pLeftCollider->GetPosition() - pRightCollider->GetPosition();
+			centerDistanceVector.z = 0.0f;
+			Vector3 centerDir = centerDistanceVector;
+
+			// ≈ıøµ Ω√≈¥
+			for (int i = 0; i < RECT_VECTEX_COUNT; ++i)
+			{
+				Vector3 axisDirectionVector = axisVectors[i];
+				axisDirectionVector.Normalize();
+
+				float projectionDistance = 0.0f;
+				for (int j = 0; j < RECT_VECTEX_COUNT; ++j)
+				{
+					projectionDistance += fabsf(axisVectors[j].Dot(axisDirectionVector) / 2.0f);
+				}
+
+				if (projectionDistance < fabsf(centerDir.Dot(axisDirectionVector)))
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+		else
+		{
+			Vector3 centerDistanceVector = pLeftCollider->GetPosition() - pRightCollider->GetPosition();
+			centerDistanceVector.z = 0.0f;
+			float radiusSumDistance = fabsf(pLeftCollider->GetSize().x + pRightCollider->GetSize().x);
+			float centerDistance = fabsf(centerDistanceVector.Length());
+
+			if (centerDistance <= radiusSumDistance)
+			{
+				return true;
 			}
 
-			if (projectionDistance < fabsf(centerDir.Dot(axisDirectionVector)))
-			{
-				return false;
-			}
+			return false;
 		}
+
 
 	}
 

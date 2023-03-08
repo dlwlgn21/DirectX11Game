@@ -115,6 +115,12 @@
     <Filter Include="Contents">
       <UniqueIdentifier>{e7aa98cf-e5b7-42b0-9779-ef83db56a1f5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Animator">
+      <UniqueIdentifier>{d19ba859-1a93-4ab2-a356-f15f1a4122f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Animation">
+      <UniqueIdentifier>{db369017-37b2-4827-81d5-073ec34191d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EgnineSource.cpp" />
@@ -234,6 +240,12 @@
     </ClCompile>
     <ClCompile Include="jhMonster.cpp">
       <Filter>Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="jhAnimation.cpp">
+      <Filter>Component\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="jhAnimator.cpp">
+      <Filter>Component\Animator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -369,6 +381,12 @@
     </ClInclude>
     <ClInclude Include="jhMonster.h">
       <Filter>Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="jhAnimation.h">
+      <Filter>Component\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="jhAnimator.h">
+      <Filter>Component\Animator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -51,7 +51,7 @@ namespace jh
 		pCameraUIComponent->SetName(L"UI Camera");
 
 		// Player
-		Player* pPlayerObj = jh::object::Instantiate<Player>(eLayerType::PLAYER, Vector3(-3.0f, 0.0f, 20.0f), Vector3(0.0f, 0.0f, XM_PIDIV2));
+		Player* pPlayerObj = jh::object::Instantiate<Player>(eLayerType::PLAYER, Vector3(-3.0f, 0.0f, 20.0f), Vector3(0.0f, 0.0f, 0.0f));
 		MeshRenderer* pMeshRenderer = new MeshRenderer();
 		pMeshRenderer->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
 		pMeshRenderer->SetMaterial(Resources::Find<Material>(DEFAULT_MATERIAL_KEY));
@@ -60,14 +60,14 @@ namespace jh
 		pPlayerObj->AddComponent(pPlayerScript);
 		pPlayerObj->SetName(L"Player");
 		Collider2D* pCollider2D = new Collider2D();
-		pCollider2D->SetType(eColliderType::RECT); 
+		pCollider2D->SetType(eColliderType::CIRCLE); 
 		pPlayerObj->AddComponent(pCollider2D);
 		object::DontDestroyOnLoad(pPlayerObj);
 		//pCollider2D->SetSize(Vector2(1.5f, 1.5f));
 
 		// Monster
 		Monster* pMonsterObjTwo = jh::object::Instantiate<Monster>(eLayerType::MONSTER, Vector3(5.0f, 0.0f, 20.0f), Vector3(0.0f, 0.0f, 0.0f));
-		pMonsterObjTwo->GetTransform()->SetRotation(Vector3(pMonsterObjTwo->GetTransform()->GetRotation().x, pMonsterObjTwo->GetTransform()->GetRotation().y, XM_PIDIV2 / 2.0f));
+		//pMonsterObjTwo->GetTransform()->SetRotation(Vector3(pMonsterObjTwo->GetTransform()->GetRotation().x, pMonsterObjTwo->GetTransform()->GetRotation().y, XM_PIDIV2 / 2.0f));
 		MeshRenderer* pMeshRendererTwo = new MeshRenderer();
 		pMeshRendererTwo->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
 		pMeshRendererTwo->SetMaterial(Resources::Find<Material>(DEFAULT_MATERIAL_KEY));
@@ -75,7 +75,7 @@ namespace jh
 
 		pMonsterObjTwo->SetName(L"Monster");
 		Collider2D* pCollider2DTwo = new Collider2D();
-		pCollider2DTwo->SetType(eColliderType::RECT);
+		pCollider2DTwo->SetType(eColliderType::CIRCLE);
 		pMonsterObjTwo->AddComponent(pCollider2DTwo);
 		object::DontDestroyOnLoad(pMonsterObjTwo);
 

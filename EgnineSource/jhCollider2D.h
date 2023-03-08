@@ -16,7 +16,9 @@ namespace jh
 		void Render() override;
 
 		void SetType(const eColliderType eType) { meColliderType = eType; }
+		eColliderType GetColliderType() const	{ return meColliderType; }
 		void SetSize(const Vector2 size)		{ mSize = size; }
+		Vector2 GetSize() const					{ return mSize; }
 		void SetCenter(const Vector2 center)	{ mCenter = center; }
 		bool GetIsUsePhysics() const			{ return mbIsUsePhysics; }
 		UINT GetColliderID() const				{ return mUniqueColliderNumber; }
