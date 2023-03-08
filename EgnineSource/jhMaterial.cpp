@@ -60,8 +60,11 @@ namespace jh
 	}
 	void Material::BindConstantBufferAndShaderAndSetTextureSRVAtShader()
 	{
-		assert(mpTexture != nullptr);
-		mpTexture->SetShaderResourceView(eShaderStage::PIXEL_SHADER, 0);
+		//assert(mpTexture != nullptr);
+		if (mpTexture != nullptr)
+		{
+			mpTexture->SetShaderResourceView(eShaderStage::PIXEL_SHADER, 0);
+		}
 
 		ConstantBuffer* pConstantBuffer = renderer::pConstantBuffers[static_cast<UINT>(eConstantBufferType::MATERIAL)];
 		assert(pConstantBuffer != nullptr);

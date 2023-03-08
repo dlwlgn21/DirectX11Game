@@ -1,5 +1,7 @@
 #include "jhLayer.h"
 #include "jhGameObject.h"
+#include "jhRenderer.h"
+#include "jhTransform.h"
 
 constexpr const int MAX_GAME_OBJECT_COUNT = 128;
 namespace jh
@@ -45,6 +47,7 @@ namespace jh
 				{continue;}
 			pGameObj->FixedUpdate();
 		}
+
 	}
 
 	void Layer::Render()

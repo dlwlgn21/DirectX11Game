@@ -16,30 +16,30 @@ namespace jh
 		mScenes[static_cast<UINT>(eSceneType::TITLE)] = new TitleScene();
 		mScenes[static_cast<UINT>(eSceneType::PLAY)] = new PlayScene();
 
-		mpPlayScene = mScenes[static_cast<UINT>(eSceneType::PLAY)];
+		mpCurrentScene = mScenes[static_cast<UINT>(eSceneType::PLAY)];
 
-		mpPlayScene->Initalize();
+		mpCurrentScene->Initalize();
 		mScenes[static_cast<UINT>(eSceneType::TITLE)]->Initalize();
 	}
 
 	void SceneManager::Update()
 	{
-		mpPlayScene->Update();
+		mpCurrentScene->Update();
 	}
 
 	void SceneManager::FixedUpdate()
 	{
-		mpPlayScene->FixedUpdate();
+		mpCurrentScene->FixedUpdate();
 	}
 
 	void SceneManager::Render()
 	{
-		mpPlayScene->Render();
+		mpCurrentScene->Render();
 	}
 
 	void SceneManager::Destroy()
 	{
-		mpPlayScene->Destroy();
+		mpCurrentScene->Destroy();
 	}
 
 	void SceneManager::Release()
@@ -61,21 +61,21 @@ namespace jh
 
 	void SceneManager::LoadScene(eSceneType eType)
 	{
-		assert(mpPlayScene != nullptr);
-		mpPlayScene->OnExit();
+		assert(mpCurrentScene != nullptr);
+		mpCurrentScene->OnExit();
 
 		// 씬이 바뀔때, Dontdestroy 오브젝트는 다음씬으로 같이 넘겨주어야 함.
-		std::vector<GameObject*> allLayerDondestroyGameObjects = mpPlayScene->GetAllLayerDontDestroyGameObjects();
-		mpPlayScene = mScenes[static_cast<UINT>(eType)];
+		std::vector<GameObject*> allLayerDondestroyGameObjects = mpCurrentScene->GetAllLayerDontDestroyGameObjects();
+		mpCurrentScene = mScenes[static_cast<UINT>(eType)];
 
 		for (auto* pGameObject : allLayerDondestroyGameObjects)
 		{
 			assert(pGameObject != nullptr);
-			mpPlayScene->AddGameObject(pGameObject, pGameObject->GetLayerType());
+			mpCurrentScene->AddGameObject(pGameObject, pGameObject->GetLayerType());
 		}
 
-		assert(mpPlayScene != nullptr);
-		mpPlayScene->OnEnter();
+		assert(mpCurrentScene != nullptr);
+		mpCurrentScene->OnEnter();
 	}
 
 }

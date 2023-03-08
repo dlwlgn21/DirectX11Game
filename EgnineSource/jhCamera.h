@@ -15,8 +15,10 @@ namespace jh
 			COUNT
 		};
 
-		__forceinline static const Matrix& GetViewMatrix()			{ return sViewMat; }
-		__forceinline static const Matrix& GetProjectionMatrix()	{ return sProjectionMat; }
+		__forceinline static const Matrix& GetGPUViewMatrix()			{ return sViewMat; }
+		__forceinline static const Matrix& GetGPUProjectionMatrix()	{ return sProjectionMat; }
+		__forceinline static void SetGPUViewMatrix(Matrix viewMat) { sViewMat = viewMat; }
+		__forceinline static void SetGPUProjectionMatrix(Matrix progectionMat) { sProjectionMat = progectionMat; }
 
 		Camera();
 		virtual ~Camera() = default;
@@ -37,6 +39,9 @@ namespace jh
 
 		__forceinline float GetScale() const { return mScale; }
 		void registerCameraAtRenderer();
+
+		__forceinline const Matrix& GetViewMatrix() { return mViewMat; }
+		__forceinline const Matrix& GetProjectionMatrix() { return mProjectionMat; }
 
 	private:
 		void sortGameObjects();

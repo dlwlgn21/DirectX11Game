@@ -58,7 +58,7 @@ namespace jh::renderer
 	extern Microsoft::WRL::ComPtr<ID3D11BlendState>			cpBlendStates[];
 	extern std::vector<Camera*>								pCameras[];
 	extern std::vector<DebugMesh>							debugMeshs;
-
+	extern Camera*											pMainCamera;
 
 	extern const std::wstring RECT_SHADER_KEY;
 	extern const std::wstring SPRITE_SHADER_KEY;
@@ -80,7 +80,8 @@ namespace jh::renderer
 	extern const std::wstring DEBUG_MATERIAL_KEY;
 
 	extern const std::wstring RECT_MESH_KEY;
-	extern const std::wstring CIRCLE_MESH_KEY;
+	extern const std::wstring RECT_DEBUG_MESH_KEY;
+	extern const std::wstring CIRCLE_DEBUG_MESH_KEY;
 
 	__forceinline void ifFailed(HRESULT hr) { if (FAILED(hr)) { assert(false); } }
 	void Initialize();

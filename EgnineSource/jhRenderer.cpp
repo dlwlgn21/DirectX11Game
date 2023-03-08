@@ -7,7 +7,6 @@
 using namespace jh::graphics;
 namespace jh::renderer
 {
-
 	Vertex											vertices[VERTEX_COUNT]{};
 	ConstantBuffer*									pConstantBuffers[static_cast<UINT>(eConstantBufferType::COUNT)] = {};
 	Microsoft::WRL::ComPtr<ID3D11SamplerState>		cpSamplerStates[static_cast<UINT>(graphics::eSamplerType::COUNT)] = {};
@@ -16,14 +15,7 @@ namespace jh::renderer
 	Microsoft::WRL::ComPtr<ID3D11BlendState>		cpBlendStates[static_cast<UINT>(graphics::eBlendStateType::COUNT)] = {};
 	std::vector<Camera*>							pCameras[static_cast<UINT>(eSceneType::COUNT)];
 	std::vector<DebugMesh>							debugMeshs;
-
-	/*
-	Resources::Load<Texture>(L"GennaroTexture", L"Gennaro.bmp");
-		Resources::Load<Texture>(L"DefaultTexture", L"DefaultTexture.png");
-		Resources::Load<Texture>(L"HPBarTexture", L"HPBar.png");
-	
-	*/
-
+	Camera*											pMainCamera = nullptr;
 
 	static const std::wstring RECT_SHADER_KEY = L"RectShader";
 	static const std::wstring SPRITE_SHADER_KEY = L"SpriteShader";
@@ -45,33 +37,37 @@ namespace jh::renderer
 	static const std::wstring DEBUG_MATERIAL_KEY = L"DebugMaterial";
 
 	static const std::wstring RECT_MESH_KEY = L"RectMesh";
-	static const std::wstring CIRCLE_MESH_KEY = L"CircleMesh";
+	static const std::wstring RECT_DEBUG_MESH_KEY = L"RectDebugMesh";
+	static const std::wstring CIRCLE_DEBUG_MESH_KEY = L"CircleDebugMesh";
 
 	__forceinline void CreateMeshAndVertexAndIndexBuffer()
 	{
-		const int SLICE_COUNT = 40;
+		const int SLICE_COUNT = 80;
 		float radius = 0.5f;
 		float theta = XM_2PI / SLICE_COUNT;
 
-		vertices[0].Position = Vector4(-0.5f, 0.5f, 0.5f, 1.0f);
+		vertices[0].Position = Vector4(-0.5f, 0.5f, 0.0f, 1.0f);
 		vertices[0].Color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
 		vertices[0].UV = Vector2(0.0f, 0.0f);
 
-		vertices[1].Position = Vector4(0.5f, 0.5f, 0.5f, 1.0f);
+		vertices[1].Position = Vector4(0.5f, 0.5f, 0.0f, 1.0f);
 		vertices[1].Color = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
 		vertices[1].UV = Vector2(1.0f, 0.f);
 
-		vertices[2].Position = Vector4(0.5f, -0.5f, 0.5f, 1.0f);
+		vertices[2].Position = Vector4(0.5f, -0.5f, 0.0f, 1.0f);
 		vertices[2].Color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
 		vertices[2].UV = Vector2(1.0f, 1.0f);
 
-		vertices[3].Position = Vector4(-0.5f, -0.5f, 0.5f, 1.0f);
+		vertices[3].Position = Vector4(-0.5f, -0.5f, 0.0f, 1.0f);
 		vertices[3].Color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
 		vertices[3].UV = Vector2(0.0f, 1.0f);
 
 		Mesh* pMesh = new Mesh();
 		Resources::Insert<Mesh>(RECT_MESH_KEY, pMesh);
 		pMesh->CreateVertexBuffer(vertices, VERTEX_COUNT);
+
+
+
 		// ÀÎµ¦½º ¹öÆÛ
 		std::vector<UINT> indexes;
 		indexes.reserve(SLICE_COUNT);
@@ -82,14 +78,40 @@ namespace jh::renderer
 		indexes.push_back(0);
 		indexes.push_back(2);
 		indexes.push_back(3);
+		indexes.push_back(0);
 
 		pMesh->CreateIndexBuffer(indexes.data(), static_cast<UINT>(indexes.size()));
 
-		// Circle Mesh
+
+
+		vertices[0].Position = Vector4(-0.5f, 0.5f, -0.01f, 1.0f);
+		vertices[0].Color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+		vertices[0].UV = Vector2(0.0f, 0.0f);
+
+		vertices[1].Position = Vector4(0.5f, 0.5f, -0.01f, 1.0f);
+		vertices[1].Color = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+		vertices[1].UV = Vector2(1.0f, 0.f);
+
+		vertices[2].Position = Vector4(0.5f, -0.5f, -0.01f, 1.0f);
+		vertices[2].Color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+		vertices[2].UV = Vector2(1.0f, 1.0f);
+
+		vertices[3].Position = Vector4(-0.5f, -0.5f, -0.01f, 1.0f);
+		vertices[3].Color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+		vertices[3].UV = Vector2(0.0f, 1.0f);
+
+
+		// Create RectDebugMesh
+		Mesh* pDebugMesh = new Mesh();
+		pDebugMesh->CreateVertexBuffer(vertices, VERTEX_COUNT);
+		pDebugMesh->CreateIndexBuffer(indexes.data(), indexes.size());
+		Resources::Insert<Mesh>(RECT_DEBUG_MESH_KEY, pDebugMesh);
+
+		// Create CircleDebugMesh
 		std::vector<Vertex> circleVertexs;
 
 		Vertex center = {};
-		center.Position = Vector4(0.0f, 0.0f, 0.0f, 1.0f);
+		center.Position = Vector4(0.0f, 0.0f, -0.1f, 1.0f);
 		center.Color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
 		circleVertexs.reserve(SLICE_COUNT + 2);
 		circleVertexs.push_back(center);
@@ -100,7 +122,7 @@ namespace jh::renderer
 			vertex.Position = Vector4(
 				radius * cosf(theta * i),
 				radius * sinf(theta * i),
-				0.0f,
+				-0.1f,
 				1.0f
 			);
 			vertex.Color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
@@ -108,14 +130,14 @@ namespace jh::renderer
 		}
 
 		indexes.clear();
-		for (UINT i = 1; i < SLICE_COUNT - 2; ++i)
+		for (UINT i = 0; i < SLICE_COUNT - 2; ++i)
 		{
-			indexes.push_back(i);
+			indexes.push_back(i + 1);
 		}
 		indexes.push_back(1);
 
 		Mesh* pCircleMesh = new Mesh();
-		Resources::Insert<Mesh>(CIRCLE_MESH_KEY, pCircleMesh);
+		Resources::Insert<Mesh>(CIRCLE_DEBUG_MESH_KEY, pCircleMesh);
 		pCircleMesh->CreateVertexBuffer(circleVertexs.data(), static_cast<UINT>(circleVertexs.size()));
 		pCircleMesh->CreateIndexBuffer(indexes.data(), static_cast<UINT>(indexes.size()));
 
@@ -170,7 +192,6 @@ namespace jh::renderer
 		pDebugShader->SetBlendState(eBlendStateType::ALPHA_BLEND);
 		pDebugShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
 		Resources::Insert<Shader>(DEBUG_SHADER_KEY, pDebugShader);
-
 	}
 
 	__forceinline void SetupInputLayout()
@@ -366,24 +387,6 @@ namespace jh::renderer
 		GetDevice()->CreateBlendState(&blendDesc, cpBlendStates[static_cast<UINT>(eBlendStateType::ONE_ONE)].GetAddressOf());
 	}
 
-	//__forceinline void CreateVertexAndIndexBuffer()
-	//{
-	//	Mesh* pMesh = new Mesh();
-	//	Resources::Insert<Mesh>(RECT_MESH_KEY, pMesh);
-	//	pMesh->CreateVertexBuffer(vertices, VERTEX_COUNT);
-	//	// ÀÎµ¦½º ¹öÆÛ
-	//	std::vector<UINT> indexes;
-	//	indexes.push_back(0);
-	//	indexes.push_back(1);
-	//	indexes.push_back(2);
-
-	//	indexes.push_back(0);
-	//	indexes.push_back(2);
-	//	indexes.push_back(3);
-
-	//	pMesh->CreateIndexBuffer(indexes.data(), static_cast<UINT>(indexes.size()));
-	//}
-
 	__forceinline void CreateConstantBuffer()
 	{
 		pConstantBuffers[static_cast<UINT>(eConstantBufferType::TRANSFORM)] = new ConstantBuffer(eConstantBufferType::TRANSFORM);
@@ -440,16 +443,17 @@ namespace jh::renderer
 
 		// Debug
 		Material* pDebugMaterial = new Material();
+		pDebugMaterial->SetRenderingMode(eRenderingMode::TRANSPARENTT);
 		pDebugMaterial->SetShader(Resources::Find<Shader>(DEBUG_SHADER_KEY));
 		Resources::Insert<Material>(DEBUG_MATERIAL_KEY, pDebugMaterial);
 	}
 
 	__forceinline void CreateTexture()
 	{
-		Resources::Load<Texture>(GENNARO_TEXTURE_KEY, L"Gennaro.bmp");
-		Resources::Load<Texture>(DEFAULT_TEXTURE_KEY, L"DefaultTexture.png");
-		Resources::Load<Texture>(HPBAR_TEXTURE_KEY, L"HPBar.png");
-		Resources::Load<Texture>(FADE_OUT_TEXTURE_KEY, L"FadeOutTexture.png");
+		Resources::Load<Texture>(GENNARO_TEXTURE_KEY,	L"Gennaro.bmp");
+		Resources::Load<Texture>(DEFAULT_TEXTURE_KEY,	L"DefaultTexture.png");
+		Resources::Load<Texture>(HPBAR_TEXTURE_KEY,		L"HPBar.png");
+		Resources::Load<Texture>(FADE_OUT_TEXTURE_KEY,	L"FadeOutTexture.png");
 	}
 
 	void Initialize()
@@ -465,7 +469,6 @@ namespace jh::renderer
 		CreateSamplerState();
 		CreateRasterizerDepthStencilBlendState();
 		SetupInputLayout();
-		//CreateVertexAndIndexBuffer();
 		CreateConstantBuffer();
 		CreateTexture();
 		CreateMeterial();

@@ -6,10 +6,13 @@ namespace jh
 	class EditorObject : public GameObject
 	{
 	public:
-		void Run()
-		{
-			int a = 0;
-		}
+		EditorObject();
+		virtual ~EditorObject() = default;
+
+		virtual void Initialize();
+		virtual void Update();
+		virtual void FixedUpdate();
+		virtual void Render();
 	private:
 	};
 }

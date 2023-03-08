@@ -4,12 +4,24 @@
 #include "jhGameObject.h"
 #include "jhSceneManager.h"
 #include "jhTransform.h"
+#include "..\jhEditorObject.h"
 
 namespace jh::object
 {
 	static GameObject* Instantiate(eLayerType eLayer)
 	{
 		GameObject* pGameObj = new GameObject();
+		Scene* pScene = SceneManager::GetInatance().GetCurrentScene();
+		assert(pScene != nullptr);
+		Layer& layer = pScene->GetLayer(eLayer);
+
+		layer.AddGameObject(pGameObj, eLayer);
+		return pGameObj;
+	}
+
+	static EditorObject* InstantiateEditorObject(eLayerType eLayer)
+	{
+		EditorObject* pGameObj = new EditorObject();
 		Scene* pScene = SceneManager::GetInatance().GetCurrentScene();
 		assert(pScene != nullptr);
 		Layer& layer = pScene->GetLayer(eLayer);

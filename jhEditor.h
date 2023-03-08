@@ -23,7 +23,7 @@ namespace jh
 		void Update();
 		void FixedUpdate();
 		void Render();
-		void DebugRender(graphics::DebugMesh& mesh);
+		void DebugRender(const graphics::DebugMesh& mesh);
 		void Destroy();
 		void Release();
 

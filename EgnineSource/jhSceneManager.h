@@ -22,14 +22,14 @@ namespace jh
 		void Destroy();
 		void Release();
 		void LoadScene(eSceneType eType);
-		Scene* GetCurrentScene() const { return mpPlayScene; }
-		eSceneType GetSceneCurrSceneType() const { mpPlayScene->GetSceneType(); }
+		Scene* GetCurrentScene() const { return mpCurrentScene; }
+		eSceneType GetSceneCurrSceneType() const { mpCurrentScene->GetSceneType(); }
 
 
 	private:
 		~SceneManager() = default;
 		SceneManager()
-			: mpPlayScene(nullptr)
+			: mpCurrentScene(nullptr)
 		{
 			mScenes.reserve(static_cast<UINT>(eSceneType::COUNT));
 			mScenes.resize(static_cast<UINT>(eSceneType::COUNT));
@@ -38,6 +38,6 @@ namespace jh
 
 	private:
 		std::vector<Scene*> mScenes;
-		Scene* mpPlayScene;
+		Scene* mpCurrentScene;
 	};
 }

@@ -23,7 +23,6 @@ namespace jh
 	}
 	void GridScript::FixedUpdate()
 	{
-		mpCamera = renderer::pCameras[static_cast<UINT>(SceneManager::GetInatance().GetCurrentScene()->GetSceneType())][0];
 		if (mpCamera == nullptr)
 		{
 			return;

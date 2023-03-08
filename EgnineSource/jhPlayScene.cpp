@@ -15,6 +15,8 @@
 #include "jhFadeOutScript.h"
 #include "jhFadeInScript.h"
 #include "jhInput.h"
+#include "jhCollider2D.h"
+
 
 namespace jh
 {
@@ -27,16 +29,6 @@ namespace jh
 	}
 	void PlayScene::Initalize()
 	{
-		// Grid Object
-		GameObject* pGridObj = jh::object::Instantiate(eLayerType::GRID);
-		Material* pGridMaterial = Resources::Find<Material>(GRID_MATERIAL_KEY);
-		pGridMaterial->SetTexture(Resources::Find<Texture>(DEFAULT_TEXTURE_KEY));
-		MeshRenderer* pGridMeshRenderer = new MeshRenderer();
-		pGridMeshRenderer->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
-		pGridMeshRenderer->SetMaterial(pGridMaterial);
-		pGridObj->AddComponent(pGridMeshRenderer);
-		pGridObj->AddComponent(new GridScript());
-
 		// Camera Game Obj
 		GameObject* pCameraObj = jh::object::Instantiate(eLayerType::CAMERA);
 		Camera* pCameraComponent = new Camera();
@@ -45,6 +37,7 @@ namespace jh
 		pCameraComponent->TurnLayerMasks(eLayerType::UI, false);
 		pCameraObj->AddComponent(new CameraScript());
 		pCameraComponent->SetName(L"Main Camera");
+		renderer::pMainCamera = pCameraComponent;
 
 		//Camera UI Game Obj
 		GameObject* pCameraUIObj = jh::object::Instantiate(eLayerType::CAMERA);
@@ -64,37 +57,57 @@ namespace jh
 		PlayerScript* pPlayerScript = new PlayerScript();
 		pGenaroObj->AddComponent(pPlayerScript);
 		pGenaroObj->SetName(L"Genaro");
+		Collider2D* pCollider2D = new Collider2D();
+		pCollider2D->SetType(eColliderType::RECT); 
+		pGenaroObj->AddComponent(pCollider2D);
 		object::DontDestroyOnLoad(pGenaroObj);
+		//pCollider2D->SetSize(Vector2(1.5f, 1.5f));
 
+
+		GameObject* pGenaroObjTwo = jh::object::Instantiate(eLayerType::PLAYER, Vector3(5.0f, 0.0f, 20.0f), Vector3(0.0f, 0.0f, 0.0f));
+		MeshRenderer* pMeshRendererTwo = new MeshRenderer();
+		pMeshRendererTwo->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
+		pMeshRendererTwo->SetMaterial(Resources::Find<Material>(DEFAULT_MATERIAL_KEY));
+		pGenaroObjTwo->AddComponent(pMeshRendererTwo);
+		PlayerScript* pPlayerScriptTwo = new PlayerScript();
+
+		pGenaroObjTwo->AddComponent(pPlayerScriptTwo);
+		pGenaroObjTwo->SetName(L"GenaroTwo");
+		Collider2D* pCollider2DTwo = new Collider2D();
+		pCollider2DTwo->SetType(eColliderType::CIRCLE);
+		pGenaroObjTwo->AddComponent(pCollider2DTwo);
+		object::DontDestroyOnLoad(pGenaroObjTwo);
 
 		// Gennaro Child
-		GameObject* pGenaroChild = jh::object::Instantiate(eLayerType::PLAYER, pGenaroObj->GetTransform());
-		Transform* pChildTransform = pGenaroChild->GetTransform();
-		pChildTransform->SetPosition(Vector3(-2.0f, 0.0f, 0.0f));
-		MeshRenderer* pGenaroChildMeshRenderer = new MeshRenderer();
-		pGenaroChildMeshRenderer->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
-		pGenaroChildMeshRenderer->SetMaterial(Resources::Find<Material>(DEFAULT_MATERIAL_KEY));
-		pGenaroChild->AddComponent(pGenaroChildMeshRenderer);
+		//GameObject* pGenaroChild = jh::object::Instantiate(eLayerType::PLAYER, pGenaroObj->GetTransform());
+		//Transform* pChildTransform = pGenaroChild->GetTransform();
+		//pChildTransform->SetPosition(Vector3(-2.0f, 0.0f, 0.0f));
+		//MeshRenderer* pGenaroChildMeshRenderer = new MeshRenderer();
+		//pGenaroChildMeshRenderer->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
+		//pGenaroChildMeshRenderer->SetMaterial(Resources::Find<Material>(DEFAULT_MATERIAL_KEY));
+		//pGenaroChild->AddComponent(pGenaroChildMeshRenderer);
 
 
 		// Sprite
-		GameObject* pSriteObj = jh::object::Instantiate(eLayerType::PLAYER, Vector3(10.0f, 0.0f, 20.0f), Vector3::Zero);
+		//GameObject* pSriteObj = jh::object::Instantiate(eLayerType::PLAYER, Vector3(10.0f, 0.0f, 20.0f), Vector3::Zero);
 
-		SpriteRenderer* pSpriteRenderer = new SpriteRenderer;
-		pSpriteRenderer->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
-		Material* pSpriteMaterial = Resources::Find<Material>(SPRITE_MATERIAL_KEY);
-		assert(pSpriteMaterial != nullptr);
-		pSpriteMaterial->SetRenderingMode(eRenderingMode::TRANSPARENTT);
-		pSpriteRenderer->SetMaterial(pSpriteMaterial);
-		pSriteObj->AddComponent(pSpriteRenderer);
-
+		//SpriteRenderer* pSpriteRenderer = new SpriteRenderer;
+		//pSpriteRenderer->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
+		//Material* pSpriteMaterial = Resources::Find<Material>(SPRITE_MATERIAL_KEY);
+		//assert(pSpriteMaterial != nullptr);
+		//pSpriteMaterial->SetRenderingMode(eRenderingMode::TRANSPARENTT);
+		//pSpriteRenderer->SetMaterial(pSpriteMaterial);
+		//pSriteObj->AddComponent(pSpriteRenderer);
+		//Collider2D* pSpriteCollider2D = new Collider2D();
+		//pSpriteCollider2D->SetType(eColliderType::RECT);
+		//pSriteObj->AddComponent(pSpriteCollider2D);
 
 		// HPBar
 		GameObject* pHPBarObj = jh::object::Instantiate(eLayerType::UI, Vector3(-1.0f, 0.0f, 20.0f), Vector3::Zero);
 		Transform* pHPTransform = pHPBarObj->GetTransform();
 		pHPTransform->SetScale(Vector3(2.0f, 1.0f, 20.0f));
 
-		// SetMaterial
+		//// SetMaterial
 		Material* pHPBarMaterial = Resources::Find<Material>(UI_MATERIAL_KEY);
 		MeshRenderer* pHPBarMeshRenderer = new MeshRenderer();
 		pHPBarMeshRenderer->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
@@ -103,17 +116,17 @@ namespace jh
 
 
 		// Fadeout
-		GameObject* pFadeOut = jh::object::Instantiate(eLayerType::PLAYER);
-		Material* pFadeOutMaterial = Resources::Find<Material>(FADE_OUT_MATERIAL_KEY);
-		MeshRenderer* pFadeOutRenderer = new MeshRenderer();
-		//FadeoutScript* pFadeoutScript = new FadeoutScript();
-		FadeinScript* pFadeInScript = new FadeinScript();
-		pFadeOutRenderer->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
-		pFadeOutRenderer->SetMaterial(pFadeOutMaterial);
-		pFadeOut->AddComponent(pFadeOutRenderer);
-		pFadeOut->AddComponent(pFadeInScript);
-		Scene::Initalize();
+		//GameObject* pFadeOut = jh::object::Instantiate(eLayerType::PLAYER);
+		//Material* pFadeOutMaterial = Resources::Find<Material>(FADE_OUT_MATERIAL_KEY);
+		//MeshRenderer* pFadeOutRenderer = new MeshRenderer();
+		////FadeoutScript* pFadeoutScript = new FadeoutScript();
+		//FadeinScript* pFadeInScript = new FadeinScript();
+		//pFadeOutRenderer->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
+		//pFadeOutRenderer->SetMaterial(pFadeOutMaterial);
+		//pFadeOut->AddComponent(pFadeOutRenderer);
+		//pFadeOut->AddComponent(pFadeInScript);
 
+		Scene::Initalize();
 	}
 	void PlayScene::Update()
 	{

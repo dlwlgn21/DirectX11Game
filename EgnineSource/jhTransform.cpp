@@ -77,8 +77,8 @@ namespace jh
 		renderer::TransformConstantBuffer transformConstantBuffer;
 		ZeroMemory(&transformConstantBuffer, sizeof(renderer::TransformConstantBuffer));
 		transformConstantBuffer.WroldMat = mWorldMat;
-		transformConstantBuffer.ViewMat = Camera::GetViewMatrix();
-		transformConstantBuffer.ProjectionMat = Camera::GetProjectionMatrix();
+		transformConstantBuffer.ViewMat = Camera::GetGPUViewMatrix();
+		transformConstantBuffer.ProjectionMat = Camera::GetGPUProjectionMatrix();
 
 		pConstantBuffer->WriteConstantBufferAtGPU(&transformConstantBuffer);
 		pConstantBuffer->SetConstantBufferAtShader(eShaderStage::VERTEX_SHADER);
