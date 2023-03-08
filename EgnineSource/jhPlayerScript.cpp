@@ -59,6 +59,7 @@ namespace jh
 	}
 	void PlayerScript::OnCollisionEnter(Collider2D* pOtherCollider)
 	{
+		int a = 0;
 	}
 	void PlayerScript::OnCollisionStay(Collider2D* pOtherCollider)
 	{
@@ -68,11 +69,14 @@ namespace jh
 	}
 	void PlayerScript::OnTriggerEnter(Collider2D* pOtherCollider)
 	{
+		int a = 0;
 	}
 	void PlayerScript::OnTriggerStay(Collider2D* pOtherCollider)
 	{
+		int a = 0;
 	}
 	void PlayerScript::OnTriggerExit(Collider2D* pOtherCollider)
 	{
+		int a = 0;
 	}
 }

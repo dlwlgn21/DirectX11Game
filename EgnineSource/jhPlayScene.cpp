@@ -18,7 +18,8 @@
 #include "jhCollider2D.h"
 #include "jhPlayer.h"
 #include "jhMonster.h"
- 
+#include "jhCollisionManager.h"
+
 namespace jh
 {
 	PlayScene::PlayScene()
@@ -66,6 +67,7 @@ namespace jh
 
 		// Monster
 		Monster* pMonsterObjTwo = jh::object::Instantiate<Monster>(eLayerType::MONSTER, Vector3(5.0f, 0.0f, 20.0f), Vector3(0.0f, 0.0f, 0.0f));
+		pMonsterObjTwo->GetTransform()->SetRotation(Vector3(pMonsterObjTwo->GetTransform()->GetRotation().x, pMonsterObjTwo->GetTransform()->GetRotation().y, XM_PIDIV2 / 2.0f));
 		MeshRenderer* pMeshRendererTwo = new MeshRenderer();
 		pMeshRendererTwo->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
 		pMeshRendererTwo->SetMaterial(Resources::Find<Material>(DEFAULT_MATERIAL_KEY));
@@ -73,7 +75,7 @@ namespace jh
 
 		pMonsterObjTwo->SetName(L"Monster");
 		Collider2D* pCollider2DTwo = new Collider2D();
-		pCollider2DTwo->SetType(eColliderType::CIRCLE);
+		pCollider2DTwo->SetType(eColliderType::RECT);
 		pMonsterObjTwo->AddComponent(pCollider2DTwo);
 		object::DontDestroyOnLoad(pMonsterObjTwo);
 
@@ -124,7 +126,7 @@ namespace jh
 		//pFadeOutRenderer->SetMaterial(pFadeOutMaterial);
 		//pFadeOut->AddComponent(pFadeOutRenderer);
 		//pFadeOut->AddComponent(pFadeInScript);
-
+		CollisionManager::GetInstance().CollisionLayerCheck(eLayerType::PLAYER, eLayerType::MONSTER, true);
 		Scene::Initalize();
 	}
 	void PlayScene::Update()

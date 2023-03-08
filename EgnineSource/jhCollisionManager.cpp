@@ -52,8 +52,8 @@ namespace jh
 	void CollisionManager::CheckValidColliderCollision(Collider2D* pLeftCollider, Collider2D* pRightCollider)
 	{
 		ColliderID colliderID;
-		colliderID.Left = reinterpret_cast<UINT32>(pLeftCollider);
-		colliderID.Right = reinterpret_cast<UINT32>(pRightCollider);
+		colliderID.Left = static_cast<UINT32>(pLeftCollider->GetColliderID());
+		colliderID.Right = static_cast<UINT32>(pRightCollider->GetColliderID());
 
 		// 이젠 충돌 정보를 검색.
 
@@ -123,7 +123,61 @@ namespace jh
 
 	bool CollisionManager::Intersect(Collider2D* pLeftCollider, Collider2D* pRightCollider)
 	{
-		return true;
+		// RECT
+		// 0 --- 1
+		// |     |
+		// 3 --- 2
+		static const int RECT_VECTEX_COUNT = 4;
+
+		static const Vector3 ARR_LOCAL_POS[RECT_VECTEX_COUNT] =
+		{
+			Vector3{-0.5f, 0.5f, 0.0f},
+			Vector3{0.5f, 0.5f, 0.0f},
+			Vector3{0.5f, -0.5f, 0.0f},
+			Vector3{-0.5f, -0.5f, 0.0f}
+		};
+
+		Transform* pLeftTransform = pLeftCollider->GetOwner()->GetTransform();
+		Transform* pRightTransform = pRightCollider->GetOwner()->GetTransform();
+
+		const Matrix& leftWorldMat = pLeftTransform->GetWorldMatrix();
+		const Matrix& rightWorldMat = pRightTransform->GetWorldMatrix();
+
+
+		// 분리축 벡터.
+		Vector3 axisVectors[RECT_VECTEX_COUNT] = {};
+		axisVectors[0] = Vector3::Transform(ARR_LOCAL_POS[1], leftWorldMat)	 -	Vector3::Transform(ARR_LOCAL_POS[0], leftWorldMat);
+		axisVectors[1] = Vector3::Transform(ARR_LOCAL_POS[3], leftWorldMat)	 -	Vector3::Transform(ARR_LOCAL_POS[0], leftWorldMat);
+		axisVectors[2] = Vector3::Transform(ARR_LOCAL_POS[1], rightWorldMat) -	Vector3::Transform(ARR_LOCAL_POS[0], rightWorldMat);
+		axisVectors[3] = Vector3::Transform(ARR_LOCAL_POS[3], rightWorldMat) -	Vector3::Transform(ARR_LOCAL_POS[0], rightWorldMat);
+		
+		for (int i = 0; i < RECT_VECTEX_COUNT; ++i)
+		{
+			axisVectors[i].z = 0.0f;
+		}
+		Vector3 centerDistanceVector = pLeftCollider->GetPosition() - pRightCollider->GetPosition();
+		centerDistanceVector.z = 0.0f;
+
+		Vector3 centerDir = centerDistanceVector;
+
+		// 투영 시킴
+		for (int i = 0; i < RECT_VECTEX_COUNT; ++i)
+		{
+			Vector3 axisDirectionVector = axisVectors[i];
+			axisDirectionVector.Normalize();
+
+			float projectionDistance = 0.0f;
+			for (int j = 0; j < RECT_VECTEX_COUNT; ++j)
+			{
+				projectionDistance += fabsf(axisVectors[j].Dot(axisDirectionVector) / 2.0f);
+			}
+
+			if (projectionDistance < fabsf(centerDir.Dot(axisDirectionVector)))
+			{
+				return false;
+			}
+		}
+
 	}
 
 	void CollisionManager::FixedUpdate()

@@ -5,14 +5,18 @@
 
 namespace jh
 {
+	UINT Collider2D::sTotalColliderCount = 0;
 	Collider2D::Collider2D()
 		: Component(eComponentType::COLLIDER)
 		, meColliderType(eColliderType::NONE)
 		, mpTransform(nullptr)
 		, mSize(Vector2::One)
 		, mCenter(Vector2::Zero)
+		, mPosition(Vector3::Zero)
 		, mbIsUsePhysics(false)
+		, mUniqueColliderNumber(sTotalColliderCount)
 	{
+		++sTotalColliderCount;
 	}
 	Collider2D::~Collider2D()
 	{
@@ -34,7 +38,7 @@ namespace jh
 
 		Vector3 pos = mpTransform->GetPosition();
 		Vector3 colliderPos = pos + Vector3(mCenter.x, mCenter.y, 0.0f);
-		
+		mPosition = colliderPos;
 
 		Matrix scaleMat = Matrix::CreateScale(scale);
 		Matrix rotMat;

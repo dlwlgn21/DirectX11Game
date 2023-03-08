@@ -33,6 +33,8 @@ namespace jh
 		__forceinline void			SetParent(Transform* pTransform)			{ assert(pTransform != nullptr); mpParent = pTransform; }
 		__forceinline Transform*	GetParent(Transform* pTransform) const		{ return mpParent; }
 
+
+		__forceinline const Matrix& GetWorldMatrix() { return mWorldMat; }
 	private:
 		Transform* mpParent;
 

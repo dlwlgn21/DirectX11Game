@@ -3,6 +3,7 @@
 #include "jhTime.h"
 #include "jhInput.h"
 #include "jhSceneManager.h"
+#include "jhCollisionManager.h"
 
 namespace jh
 {
@@ -18,16 +19,19 @@ namespace jh
 		Time::Initialize();
 		Input::Initialize();
 		renderer::Initialize(); 
+		CollisionManager::GetInstance().Initialize();
 		SceneManager::GetInatance().Initalize();
 	}
 	void Application::Update()
 	{
 		Time::Update();
 		Input::Update();
+		CollisionManager::GetInstance().Update();
 		SceneManager::GetInatance().Update();
 	}
 	void Application::FixedUpdate()
 	{
+		CollisionManager::GetInstance().FixedUpdate();
 		SceneManager::GetInatance().FixedUpdate();
 	}
 	void Application::Render()
@@ -37,6 +41,7 @@ namespace jh
 
 		//SceneManager::Render();
 		renderer::Render();
+		CollisionManager::GetInstance().Render();
 	}
 
 	void Application::Destroy()

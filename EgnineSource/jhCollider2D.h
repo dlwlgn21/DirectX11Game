@@ -19,7 +19,8 @@ namespace jh
 		void SetSize(const Vector2 size)		{ mSize = size; }
 		void SetCenter(const Vector2 center)	{ mCenter = center; }
 		bool GetIsUsePhysics() const			{ return mbIsUsePhysics; }
-
+		UINT GetColliderID() const				{ return mUniqueColliderNumber; }
+		Vector3 GetPosition() const				{ return mPosition; }
 		virtual void OnCollisionEnter(Collider2D* pOtherCollider);
 		virtual void OnCollisionStay(Collider2D* pOtherCollider);
 		virtual void OnCollisionExit(Collider2D* pOtherCollider);
@@ -29,11 +30,14 @@ namespace jh
 		virtual void OnTriggerExit(Collider2D* pOtherCollider);
 
 	private:
+		static UINT		sTotalColliderCount;
+		UINT			mUniqueColliderNumber;
 		eColliderType	meColliderType;
 		Transform*		mpTransform;
 
 		Vector2			mSize;
 		Vector2			mCenter;
+		Vector3			mPosition;
 		bool			mbIsUsePhysics;
 	};
 }
