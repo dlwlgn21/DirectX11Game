@@ -26,6 +26,15 @@ cbuffer FadeOut : register(b3)
 {
     float4 fDeltaTime;
 }
+cbuffer Animation : register(b4)
+{
+    float2 LeftTop;
+    float2 Size;
+    float2 Offset;
+    float2 AtlasImageSize;
+    uint   IsUsed;
+}
+
 
 SamplerState pointSampler : register(s0);
 SamplerState linearSampler : register(s1);

@@ -398,8 +398,8 @@ namespace jh::renderer
 		pConstantBuffers[static_cast<UINT>(eConstantBufferType::GRID)] = new ConstantBuffer(eConstantBufferType::GRID);
 		pConstantBuffers[static_cast<UINT>(eConstantBufferType::GRID)]->CreateBuffer(sizeof(GridConstantBuffer));
 
-		pConstantBuffers[static_cast<UINT>(eConstantBufferType::FADE_OUT)] = new ConstantBuffer(eConstantBufferType::FADE_OUT);
-		pConstantBuffers[static_cast<UINT>(eConstantBufferType::FADE_OUT)]->CreateBuffer(sizeof(FadeOutConstantBuffer));
+		pConstantBuffers[static_cast<UINT>(eConstantBufferType::ANIMATION)] = new ConstantBuffer(eConstantBufferType::ANIMATION);
+		pConstantBuffers[static_cast<UINT>(eConstantBufferType::ANIMATION)]->CreateBuffer(sizeof(AnimationConstantBuffer));
 	}
 
 	__forceinline void CreateMeterial() {

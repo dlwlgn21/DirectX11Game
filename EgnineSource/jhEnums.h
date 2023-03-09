@@ -31,6 +31,7 @@ namespace jh
 		COLLIDER,
 		MESH_RENDERER,
 		SPRITE_RENDERER,
+		ANIMATOR,
 		UI,
 		SCRIPT,
 		COUNT

@@ -10,6 +10,7 @@ namespace jh
 		: Component(eComponentType::COLLIDER)
 		, meColliderType(eColliderType::NONE)
 		, mpTransform(nullptr)
+		, mRadius(0.0f)
 		, mSize(Vector2::One)
 		, mCenter(Vector2::Zero)
 		, mPosition(Vector3::Zero)
@@ -53,7 +54,7 @@ namespace jh
 
 		DebugMesh meshAttribute = {};
 		meshAttribute.Position = Vector3(colliderPos.x, colliderPos.y, colliderPos.z);
-		meshAttribute.Radius = mSize.x;
+		meshAttribute.Radius = mRadius;
 		meshAttribute.Rotation = rot;
 		meshAttribute.Scale = scale; 
 		meshAttribute.EColliderType = meColliderType;

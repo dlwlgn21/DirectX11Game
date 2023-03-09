@@ -15,6 +15,7 @@
 #define CBSLOT_MATERIAL (1)
 #define CBSLOT_GRID (2)
 #define CBSLOT_FADE_OUT (3)
+#define CBSLOT_ANIMATOR (4)
 
 namespace jh::graphics
 {
@@ -100,6 +101,7 @@ namespace jh::graphics
 		MATERIAL,
 		GRID,
 		FADE_OUT,
+		ANIMATION,
 		COUNT
 	};
 
@@ -124,4 +126,7 @@ namespace jh::graphics
 		float Duration;
 		float Time;
 	};
+
+
+
 }

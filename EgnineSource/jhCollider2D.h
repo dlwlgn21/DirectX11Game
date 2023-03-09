@@ -23,6 +23,10 @@ namespace jh
 		bool GetIsUsePhysics() const			{ return mbIsUsePhysics; }
 		UINT GetColliderID() const				{ return mUniqueColliderNumber; }
 		Vector3 GetPosition() const				{ return mPosition; }
+		void SetRadius(const float radius)		{ mRadius = radius; }
+		float GetRadius() const					{ return mRadius; }
+
+
 		virtual void OnCollisionEnter(Collider2D* pOtherCollider);
 		virtual void OnCollisionStay(Collider2D* pOtherCollider);
 		virtual void OnCollisionExit(Collider2D* pOtherCollider);
@@ -40,6 +44,7 @@ namespace jh
 		Vector2			mSize;
 		Vector2			mCenter;
 		Vector3			mPosition;
+		float			mRadius;
 		bool			mbIsUsePhysics;
 	};
 }

@@ -49,6 +49,16 @@ namespace jh::renderer
 		Vector4 fDeltaTime;
 	};
 
+	CBUFFER(AnimationConstantBuffer, CBSLOT_ANIMATOR)
+	{
+		Vector2 LeftTop;
+		Vector2 Size;
+		Vector2 Offset;
+		Vector2 AtlasImageSize;
+
+		UINT	IsUsed;				// 애니메이션 안 쓸수도 있어서. 배경만 나와야 할 수도 있어서.
+	};
+
 
 	extern Vertex											vertices[VERTEX_COUNT];
 	extern ConstantBuffer*									pConstantBuffers[];

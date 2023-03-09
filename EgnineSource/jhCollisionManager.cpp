@@ -182,7 +182,7 @@ namespace jh
 		{
 			Vector3 centerDistanceVector = pLeftCollider->GetPosition() - pRightCollider->GetPosition();
 			float eachCenterDistance = fabsf(centerDistanceVector.LengthSquared());
-			float radiusSumDistance = fabsf((pLeftCollider->GetSize().x / 2) + (pRightCollider->GetSize().x / 2));
+			float radiusSumDistance = fabsf((pLeftCollider->GetRadius() * 0.5f) + (pRightCollider->GetRadius() * 0.5f));
 
 			if (eachCenterDistance <= radiusSumDistance)
 			{
