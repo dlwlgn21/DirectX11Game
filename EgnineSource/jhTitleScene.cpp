@@ -4,6 +4,8 @@
 #include "jhCamera.h"
 #include "jhCameraScript.h"
 #include "jhObject.h"
+#include "jhMeshRenderer.h"
+#include "jhResources.h"
 
 
 namespace jh
@@ -17,12 +19,23 @@ namespace jh
 	}
 	void TitleScene::Initalize()
 	{
-		GameObject* pCameraObj = object::Instantiate(eLayerType::CAMERA, this);
+		// Camera Game Obj
+		GameObject* pCameraObj = jh::object::Instantiate(eLayerType::CAMERA);
 		Camera* pCameraComponent = new Camera();
+		//pCameraComponent->registerCameraAtRenderer();
 		pCameraObj->AddComponent(pCameraComponent);
 		pCameraComponent->TurnLayerMasks(eLayerType::UI, false);
 		pCameraObj->AddComponent(new CameraScript());
-		pCameraObj->SetName(L"Title Scene Main Camera");
+		pCameraComponent->SetName(L"Main Camera");
+		renderer::pMainCamera = pCameraComponent;
+
+
+		// BackGround
+		GameObject* pBGObject = jh::object::Instantiate(eLayerType::NONE, Vector3(15.0f, 0.0f, 100.0f), Vector3(0.0f, 0.0f, 0.0f));
+		MeshRenderer* pBGMeshRender = new MeshRenderer();
+		pBGMeshRender->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
+		pBGMeshRender->SetMaterial(Resources::Find<Material>(TITLE_BACKGROUND_MATERIAL_KEY));
+		pBGObject->AddComponent(pBGMeshRender);
 		Scene::Initalize();
 	}
 	void TitleScene::Update()

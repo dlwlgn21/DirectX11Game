@@ -16,10 +16,11 @@ namespace jh
 		mScenes[static_cast<UINT>(eSceneType::TITLE)] = new TitleScene();
 		mScenes[static_cast<UINT>(eSceneType::PLAY)] = new PlayScene();
 
-		mpCurrentScene = mScenes[static_cast<UINT>(eSceneType::PLAY)];
-
-		mpCurrentScene->Initalize();
-		mScenes[static_cast<UINT>(eSceneType::TITLE)]->Initalize();
+		mpCurrentScene = mScenes[static_cast<UINT>(eSceneType::TITLE)];
+		for (UINT i = 0; i < static_cast<UINT>(eSceneType::COUNT) - 1; ++i)
+		{
+			mScenes[i]->Initalize();
+		}
 	}
 
 	void SceneManager::Update()

@@ -14,10 +14,16 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="$(MSBuildThisFileDirectory)DebugPixelShader.hlsl">
+    <FxCompile Include="$(MSBuildThisFileDirectory)jhDebugPixelShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
     </FxCompile>
-    <FxCompile Include="$(MSBuildThisFileDirectory)DebugVertexShader.hlsl">
+    <FxCompile Include="$(MSBuildThisFileDirectory)jhDebugVertexShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)jhBackGroundPixelShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)jhBackGroundVertexShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
     </FxCompile>
     <FxCompile Include="$(MSBuildThisFileDirectory)jhFadeOutPixelShader.hlsl">
@@ -32,16 +38,16 @@
     <FxCompile Include="$(MSBuildThisFileDirectory)jhGridVertexShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
     </FxCompile>
-    <FxCompile Include="$(MSBuildThisFileDirectory)jhPixelShader.hlsl">
+    <FxCompile Include="$(MSBuildThisFileDirectory)jhCharacterPixelShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
     </FxCompile>
-    <FxCompile Include="$(MSBuildThisFileDirectory)jhVertexShader.hlsl">
+    <FxCompile Include="$(MSBuildThisFileDirectory)jhCharacterVertexShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
     </FxCompile>
-    <FxCompile Include="$(MSBuildThisFileDirectory)SpritePixelShader.hlsl">
+    <FxCompile Include="$(MSBuildThisFileDirectory)jhSpritePixelShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
     </FxCompile>
-    <FxCompile Include="$(MSBuildThisFileDirectory)SpriteVertexShader.hlsl">
+    <FxCompile Include="$(MSBuildThisFileDirectory)jhSpriteVertexShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
     </FxCompile>
     <FxCompile Include="$(MSBuildThisFileDirectory)jhUIPixelShader.hlsl">

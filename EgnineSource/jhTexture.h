@@ -4,11 +4,11 @@
 #include "jhGraphicDeviceDX11.h"
 
 
-// TODO : 왜 절대경로는 되고, 상대경로는 안 될까??
+// TODO : 왜 이렇게 특이한 상대경로를 입력해주어야 할까요...???
 #ifdef _DEBUG
-#pragma comment(lib, "D:\\DirectX11Game\\External\\DirectXTex\\lib\\Debug\\DirectXTex.lib")
+#pragma comment(lib, "..\\..\\External\\DirectXTex\\lib\\Debug\\DirectXTex.lib")
 #else
-#pragma comment(lib, "D:\\DirectX11Game\\External\\DirectXTex\\lib\\Release\\DirectXTex.lib")
+#pragma comment(lib, "..\\..\\External\\DirectXTex\\lib\\Release\\DirectXTex.lib")
 #endif
 
 //#ifdef _DEBUG

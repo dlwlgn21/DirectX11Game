@@ -70,24 +70,29 @@ namespace jh::renderer
 	extern std::vector<DebugMesh>							debugMeshs;
 	extern Camera*											pMainCamera;
 
-	extern const std::wstring RECT_SHADER_KEY;
+	extern const std::wstring CHARACTER_SHADER_KEY;
 	extern const std::wstring SPRITE_SHADER_KEY;
 	extern const std::wstring UI_SHADER_KEY;
 	extern const std::wstring GRID_SHADER_KEY;
 	extern const std::wstring FADE_OUT_SHADER_KEY;
 	extern const std::wstring DEBUG_SHADER_KEY;
+	extern const std::wstring BACK_GROUND_SHADER_KEY;
 
-	extern const std::wstring GENNARO_TEXTURE_KEY;
+	extern const std::wstring PLAYER_TEXTURE_KEY;
 	extern const std::wstring DEFAULT_TEXTURE_KEY;
 	extern const std::wstring HPBAR_TEXTURE_KEY;
 	extern const std::wstring FADE_OUT_TEXTURE_KEY;
+	extern const std::wstring MONSTER_TEXTURE_KEY;
+	extern const std::wstring TITLE_BACKGROUND_TEXTURE_KEY;
 
-	extern const std::wstring DEFAULT_MATERIAL_KEY;
+	extern const std::wstring PLAYER_MATERIAL_KEY;
 	extern const std::wstring SPRITE_MATERIAL_KEY;
 	extern const std::wstring UI_MATERIAL_KEY;
 	extern const std::wstring GRID_MATERIAL_KEY;
 	extern const std::wstring FADE_OUT_MATERIAL_KEY;
 	extern const std::wstring DEBUG_MATERIAL_KEY;
+	extern const std::wstring MONSTER_MATERIAL_KEY;
+	extern const std::wstring TITLE_BACKGROUND_MATERIAL_KEY;
 
 	extern const std::wstring RECT_MESH_KEY;
 	extern const std::wstring RECT_DEBUG_MESH_KEY;

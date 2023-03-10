@@ -31,55 +31,24 @@ namespace jh
 	}
 	void PlayScene::Initalize()
 	{
-		// Camera Game Obj
-		GameObject* pCameraObj = jh::object::Instantiate(eLayerType::CAMERA);
+		GameObject* pCameraObj = object::Instantiate(eLayerType::CAMERA, this);
 		Camera* pCameraComponent = new Camera();
-		//pCameraComponent->registerCameraAtRenderer();
 		pCameraObj->AddComponent(pCameraComponent);
 		pCameraComponent->TurnLayerMasks(eLayerType::UI, false);
 		pCameraObj->AddComponent(new CameraScript());
-		pCameraComponent->SetName(L"Main Camera");
-		renderer::pMainCamera = pCameraComponent;
+		pCameraObj->SetName(L"Title Scene Main Camera");
 
 		//Camera UI Game Obj
-		GameObject* pCameraUIObj = jh::object::Instantiate(eLayerType::CAMERA);
-		Camera* pCameraUIComponent = new Camera();
-		pCameraUIComponent->SetProjectionType(Camera::eProjectionType::ORTHOGRAPHIC);
-		pCameraUIComponent->DisableAllLayerMasks();
-		pCameraUIComponent->TurnLayerMasks(eLayerType::UI, true);
-		pCameraUIObj->AddComponent(pCameraUIComponent);
-		pCameraUIComponent->SetName(L"UI Camera");
+		//GameObject* pCameraUIObj = jh::object::Instantiate(eLayerType::CAMERA);
+		//Camera* pCameraUIComponent = new Camera();
+		//pCameraUIComponent->SetProjectionType(Camera::eProjectionType::ORTHOGRAPHIC);
+		//pCameraUIComponent->DisableAllLayerMasks();
+		//pCameraUIComponent->TurnLayerMasks(eLayerType::UI, true);
+		//pCameraUIObj->AddComponent(pCameraUIComponent);
+		//pCameraUIComponent->SetName(L"UI Camera");
 
-		// Player
-		Player* pPlayerObj = jh::object::Instantiate<Player>(eLayerType::PLAYER, Vector3(-3.0f, 0.0f, 20.0f), Vector3(0.0f, 0.0f, 0.0f));
-		MeshRenderer* pMeshRenderer = new MeshRenderer();
-		pMeshRenderer->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
-		pMeshRenderer->SetMaterial(Resources::Find<Material>(DEFAULT_MATERIAL_KEY));
-		pPlayerObj->AddComponent(pMeshRenderer);
-		PlayerScript* pPlayerScript = new PlayerScript();
-		pPlayerObj->AddComponent(pPlayerScript);
-		pPlayerObj->SetName(L"Player");
-		Collider2D* pCollider2D = new Collider2D();
-		pCollider2D->SetType(eColliderType::CIRCLE); 
-		pCollider2D->SetRadius(1.0f);
-		pPlayerObj->AddComponent(pCollider2D);
-		object::DontDestroyOnLoad(pPlayerObj);
-		//pCollider2D->SetSize(Vector2(1.5f, 1.5f));
 
-		// Monster
-		Monster* pMonsterObjTwo = jh::object::Instantiate<Monster>(eLayerType::MONSTER, Vector3(5.0f, 0.0f, 20.0f), Vector3(0.0f, 0.0f, 0.0f));
-		//pMonsterObjTwo->GetTransform()->SetRotation(Vector3(pMonsterObjTwo->GetTransform()->GetRotation().x, pMonsterObjTwo->GetTransform()->GetRotation().y, XM_PIDIV2 / 2.0f));
-		MeshRenderer* pMeshRendererTwo = new MeshRenderer();
-		pMeshRendererTwo->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
-		pMeshRendererTwo->SetMaterial(Resources::Find<Material>(DEFAULT_MATERIAL_KEY));
-		pMonsterObjTwo->AddComponent(pMeshRendererTwo);
 
-		pMonsterObjTwo->SetName(L"Monster");
-		Collider2D* pCollider2DTwo = new Collider2D();
-		pCollider2DTwo->SetType(eColliderType::CIRCLE);
-		pCollider2DTwo->SetRadius(1.0f);
-		pMonsterObjTwo->AddComponent(pCollider2DTwo);
-		object::DontDestroyOnLoad(pMonsterObjTwo);
 
 		// Gennaro Child
 		//GameObject* pGenaroChild = jh::object::Instantiate(eLayerType::PLAYER, pGenaroObj->GetTransform());
@@ -106,16 +75,16 @@ namespace jh
 		//pSriteObj->AddComponent(pSpriteCollider2D);
 
 		// HPBar
-		GameObject* pHPBarObj = jh::object::Instantiate(eLayerType::UI, Vector3(-1.0f, 0.0f, 20.0f), Vector3::Zero);
-		Transform* pHPTransform = pHPBarObj->GetTransform();
-		pHPTransform->SetScale(Vector3(2.0f, 1.0f, 20.0f));
+		//GameObject* pHPBarObj = jh::object::Instantiate(eLayerType::UI, Vector3(-1.0f, 0.0f, 20.0f), Vector3::Zero);
+		//Transform* pHPTransform = pHPBarObj->GetTransform();
+		//pHPTransform->SetScale(Vector3(2.0f, 1.0f, 20.0f));
 
 		//// SetMaterial
-		Material* pHPBarMaterial = Resources::Find<Material>(UI_MATERIAL_KEY);
-		MeshRenderer* pHPBarMeshRenderer = new MeshRenderer();
-		pHPBarMeshRenderer->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
-		pHPBarMeshRenderer->SetMaterial(pHPBarMaterial);
-		pHPBarObj->AddComponent(pHPBarMeshRenderer);
+		//Material* pHPBarMaterial = Resources::Find<Material>(UI_MATERIAL_KEY);
+		//MeshRenderer* pHPBarMeshRenderer = new MeshRenderer();
+		//pHPBarMeshRenderer->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
+		//pHPBarMeshRenderer->SetMaterial(pHPBarMaterial);
+		//pHPBarObj->AddComponent(pHPBarMeshRenderer);
 
 
 		// Fadeout
@@ -153,6 +122,39 @@ namespace jh
 	}
 	void PlayScene::OnEnter()
 	{
+		// Player
+		Player* pPlayerObj = jh::object::Instantiate<Player>(eLayerType::PLAYER, Vector3(-3.0f, 0.0f, 20.0f), Vector3(0.0f, 0.0f, 0.0f));
+		pPlayerObj->GetTransform()->SetScale(Vector3(3.0f, 3.0f, 1.0f));
+		MeshRenderer* pMeshRenderer = new MeshRenderer();
+		pMeshRenderer->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
+		pMeshRenderer->SetMaterial(Resources::Find<Material>(PLAYER_MATERIAL_KEY));
+		pPlayerObj->AddComponent(pMeshRenderer);
+		PlayerScript* pPlayerScript = new PlayerScript();
+		pPlayerObj->AddComponent(pPlayerScript);
+		pPlayerObj->SetName(L"Player");
+		Collider2D* pCollider2D = new Collider2D();
+		pCollider2D->SetType(eColliderType::CIRCLE);
+		pCollider2D->SetRadius(1.0f);
+		pPlayerObj->AddComponent(pCollider2D);
+		//object::DontDestroyOnLoad(pPlayerObj);
+		//pCollider2D->SetSize(Vector2(1.5f, 1.5f));
+
+		// Monster
+		Monster* pMonsterObjTwo = jh::object::Instantiate<Monster>(eLayerType::MONSTER, Vector3(5.0f, 0.0f, 20.0f), Vector3(0.0f, 0.0f, 0.0f));
+		//pMonsterObjTwo->GetTransform()->SetRotation(Vector3(pMonsterObjTwo->GetTransform()->GetRotation().x, pMonsterObjTwo->GetTransform()->GetRotation().y, XM_PIDIV2 / 2.0f));
+		pMonsterObjTwo->GetTransform()->SetScale(Vector3(3.0f, 3.0f, 1.0f));
+
+		MeshRenderer* pMeshRendererTwo = new MeshRenderer();
+		pMeshRendererTwo->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
+		pMeshRendererTwo->SetMaterial(Resources::Find<Material>(MONSTER_MATERIAL_KEY));
+		pMonsterObjTwo->AddComponent(pMeshRendererTwo);
+
+		pMonsterObjTwo->SetName(L"Monster");
+		Collider2D* pCollider2DTwo = new Collider2D();
+		pCollider2DTwo->SetType(eColliderType::CIRCLE);
+		pCollider2DTwo->SetRadius(1.0f);
+		pMonsterObjTwo->AddComponent(pCollider2DTwo);
+		//object::DontDestroyOnLoad(pMonsterObjTwo);
 		Scene::OnEnter();
 	}
 	void PlayScene::OnExit()

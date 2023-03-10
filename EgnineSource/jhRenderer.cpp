@@ -17,24 +17,30 @@ namespace jh::renderer
 	std::vector<DebugMesh>							debugMeshs;
 	Camera*											pMainCamera = nullptr;
 
-	static const std::wstring RECT_SHADER_KEY = L"RectShader";
+	static const std::wstring CHARACTER_SHADER_KEY = L"CharacterShader";
 	static const std::wstring SPRITE_SHADER_KEY = L"SpriteShader";
 	static const std::wstring UI_SHADER_KEY = L"UIShader";
 	static const std::wstring GRID_SHADER_KEY = L"GridShader";
 	static const std::wstring FADE_OUT_SHADER_KEY = L"FadeOutShader";
 	static const std::wstring DEBUG_SHADER_KEY = L"DebugShader";
+	static const std::wstring BACK_GROUND_SHADER_KEY = L"BackGroundShader";
 
-	static const std::wstring GENNARO_TEXTURE_KEY = L"GennaroTexture";
+	static const std::wstring PLAYER_TEXTURE_KEY = L"PlayerTexture";
 	static const std::wstring DEFAULT_TEXTURE_KEY = L"DefaultTexture";
 	static const std::wstring HPBAR_TEXTURE_KEY = L"HPBarTexture";
 	static const std::wstring FADE_OUT_TEXTURE_KEY = L"FadeOutTexture";
+	static const std::wstring MONSTER_TEXTURE_KEY = L"MonsterTexture";
+	static const std::wstring TITLE_BACKGROUND_TEXTURE_KEY = L"BackGroundTexture";
 
-	static const std::wstring DEFAULT_MATERIAL_KEY = L"RectMaterial";
+
+	static const std::wstring PLAYER_MATERIAL_KEY = L"PlayerMaterial";
 	static const std::wstring SPRITE_MATERIAL_KEY = L"SpriteMaterial";
 	static const std::wstring UI_MATERIAL_KEY = L"UIMaterial";
 	static const std::wstring GRID_MATERIAL_KEY = L"GridMaterial";
 	static const std::wstring FADE_OUT_MATERIAL_KEY = L"FadeOutMaterial";
 	static const std::wstring DEBUG_MATERIAL_KEY = L"DebugMaterial";
+	static const std::wstring MONSTER_MATERIAL_KEY = L"MonsterMaterial";
+	static const std::wstring TITLE_BACKGROUND_MATERIAL_KEY = L"TitleBackground";
 
 	static const std::wstring RECT_MESH_KEY = L"RectMesh";
 	static const std::wstring RECT_DEBUG_MESH_KEY = L"RectDebugMesh";
@@ -66,8 +72,6 @@ namespace jh::renderer
 		Resources::Insert<Mesh>(RECT_MESH_KEY, pMesh);
 		pMesh->CreateVertexBuffer(vertices, VERTEX_COUNT);
 
-
-
 		// ÀÎµ¦½º ¹öÆÛ
 		std::vector<UINT> indexes;
 		indexes.reserve(SLICE_COUNT);
@@ -82,15 +86,13 @@ namespace jh::renderer
 
 		pMesh->CreateIndexBuffer(indexes.data(), static_cast<UINT>(indexes.size()));
 
-
-
 		vertices[0].Position = Vector4(-0.5f, 0.5f, -0.01f, 1.0f);
 		vertices[0].Color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
 		vertices[0].UV = Vector2(0.0f, 0.0f);
 
 		vertices[1].Position = Vector4(0.5f, 0.5f, -0.01f, 1.0f);
 		vertices[1].Color = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
-		vertices[1].UV = Vector2(1.0f, 0.f);
+		vertices[1].UV = Vector2(1.0f, 0.0f);
 
 		vertices[2].Position = Vector4(0.5f, -0.5f, -0.01f, 1.0f);
 		vertices[2].Color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
@@ -147,15 +149,15 @@ namespace jh::renderer
 	{
 		// Default
 		Shader* pShader = new Shader();
-		pShader->Create(graphics::eShaderStage::VERTEX_SHADER, L"jhVertexShader.hlsl", "main");
-		pShader->Create(graphics::eShaderStage::PIXEL_SHADER, L"jhPixelShader.hlsl", "main");
-		Resources::Insert<Shader>(RECT_SHADER_KEY, pShader);
+		pShader->Create(graphics::eShaderStage::VERTEX_SHADER, L"jhCharacterVertexShader.hlsl", "main");
+		pShader->Create(graphics::eShaderStage::PIXEL_SHADER, L"jhCharacterPixelShader.hlsl", "main");
+		Resources::Insert<Shader>(CHARACTER_SHADER_KEY, pShader);
 
 
 		// Sprite
 		Shader* pSpriteShader = new Shader();
-		pSpriteShader->Create(graphics::eShaderStage::VERTEX_SHADER, L"SpriteVertexShader.hlsl", "main");
-		pSpriteShader->Create(graphics::eShaderStage::PIXEL_SHADER, L"SpritePixelShader.hlsl", "main");
+		pSpriteShader->Create(graphics::eShaderStage::VERTEX_SHADER, L"jhSpriteVertexShader.hlsl", "main");
+		pSpriteShader->Create(graphics::eShaderStage::PIXEL_SHADER, L"jhSpritePixelShader.hlsl", "main");
 		Resources::Insert<Shader>(SPRITE_SHADER_KEY, pSpriteShader);
 
 		// UI
@@ -185,23 +187,30 @@ namespace jh::renderer
 
 		// DebugShader
 		Shader* pDebugShader = new Shader();
-		pDebugShader->Create(graphics::eShaderStage::VERTEX_SHADER, L"DebugVertexShader.hlsl", "main");
-		pDebugShader->Create(graphics::eShaderStage::PIXEL_SHADER, L"DebugPixelShader.hlsl", "main");
+		pDebugShader->Create(graphics::eShaderStage::VERTEX_SHADER, L"jhDebugVertexShader.hlsl", "main");
+		pDebugShader->Create(graphics::eShaderStage::PIXEL_SHADER, L"jhDebugPixelShader.hlsl", "main");
 		pDebugShader->SetRasterizerState(eRasterizerStateType::SOLID_NONE);
 		pDebugShader->SetDepthStencilState(eDepthStencilStateType::NO_WRITE);
 		pDebugShader->SetBlendState(eBlendStateType::ALPHA_BLEND);
 		pDebugShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
 		Resources::Insert<Shader>(DEBUG_SHADER_KEY, pDebugShader);
+
+		// BackgroundShader
+		Shader* pBackgroundShader = new Shader();
+		pBackgroundShader->Create(graphics::eShaderStage::VERTEX_SHADER, L"jhBackGroundVertexShader.hlsl", "main");
+		pBackgroundShader->Create(graphics::eShaderStage::PIXEL_SHADER, L"jhBackGroundPixelShader.hlsl", "main");
+		Resources::Insert<Shader>(BACK_GROUND_SHADER_KEY, pBackgroundShader);
 	}
 
 	__forceinline void SetupInputLayout()
 	{
-		Shader* pRectShader =		Resources::Find<Shader>(RECT_SHADER_KEY);
+		Shader* pRectShader =		Resources::Find<Shader>(CHARACTER_SHADER_KEY);
 		Shader* pSpriteShader =		Resources::Find<Shader>(SPRITE_SHADER_KEY);
 		Shader* pUIShader =			Resources::Find<Shader>(UI_SHADER_KEY);
 		Shader* pGridShader =		Resources::Find<Shader>(GRID_SHADER_KEY);
 		Shader* pFadeOutShader =	Resources::Find<Shader>(FADE_OUT_SHADER_KEY);
 		Shader* pDebugShader =		Resources::Find<Shader>(DEBUG_SHADER_KEY);
+		Shader* pBackgroundShader =	Resources::Find<Shader>(BACK_GROUND_SHADER_KEY);
 
 		const UINT ELEMENT_DESC_COUNT = 3;
 		D3D11_INPUT_ELEMENT_DESC inputDesc[ELEMENT_DESC_COUNT] = {};
@@ -274,6 +283,14 @@ namespace jh::renderer
 			pDebugShader->GetVertexShaderBlob(),
 			pDebugShader->GetVertexShaderBlobSize(),
 			pDebugShader->GetInputLayoutAddressOf()
+		);
+
+		graphics::GetDevice()->CreateInputLayout(
+			inputDesc,
+			ELEMENT_DESC_COUNT,
+			pBackgroundShader->GetVertexShaderBlob(),
+			pBackgroundShader->GetVertexShaderBlobSize(),
+			pBackgroundShader->GetInputLayoutAddressOf()
 		);
 
 
@@ -404,13 +421,21 @@ namespace jh::renderer
 
 	__forceinline void CreateMeterial() {
 
-		// Default
+		// Player
 		Material* pDefaultMaterial = new Material();
-		pDefaultMaterial->SetShader(Resources::Find<Shader>(RECT_SHADER_KEY));
-		Texture* pTexture = Resources::Find<Texture>(GENNARO_TEXTURE_KEY);
+		pDefaultMaterial->SetShader(Resources::Find<Shader>(SPRITE_SHADER_KEY));
+		Texture* pTexture = Resources::Find<Texture>(PLAYER_TEXTURE_KEY);
 		assert(pTexture != nullptr); 
 		pDefaultMaterial->SetTexture(pTexture);
-		Resources::Insert<Material>(DEFAULT_MATERIAL_KEY, pDefaultMaterial);
+		Resources::Insert<Material>(PLAYER_MATERIAL_KEY, pDefaultMaterial);
+
+		// Monster
+		Material* pMonsterMaterial = new Material();
+		pMonsterMaterial->SetShader(Resources::Find<Shader>(SPRITE_SHADER_KEY));
+		Texture* pMonsterTexture = Resources::Find<Texture>(MONSTER_TEXTURE_KEY);
+		assert(pMonsterTexture != nullptr);
+		pMonsterMaterial->SetTexture(pMonsterTexture);
+		Resources::Insert<Material>(MONSTER_MATERIAL_KEY, pMonsterMaterial);
 
 
 
@@ -446,14 +471,22 @@ namespace jh::renderer
 		pDebugMaterial->SetRenderingMode(eRenderingMode::TRANSPARENTT);
 		pDebugMaterial->SetShader(Resources::Find<Shader>(DEBUG_SHADER_KEY));
 		Resources::Insert<Material>(DEBUG_MATERIAL_KEY, pDebugMaterial);
+
+		//
+		Material* pBackgroundMaterial = new Material();
+		pBackgroundMaterial->SetShader(Resources::Find<Shader>(BACK_GROUND_SHADER_KEY));
+		pBackgroundMaterial->SetTexture(Resources::Find<Texture>(TITLE_BACKGROUND_TEXTURE_KEY));
+		Resources::Insert<Material>(TITLE_BACKGROUND_MATERIAL_KEY, pBackgroundMaterial);
 	}
 
 	__forceinline void CreateTexture()
 	{
-		Resources::Load<Texture>(GENNARO_TEXTURE_KEY,	L"Gennaro.bmp");
-		Resources::Load<Texture>(DEFAULT_TEXTURE_KEY,	L"DefaultTexture.png");
-		Resources::Load<Texture>(HPBAR_TEXTURE_KEY,		L"HPBar.png");
-		Resources::Load<Texture>(FADE_OUT_TEXTURE_KEY,	L"FadeOutTexture.png");
+		Resources::Load<Texture>(PLAYER_TEXTURE_KEY,			L"PlayerIdleImage.png");
+		Resources::Load<Texture>(DEFAULT_TEXTURE_KEY,			L"DefaultTexture.png");
+		Resources::Load<Texture>(HPBAR_TEXTURE_KEY,				L"HPBar.png");
+		Resources::Load<Texture>(FADE_OUT_TEXTURE_KEY,			L"FadeOutTexture.png");
+		Resources::Load<Texture>(MONSTER_TEXTURE_KEY,			L"MonsterIdleImage.png");
+		Resources::Load<Texture>(TITLE_BACKGROUND_TEXTURE_KEY,	L"TitleImage.png");
 	}
 
 	void Initialize()

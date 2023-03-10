@@ -8,9 +8,9 @@
 #include "jhEditorObject.h"
 
 #ifdef _DEBUG
-#pragma comment(lib, "D:\\DirectX11Game\\Debug\\Lib\\EgnineSource.lib")
+#pragma comment(lib, "..\\Lib\\EgnineSource.lib")
 #else
-#pragma comment(lib, "D:\\DirectX11Game\\Release\\Lib\\EgnineSource.lib")
+#pragma comment(lib, "..\\Release\\Lib\\EgnineSource.lib")
 #endif
 
 //#ifdef _DEBUG

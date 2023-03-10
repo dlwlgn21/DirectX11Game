@@ -9,16 +9,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="$(MSBuildThisFileDirectory)jhVertexShader.hlsl">
+    <FxCompile Include="$(MSBuildThisFileDirectory)jhCharacterVertexShader.hlsl">
       <Filter>VertexShader</Filter>
     </FxCompile>
-    <FxCompile Include="$(MSBuildThisFileDirectory)jhPixelShader.hlsl">
+    <FxCompile Include="$(MSBuildThisFileDirectory)jhCharacterPixelShader.hlsl">
       <Filter>PixelShader</Filter>
     </FxCompile>
-    <FxCompile Include="$(MSBuildThisFileDirectory)SpriteVertexShader.hlsl">
+    <FxCompile Include="$(MSBuildThisFileDirectory)jhSpriteVertexShader.hlsl">
       <Filter>VertexShader</Filter>
     </FxCompile>
-    <FxCompile Include="$(MSBuildThisFileDirectory)SpritePixelShader.hlsl">
+    <FxCompile Include="$(MSBuildThisFileDirectory)jhSpritePixelShader.hlsl">
       <Filter>PixelShader</Filter>
     </FxCompile>
     <FxCompile Include="$(MSBuildThisFileDirectory)jhUIPixelShader.hlsl">
@@ -39,11 +39,17 @@
     <FxCompile Include="$(MSBuildThisFileDirectory)jhFadeOutVertexShader.hlsl">
       <Filter>VertexShader</Filter>
     </FxCompile>
-    <FxCompile Include="$(MSBuildThisFileDirectory)DebugPixelShader.hlsl">
+    <FxCompile Include="$(MSBuildThisFileDirectory)jhDebugPixelShader.hlsl">
       <Filter>PixelShader</Filter>
     </FxCompile>
-    <FxCompile Include="$(MSBuildThisFileDirectory)DebugVertexShader.hlsl">
+    <FxCompile Include="$(MSBuildThisFileDirectory)jhDebugVertexShader.hlsl">
       <Filter>VertexShader</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)jhBackGroundVertexShader.hlsl">
+      <Filter>VertexShader</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)jhBackGroundPixelShader.hlsl">
+      <Filter>PixelShader</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
