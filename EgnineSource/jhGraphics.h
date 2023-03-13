@@ -116,6 +116,13 @@ namespace jh::graphics
 		COUNT
 	};
 
+	enum class eAnimatnionType
+	{
+		SECOND_DIMENTION,
+		THIRD_DIMENTION,
+		NO_ANIMATION,
+		COUNT
+	};
 	struct DebugMesh
 	{
 		eColliderType EColliderType;
@@ -126,7 +133,5 @@ namespace jh::graphics
 		float Duration;
 		float Time;
 	};
-
-
 
 }

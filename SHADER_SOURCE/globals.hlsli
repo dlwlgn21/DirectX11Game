@@ -28,11 +28,11 @@ cbuffer FadeOut : register(b3)
 }
 cbuffer Animation : register(b4)
 {
-    float2 LeftTop;
-    float2 Size;
-    float2 Offset;
-    float2 AtlasImageSize;
-    uint   IsUsed;
+    float2 leftTop;
+    float2 spriteSize;
+    float2 offset;
+    float2 atlasImageSize;
+    uint   animationType;
 }
 
 
@@ -41,3 +41,5 @@ SamplerState linearSampler : register(s1);
 SamplerState anisotropicSampler : register(s2);
 
 texture2D defaultTexture : register(t0);
+//AtalsTexture
+texture2D atlasTexture : register(t12);

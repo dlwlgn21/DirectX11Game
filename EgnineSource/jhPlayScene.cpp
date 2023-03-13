@@ -133,7 +133,7 @@ namespace jh
 		pPlayerObj->AddComponent(pPlayerScript);
 		pPlayerObj->SetName(L"Player");
 		Collider2D* pCollider2D = new Collider2D();
-		pCollider2D->SetType(eColliderType::CIRCLE);
+		pCollider2D->SetType(eColliderType::RECT);
 		pCollider2D->SetRadius(1.0f);
 		pPlayerObj->AddComponent(pCollider2D);
 		//object::DontDestroyOnLoad(pPlayerObj);
@@ -151,7 +151,7 @@ namespace jh
 
 		pMonsterObjTwo->SetName(L"Monster");
 		Collider2D* pCollider2DTwo = new Collider2D();
-		pCollider2DTwo->SetType(eColliderType::CIRCLE);
+		pCollider2DTwo->SetType(eColliderType::RECT);
 		pCollider2DTwo->SetRadius(1.0f);
 		pMonsterObjTwo->AddComponent(pCollider2DTwo);
 		//object::DontDestroyOnLoad(pMonsterObjTwo);

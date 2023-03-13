@@ -56,7 +56,7 @@ namespace jh::renderer
 		Vector2 Offset;
 		Vector2 AtlasImageSize;
 
-		UINT	IsUsed;				// 애니메이션 안 쓸수도 있어서. 배경만 나와야 할 수도 있어서.
+		UINT	AnimationType;				// 애니메이션 안 쓸수도 있어서. 배경만 나와야 할 수도 있어서.
 	};
 
 

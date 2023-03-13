@@ -29,6 +29,9 @@ namespace jh
 		void SetShaderResourceView(graphics::eShaderStage shaderStage, UINT slot);
 		void Clear();
 
+		UINT GetHeight() const { return static_cast<UINT>(mImage.GetMetadata().height); }
+		UINT GetWidth() const { return static_cast<UINT>(mImage.GetMetadata().width); }
+
 	private:
 		void createShaderResourceView();
 

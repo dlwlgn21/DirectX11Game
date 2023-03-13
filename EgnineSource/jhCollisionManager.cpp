@@ -151,6 +151,14 @@ namespace jh
 			axisVectors[2] = Vector3::Transform(ARR_LOCAL_POS[1], rightWorldMat) - Vector3::Transform(ARR_LOCAL_POS[0], rightWorldMat);
 			axisVectors[3] = Vector3::Transform(ARR_LOCAL_POS[3], rightWorldMat) - Vector3::Transform(ARR_LOCAL_POS[0], rightWorldMat);
 
+			Vector3 leftScale = Vector3(pLeftCollider->GetSize().x, pLeftCollider->GetSize().y, 1.0f);
+			axisVectors[0] *= leftScale;
+			axisVectors[1] *= leftScale;
+
+			Vector3 rightScale = Vector3(pRightCollider->GetSize().x, pRightCollider->GetSize().y, 1.0f);
+			axisVectors[2] *= rightScale;
+			axisVectors[3] *= rightScale;
+
 			for (int i = 0; i < RECT_VECTEX_COUNT; ++i)
 			{
 				axisVectors[i].z = 0.0f;
@@ -163,7 +171,7 @@ namespace jh
 			for (int i = 0; i < RECT_VECTEX_COUNT; ++i)
 			{
 				Vector3 axisDirectionVector = axisVectors[i];
-				axisDirectionVector.Normalize();
+				//axisDirectionVector.Normalize();
 
 				float projectionDistance = 0.0f;
 				for (int j = 0; j < RECT_VECTEX_COUNT; ++j)

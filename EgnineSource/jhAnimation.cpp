@@ -2,8 +2,10 @@
 #include "jhAnimator.h"
 #include "jhTexture.h"
 #include "jhTime.h"
+#include "jhRenderer.h"
 
 constexpr const UINT MAX_SPRITE_SHEETS_COUNT = 16;
+constexpr const UINT ATLAS_TEXTURE_SLOT_NUMBER = 12;
 namespace jh
 {
 	Animation::Animation()
@@ -49,9 +51,37 @@ namespace jh
 	}
 	void Animation::Create(const std::wstring& animKey, Texture* pAtalsImage, Vector2 leftTop, Vector2 size, Vector2 offset, UINT columnLength, UINT spriteLength, float duration)
 	{
+		assert(pAtalsImage != nullptr);
+		mAnimKey = animKey;
+		float width = static_cast<float>(pAtalsImage->GetWidth());
+		float height = static_cast<float>(pAtalsImage->GetHeight());
+		for (UINT i = 0; i < columnLength; ++i)
+		{
+			Sprite sprite;
+			// // 텍스처 좌표는 정규화된 좌표니까 0~1사이의 값으로 바꾸어 주어야 함
+			sprite.LeftTop = Vector2((leftTop.x + (size.x * i)) / width, leftTop.y / height);
+			sprite.Size = Vector2(size.x / width, size.y / height);				
+			sprite.Offset = offset;
+			sprite.Duration = duration;
+			sprite.AtlasSize = Vector2(width, height);					// PixelShader에서 아틀라스의 크기를 알게 하기 위해서 넣어주는 값
+			mSpriteSheets.push_back(sprite);
+		}
 	}
 	void Animation::BindAtShader()
 	{
+		assert(mpAtlasImage != nullptr);
+		mpAtlasImage->SetShaderResourceView(graphics::eShaderStage::PIXEL_SHADER, ATLAS_TEXTURE_SLOT_NUMBER);
+		ConstantBuffer* pAnimConstantBuffer = renderer::pConstantBuffers[static_cast<UINT>(eConstantBufferType::ANIMATION)];
+		assert(pAnimConstantBuffer != nullptr);
+		renderer::AnimationConstantBuffer animConstantBuffer;
+		ZeroMemory(&animConstantBuffer, sizeof(renderer::AnimationConstantBuffer));
+		animConstantBuffer.AnimationType = static_cast<UINT>(eAnimatnionType::SECOND_DIMENTION);
+		animConstantBuffer.LeftTop = mSpriteSheets[mIndex].LeftTop;
+		animConstantBuffer.Offset = mSpriteSheets[mIndex].Offset;
+		animConstantBuffer.Size = mSpriteSheets[mIndex].Size;
+		animConstantBuffer.AtlasImageSize = mSpriteSheets[mIndex].AtlasSize;
+		pAnimConstantBuffer->WriteConstantBufferAtGPU(&animConstantBuffer);
+		pAnimConstantBuffer->SetConstantBufferAtShader(graphics::eShaderStage::PIXEL_SHADER);
 	}
 	void Animation::ClearShaderTexture()
 	{

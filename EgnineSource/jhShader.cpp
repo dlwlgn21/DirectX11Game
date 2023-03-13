@@ -20,7 +20,7 @@ namespace jh
 		, mcpErrorBlob(nullptr)
 		, mcpInputLayout(nullptr)
 		, meShaderStage()
-		, mPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
+		, mPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
 		, meRasterizerStateType(eRasterizerStateType::SOLID_BACK)
 		, meDepthStencilStateType(eDepthStencilStateType::LESS_FIRST)
 		, meBlendStateType(eBlendStateType::ALPHA_BLEND)
