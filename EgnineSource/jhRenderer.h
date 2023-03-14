@@ -84,6 +84,7 @@ namespace jh::renderer
 	extern const std::wstring FADE_OUT_TEXTURE_KEY;
 	extern const std::wstring MONSTER_TEXTURE_KEY;
 	extern const std::wstring TITLE_BACKGROUND_TEXTURE_KEY;
+	extern const std::wstring ZELDA_TEXTURE_KEY;
 
 	extern const std::wstring PLAYER_MATERIAL_KEY;
 	extern const std::wstring SPRITE_MATERIAL_KEY;

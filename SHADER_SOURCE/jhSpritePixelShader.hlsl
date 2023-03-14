@@ -12,8 +12,9 @@ struct VSOut
     float4 Color : COLOR;
     float2 UV : TEXCOORD;
 };
-const uint SECOND_DIMENTION = 0;
-const uint THIRD_DIMENTION = 1;
+
+const uint SECOND_DIMENTION = 1;
+const uint THIRD_DIMENTION = 2;
 
 float4 main(VSOut _in) : SV_Target
 {
@@ -22,18 +23,22 @@ float4 main(VSOut _in) : SV_Target
     if (animationType == SECOND_DIMENTION)
     {
         float2 diff = (atlasImageSize - spriteSize) * 0.5f;
-        float2 uv = (leftTop - offset) + (atlasImageSize * _in.UV);
+        float2 uv = (leftTop - diff - offset) + (atlasImageSize * _in.UV);
+        if (uv.x < leftTop.x ||
+            uv.y < leftTop.y ||
+            uv.x > leftTop.x + spriteSize.x ||
+            uv.y > leftTop.y + spriteSize.y)
+        {
+            discard;
+        }
         color = atlasTexture.Sample(pointSampler, uv);
-
-    }
-    else if (animationType == THIRD_DIMENTION)
-    {
-        
+        return color;
     }
     else
     {
-       // NO ANIM
-       color = defaultTexture.Sample(pointSampler, _in.UV);
+        //color = defaultTexture.Sample(pointSampler, _in.UV);
     }
+    color = defaultTexture.Sample(pointSampler, _in.UV);
+
     return color;
 }

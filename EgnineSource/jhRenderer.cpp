@@ -31,7 +31,7 @@ namespace jh::renderer
 	static const std::wstring FADE_OUT_TEXTURE_KEY = L"FadeOutTexture";
 	static const std::wstring MONSTER_TEXTURE_KEY = L"MonsterTexture";
 	static const std::wstring TITLE_BACKGROUND_TEXTURE_KEY = L"BackGroundTexture";
-
+	static const std::wstring ZELDA_TEXTURE_KEY = L"ZeldaTexture";
 
 	static const std::wstring PLAYER_MATERIAL_KEY = L"PlayerMaterial";
 	static const std::wstring SPRITE_MATERIAL_KEY = L"SpriteMaterial";
@@ -422,12 +422,12 @@ namespace jh::renderer
 	__forceinline void CreateMeterial() {
 
 		// Player
-		Material* pDefaultMaterial = new Material();
-		pDefaultMaterial->SetShader(Resources::Find<Shader>(SPRITE_SHADER_KEY));
+		Material* pPlayerMaterial = new Material();
+		pPlayerMaterial->SetShader(Resources::Find<Shader>(SPRITE_SHADER_KEY));
 		Texture* pTexture = Resources::Find<Texture>(PLAYER_TEXTURE_KEY);
 		assert(pTexture != nullptr); 
-		pDefaultMaterial->SetTexture(pTexture);
-		Resources::Insert<Material>(PLAYER_MATERIAL_KEY, pDefaultMaterial);
+		pPlayerMaterial->SetTexture(pTexture);
+		Resources::Insert<Material>(PLAYER_MATERIAL_KEY, pPlayerMaterial);
 
 		// Monster
 		Material* pMonsterMaterial = new Material();
@@ -438,7 +438,7 @@ namespace jh::renderer
 		Resources::Insert<Material>(MONSTER_MATERIAL_KEY, pMonsterMaterial);
 
 
-
+		
 		Material* pSpriteMaterial = new Material();
 		Texture* pSpriteTexture = Resources::Find<Texture>(DEFAULT_TEXTURE_KEY);
 		pSpriteMaterial->SetShader(Resources::Find<Shader>(SPRITE_SHADER_KEY));
@@ -487,6 +487,8 @@ namespace jh::renderer
 		Resources::Load<Texture>(FADE_OUT_TEXTURE_KEY,			L"FadeOutTexture.png");
 		Resources::Load<Texture>(MONSTER_TEXTURE_KEY,			L"MonsterIdleImage.png");
 		Resources::Load<Texture>(TITLE_BACKGROUND_TEXTURE_KEY,	L"TitleImage.png");
+		Resources::Load<Texture>(ZELDA_TEXTURE_KEY,				L"ZeldaSprite.png");
+		//ZeldaSprite.png
 	}
 
 	void Initialize()

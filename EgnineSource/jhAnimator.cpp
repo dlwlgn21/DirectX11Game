@@ -42,13 +42,13 @@ namespace jh
 
 		if (mCurrAnimatingAnimation->IsAnimComplete() && mbIsAnimationLooping)
 		{
-			Events* pEvents = FindEventsOrNull(mCurrAnimatingAnimation->GetAnimationKey());
-			if (pEvents == nullptr)
-			{
-				assert(false);
-				return;
-			}
-			pEvents->CompleteEvent();
+			//Events* pEvents = FindEventsOrNull(mCurrAnimatingAnimation->GetAnimationKey());
+			//if (pEvents == nullptr)
+			//{
+			//	assert(false);
+			//	return;
+			//}
+			//pEvents->CompleteEvent();
 			mCurrAnimatingAnimation->Reset();
 		}
 
@@ -60,7 +60,7 @@ namespace jh
 	void Animator::Render()
 	{
 	}
-	void Animator::Create(const std::wstring& animKey, Texture* pAtalsImage, Vector2 leftTop, Vector2 size, Vector2 offset, UINT columnLength, UINT spriteLength, float duration)
+	void Animator::Create(const std::wstring& animKey, Texture* pAtalsImage, Vector2 leftTop, Vector2 seperatingSize, Vector2 offset,  UINT spriteCount, float duration)
 	{
 		if (pAtalsImage == nullptr)
 			{assert(false);}
@@ -70,7 +70,7 @@ namespace jh
 			{assert(false);}
 
 		pAnimation = new Animation();
-		pAnimation->Create(animKey, pAtalsImage, leftTop, size, offset, columnLength, spriteLength, duration);
+		pAnimation->Create(animKey, pAtalsImage, leftTop, seperatingSize, offset, spriteCount, duration);
 		mAnimationMap.insert(std::make_pair(animKey, pAnimation));
 		 
 	}
@@ -97,11 +97,11 @@ namespace jh
 	void Animator::PlayAnimation(const std::wstring& animKey, bool bIsLooping)
 	{
 		Animation* pPrevAnim = mCurrAnimatingAnimation;
-		Events* pEvents = FindEventsOrNull(pPrevAnim->GetAnimationKey());
-		if (pEvents == nullptr)
-			{assert(false); return;}
+		//Events* pEvents = FindEventsOrNull(pPrevAnim->GetAnimationKey());
+		//if (pEvents == nullptr)
+		//	{assert(false); return;}
 
-		pEvents->EndEvent();
+		//pEvents->EndEvent();
 
 		mCurrAnimatingAnimation = FindAnimationOrNull(animKey);
 		if (mCurrAnimatingAnimation == nullptr)
@@ -110,11 +110,11 @@ namespace jh
 
 		mCurrAnimatingAnimation->Reset();
 		mbIsAnimationLooping = bIsLooping;
-		pEvents = FindEventsOrNull(mCurrAnimatingAnimation->GetAnimationKey());
-		if (pEvents == nullptr)
-			{assert(false); return;}
+		//pEvents = FindEventsOrNull(mCurrAnimatingAnimation->GetAnimationKey());
+		//if (pEvents == nullptr)
+		//	{assert(false); return;}
 
-		pEvents->StartEvent();
+		//pEvents->StartEvent();
 	}
 
 	void Animator::BindAtShader()

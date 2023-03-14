@@ -118,9 +118,9 @@ namespace jh::graphics
 
 	enum class eAnimatnionType
 	{
+		NO_ANIMATION,
 		SECOND_DIMENTION,
 		THIRD_DIMENTION,
-		NO_ANIMATION,
 		COUNT
 	};
 	struct DebugMesh

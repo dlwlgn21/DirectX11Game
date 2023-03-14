@@ -49,21 +49,22 @@ namespace jh
 	void Animation::Render()
 	{
 	}
-	void Animation::Create(const std::wstring& animKey, Texture* pAtalsImage, Vector2 leftTop, Vector2 size, Vector2 offset, UINT columnLength, UINT spriteLength, float duration)
+	void Animation::Create(const std::wstring& animKey, Texture* pAtalsImage, Vector2 leftTop, Vector2 seperatingSize, Vector2 offset, UINT spriteCount, float duration)
 	{
 		assert(pAtalsImage != nullptr);
+		mpAtlasImage = pAtalsImage;
 		mAnimKey = animKey;
 		float width = static_cast<float>(pAtalsImage->GetWidth());
 		float height = static_cast<float>(pAtalsImage->GetHeight());
-		for (UINT i = 0; i < columnLength; ++i)
+		for (UINT i = 0; i < spriteCount; ++i)
 		{
 			Sprite sprite;
 			// // 텍스처 좌표는 정규화된 좌표니까 0~1사이의 값으로 바꾸어 주어야 함
-			sprite.LeftTop = Vector2((leftTop.x + (size.x * i)) / width, leftTop.y / height);
-			sprite.Size = Vector2(size.x / width, size.y / height);				
+			sprite.LeftTop = Vector2((leftTop.x + (seperatingSize.x * i)) / width, leftTop.y / height);
+			sprite.Size = Vector2(seperatingSize.x / width, seperatingSize.y / height);
 			sprite.Offset = offset;
 			sprite.Duration = duration;
-			sprite.AtlasSize = Vector2(width, height);					// PixelShader에서 아틀라스의 크기를 알게 하기 위해서 넣어주는 값
+			sprite.AtlasSize = Vector2(200 / width, 200 / height);					// PixelShader에서 아틀라스의 크기를 알게 하기 위해서 넣어주는 값
 			mSpriteSheets.push_back(sprite);
 		}
 	}

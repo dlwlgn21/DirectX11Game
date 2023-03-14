@@ -14,13 +14,14 @@ namespace jh
 		mScenes.resize(static_cast<UINT>(eSceneType::COUNT));
 
 		mScenes[static_cast<UINT>(eSceneType::TITLE)] = new TitleScene();
-		mScenes[static_cast<UINT>(eSceneType::PLAY)] = new PlayScene();
+		//mScenes[static_cast<UINT>(eSceneType::PLAY)] = new PlayScene();
 
 		mpCurrentScene = mScenes[static_cast<UINT>(eSceneType::TITLE)];
-		for (UINT i = 0; i < static_cast<UINT>(eSceneType::COUNT) - 1; ++i)
-		{
-			mScenes[i]->Initalize();
-		}
+		mpCurrentScene->Initalize();
+		//for (UINT i = 0; i < static_cast<UINT>(eSceneType::COUNT) - 1; ++i)
+		//{
+		//	mScenes[i]->Initalize();
+		//}
 	}
 
 	void SceneManager::Update()

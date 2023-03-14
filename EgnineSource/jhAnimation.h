@@ -41,8 +41,7 @@ namespace jh
 			Vector2 leftTop, 
 			Vector2 size, 
 			Vector2 offset, 
-			UINT columnLength,
-			UINT spriteLength,
+			UINT spriteCount,
 			float duration
 		);
 		void BindAtShader();
