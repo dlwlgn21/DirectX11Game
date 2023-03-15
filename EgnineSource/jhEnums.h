@@ -25,13 +25,14 @@ namespace jh
 	enum class eComponentType
 	{
 		NONE,
-		TRANSFORM,								// 위치 데이터 수정하는 컴포넌트
+		TRANSFORM,
 		CAMERA,
 		MESH,
 		COLLIDER,
 		MESH_RENDERER,
 		SPRITE_RENDERER,
 		ANIMATOR,
+		LIGHT,
 		UI,
 		SCRIPT,
 		COUNT
@@ -58,6 +59,14 @@ namespace jh
 		CIRCLE,
 		BOX,
 		SPHERE,
+		COUNT
+	};
+
+	enum class eLightType
+	{
+		DIRECTIONAL_LIGHT,
+		POINT_LIGHT,
+		SPOT_LIGHT,
 		COUNT
 	};
 

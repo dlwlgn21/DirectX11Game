@@ -185,6 +185,7 @@
     <ClInclude Include="jhGridScript.h" />
     <ClInclude Include="jhInput.h" />
     <ClInclude Include="jhLayer.h" />
+    <ClInclude Include="jhLight.h" />
     <ClInclude Include="jhMath.h" />
     <ClInclude Include="jhMesh.h" />
     <ClInclude Include="jhMeshRenderer.h" />
@@ -203,6 +204,7 @@
     <ClInclude Include="jhScript.h" />
     <ClInclude Include="jhShader.h" />
     <ClInclude Include="jhSpriteRenderer.h" />
+    <ClInclude Include="jhStructuredBuffer.h" />
     <ClInclude Include="jhTexture.h" />
     <ClInclude Include="jhTime.h" />
     <ClInclude Include="jhTitleScene.h" />
@@ -230,6 +232,7 @@
     <ClCompile Include="jhGridScript.cpp" />
     <ClCompile Include="jhInput.cpp" />
     <ClCompile Include="jhLayer.cpp" />
+    <ClCompile Include="jhLight.cpp" />
     <ClCompile Include="jhMath.cpp" />
     <ClCompile Include="jhMesh.cpp" />
     <ClCompile Include="jhMeshRenderer.cpp" />
@@ -247,6 +250,7 @@
     <ClCompile Include="jhScript.cpp" />
     <ClCompile Include="jhShader.cpp" />
     <ClCompile Include="jhSpriteRenderer.cpp" />
+    <ClCompile Include="jhStructuredBuffer.cpp" />
     <ClCompile Include="jhTexture.cpp" />
     <ClCompile Include="jhTime.cpp" />
     <ClCompile Include="jhTitleScene.cpp" />

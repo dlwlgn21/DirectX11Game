@@ -121,6 +121,9 @@
     <Filter Include="Component\Animation">
       <UniqueIdentifier>{db369017-37b2-4827-81d5-073ec34191d7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\Ligit">
+      <UniqueIdentifier>{4fd0cf6a-f3df-4f58-a4aa-00d055b481c8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EgnineSource.cpp" />
@@ -247,6 +250,10 @@
     <ClCompile Include="jhAnimator.cpp">
       <Filter>Component\Animator</Filter>
     </ClCompile>
+    <ClCompile Include="jhLight.cpp">
+      <Filter>Component\Ligit</Filter>
+    </ClCompile>
+    <ClCompile Include="jhStructuredBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -388,6 +395,10 @@
     <ClInclude Include="jhAnimator.h">
       <Filter>Component\Animator</Filter>
     </ClInclude>
+    <ClInclude Include="jhLight.h">
+      <Filter>Component\Ligit</Filter>
+    </ClInclude>
+    <ClInclude Include="jhStructuredBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="jhMath.inl">

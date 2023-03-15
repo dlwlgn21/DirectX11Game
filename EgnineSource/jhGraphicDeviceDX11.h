@@ -16,6 +16,7 @@ namespace jh::graphics
 		bool CreateTexture(D3D11_TEXTURE2D_DESC* pTextureDesc, ID3D11Texture2D** ppTexture2D);
 		bool CreateInputLayout(const D3D11_INPUT_ELEMENT_DESC* pDesc, UINT numElements, const void* pShaderByteInputSignature, SIZE_T byteCodeLength, ID3D11InputLayout** ppInputLayout);
 		bool CreateBuffer(D3D11_BUFFER_DESC* pBufferDesc, D3D11_SUBRESOURCE_DATA* pSubResourceData, ID3D11Buffer** ppBuffer);
+		bool CreateShaderResourceView(ID3D11Resource* pResource, const D3D11_SHADER_RESOURCE_VIEW_DESC* pDesc, ID3D11ShaderResourceView** ppShaderResourceView);
 		bool CreateAndSetShader();
 		bool CreateVertexShader(const void* pShaderByteCode, SIZE_T byteCodeLength, ID3D11ClassLinkage* pClassLincage, ID3D11VertexShader** ppVertexShader);
 		bool CreatePixelShader(const void* pShaderByteCode, SIZE_T byteCodeLength, ID3D11ClassLinkage* pClassLinkage, ID3D11PixelShader** ppPixelShader);
@@ -27,7 +28,7 @@ namespace jh::graphics
 
 		void BindViewports(D3D11_VIEWPORT* pViewport);
 		void BindViewports();
-		void WriteConstantBufferAtGPU(ID3D11Buffer* pBuffer, void* pData, UINT size);
+		void BindBufferAtGPU(ID3D11Buffer* pBuffer, void* pData, UINT size);
 		
 		void SetConstantBufferAtShader(eShaderStage eStage, eConstantBufferType eType, ID3D11Buffer* pBuffer);
 		void SetVertexBufferAtIA(UINT startSlot, UINT numBuffers, ID3D11Buffer* const* pBuffer, const UINT* pStride, const UINT* pOffeset);

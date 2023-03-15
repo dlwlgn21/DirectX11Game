@@ -318,6 +318,16 @@ namespace jh::graphics
 		return true;
 	}
 
+	bool GraphicDevice_DX11::CreateShaderResourceView(ID3D11Resource* pResource, const D3D11_SHADER_RESOURCE_VIEW_DESC* pDesc, ID3D11ShaderResourceView** ppShaderResourceView)
+	{
+		if (FAILED(mcpDevice->CreateShaderResourceView(pResource, pDesc, ppShaderResourceView)))
+		{
+			assert(false);
+			return false;
+		}
+		return true;
+	}
+
 	bool GraphicDevice_DX11::CreateAndSetShader()
 	{
 		//// VertexShader 
@@ -487,7 +497,7 @@ namespace jh::graphics
 		mcpContext->RSSetViewports(1, &viewPort);
 	}
 
-	void GraphicDevice_DX11::WriteConstantBufferAtGPU(ID3D11Buffer* pBuffer, void* pData, UINT size)
+	void GraphicDevice_DX11::BindBufferAtGPU(ID3D11Buffer* pBuffer, void* pData, UINT size)
 	{
 		D3D11_MAPPED_SUBRESOURCE mappedSubResource;
 
@@ -585,6 +595,8 @@ namespace jh::graphics
 			break;
 		}
 	}
+
+
 
 	void GraphicDevice_DX11::SetSamplersAtShader(eShaderStage eStage, UINT slot, UINT numSamplers,  ID3D11SamplerState* const* ppSamplerState)
 	{

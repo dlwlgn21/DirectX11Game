@@ -8,6 +8,7 @@
 #include "jhShader.h"
 #include "jhConstantBuffer.h"
 #include "jhCamera.h"
+#include "jhLight.h"
 
 constexpr const UINT VERTEX_COUNT = 4;
 
@@ -68,6 +69,8 @@ namespace jh::renderer
 	extern Microsoft::WRL::ComPtr<ID3D11BlendState>			cpBlendStates[];
 	extern std::vector<Camera*>								pCameras[];
 	extern std::vector<DebugMesh>							debugMeshs;
+	extern std::vector<LightAttribute>						lights;
+
 	extern Camera*											pMainCamera;
 
 	extern const std::wstring CHARACTER_SHADER_KEY;

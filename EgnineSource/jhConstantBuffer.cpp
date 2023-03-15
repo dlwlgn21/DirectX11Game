@@ -14,15 +14,15 @@ namespace jh::graphics
 	}
 	bool ConstantBuffer::CreateBuffer(UINT bufferSize)
 	{
-		ZeroMemory(&ConstantBufferDesc, sizeof(D3D11_BUFFER_DESC));
-		ConstantBufferDesc.ByteWidth =				bufferSize;
-		ConstantBufferDesc.Usage =					D3D11_USAGE::D3D11_USAGE_DYNAMIC;
-		ConstantBufferDesc.BindFlags =				D3D11_BIND_FLAG::D3D11_BIND_CONSTANT_BUFFER;
-		ConstantBufferDesc.CPUAccessFlags =			D3D11_CPU_ACCESS_WRITE;
-		ConstantBufferDesc.MiscFlags =				0;
-		ConstantBufferDesc.StructureByteStride =	0;
+		ZeroMemory(&BufferDesc, sizeof(D3D11_BUFFER_DESC));
+		BufferDesc.ByteWidth =				bufferSize;
+		BufferDesc.Usage =					D3D11_USAGE::D3D11_USAGE_DYNAMIC;
+		BufferDesc.BindFlags =				D3D11_BIND_FLAG::D3D11_BIND_CONSTANT_BUFFER;
+		BufferDesc.CPUAccessFlags =			D3D11_CPU_ACCESS_WRITE;
+		BufferDesc.MiscFlags =				0;
+		BufferDesc.StructureByteStride =	0;
 
-		if (!graphics::GetDevice()->CreateBuffer(&ConstantBufferDesc, nullptr, CpBuffer.ReleaseAndGetAddressOf()))
+		if (!graphics::GetDevice()->CreateBuffer(&BufferDesc, nullptr, CpBuffer.ReleaseAndGetAddressOf()))
 		{
 			return false;
 		}
@@ -30,7 +30,7 @@ namespace jh::graphics
 	}
 	void ConstantBuffer::WriteConstantBufferAtGPU(void* pData)
 	{
-		graphics::GetDevice()->WriteConstantBufferAtGPU(CpBuffer.Get(), pData, ConstantBufferDesc.ByteWidth);
+		graphics::GetDevice()->BindBufferAtGPU(CpBuffer.Get(), pData, BufferDesc.ByteWidth);
 	}
 	void ConstantBuffer::SetConstantBufferAtShader(eShaderStage shaderStage)
 	{

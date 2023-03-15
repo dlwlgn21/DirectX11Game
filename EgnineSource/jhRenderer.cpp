@@ -4,6 +4,7 @@
 #include "jhTexture.h"
 #include "jhSceneManager.h"
 
+
 using namespace jh::graphics;
 namespace jh::renderer
 {
@@ -15,6 +16,8 @@ namespace jh::renderer
 	Microsoft::WRL::ComPtr<ID3D11BlendState>		cpBlendStates[static_cast<UINT>(graphics::eBlendStateType::COUNT)] = {};
 	std::vector<Camera*>							pCameras[static_cast<UINT>(eSceneType::COUNT)];
 	std::vector<DebugMesh>							debugMeshs;
+	std::vector<LightAttribute>						lights;
+	
 	Camera*											pMainCamera = nullptr;
 
 	static const std::wstring CHARACTER_SHADER_KEY = L"CharacterShader";
@@ -493,6 +496,7 @@ namespace jh::renderer
 
 	void Initialize()
 	{
+		lights.reserve(10000);
 		for (int i = 0; i < static_cast<UINT>(eSceneType::COUNT); ++i)
 		{
 			pCameras[i].reserve(8);

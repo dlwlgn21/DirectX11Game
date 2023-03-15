@@ -54,11 +54,14 @@ namespace jh::graphics
 			UNKNOWN_TYPE,
 		} Type = eBufferType::UNKNOWN_TYPE;
 
-		D3D11_BUFFER_DESC ConstantBufferDesc = {};
+		D3D11_BUFFER_DESC BufferDesc = {};
 		Microsoft::WRL::ComPtr<ID3D11Buffer> CpBuffer;
 
 		GPUBuffer() = default;
-		virtual ~GPUBuffer() = default;
+		virtual ~GPUBuffer()
+		{
+			CpBuffer.Reset();
+		}
 	};
 
 	enum class eSamplerType
@@ -123,6 +126,12 @@ namespace jh::graphics
 		THIRD_DIMENTION,
 		COUNT
 	};
+	enum class eShaderResourceViewType
+	{
+		NONE,
+		COUNT
+	};
+
 	struct DebugMesh
 	{
 		eColliderType EColliderType;
@@ -134,4 +143,17 @@ namespace jh::graphics
 		float Time;
 	};
 
+	struct LightAttribute
+	{
+		math::Vector4 DiffuseLight;			// 분산광 물체의 표면에서 분산되어 눈으로 바로 들어오는 빛. 각도에 따라 밝기가 다르다.
+		math::Vector4 SpcularLight;			// 반사광 분산광과 달리 한방향으로 완전히 반사되는 빛. 반사되는 부분은 흰색의 광으로 보인다. 즉 하이라이트
+		math::Vector4 AmbientLight;			// 주변광 수많은 반사를 거쳐서 광원이 불분명한 빛.	물체를 덮고 있는 빛이며 일정한 밝기의 색으로 표시한다.
+		math::Vector4 EmissiveLight;		// 발광체 물체자체가 빛나고 있는 빛.
+		math::Vector4 Position;
+		math::Vector4 Direction;
+		eLightType ELightType;
+		float Radius;						// 빛의 영향을 받는 범위
+		float Angle;
+		int padding;
+	};
 }
