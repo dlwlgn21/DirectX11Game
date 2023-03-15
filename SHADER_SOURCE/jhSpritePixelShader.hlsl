@@ -13,12 +13,12 @@ struct VSOut
     float2 UV : TEXCOORD;
 };
 
-const uint SECOND_DIMENTION = 1;
-const uint THIRD_DIMENTION = 2;
 
 float4 main(VSOut _in) : SV_Target
 {
     float4 color = (float) 0.0f;
+    const uint SECOND_DIMENTION = 1;
+    const uint THIRD_DIMENTION = 2;
     
     if (animationType == SECOND_DIMENTION)
     {
@@ -32,13 +32,12 @@ float4 main(VSOut _in) : SV_Target
             discard;
         }
         color = atlasTexture.Sample(pointSampler, uv);
-        return color;
     }
     else
     {
         //color = defaultTexture.Sample(pointSampler, _in.UV);
+        color = defaultTexture.Sample(pointSampler, _in.UV);
     }
-    color = defaultTexture.Sample(pointSampler, _in.UV);
 
     return color;
 }

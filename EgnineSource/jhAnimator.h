@@ -26,7 +26,7 @@ namespace jh
 						mEvent();
 						return;
 					}
-					assert(false);
+					//assert(false);
 				}
 				std::function<void()> mEvent;
 
@@ -67,7 +67,7 @@ namespace jh
 
 	private:
 		std::unordered_map<std::wstring, Animation*>	mAnimationMap;
-		std::unordered_map<std::wstring, Events*>		mEventMap;
+		std::unordered_map<std::wstring, Events*>		mEventsMap;
 		Animation*										mCurrAnimatingAnimation;
 		bool											mbIsAnimationLooping;
 	};

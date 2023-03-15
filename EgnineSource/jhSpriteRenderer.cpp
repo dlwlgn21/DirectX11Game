@@ -40,5 +40,9 @@ namespace jh
 
 		mpMesh->Render();
 		mpMaterial->Clear();
+		if (pAnimator != nullptr)
+		{
+			pAnimator->ClearShaderTexture();
+		}
 	}
 }

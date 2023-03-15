@@ -3,6 +3,7 @@
 
 namespace jh
 {
+	class Animator;
 	class Transform;
 	class PlayerScript final : public Script
 	{
@@ -21,9 +22,18 @@ namespace jh
 		void OnTriggerEnter(Collider2D* pOtherCollider) override;
 		void OnTriggerStay(Collider2D* pOtherCollider) override;
 		void OnTriggerExit(Collider2D* pOtherCollider) override;
+
+		void Start();
+		void Complete();
+		void End();
+
 	private:
-		Transform*		mpTranform;
-		float			mSpeed;
+		Transform*				mpTranform;
+		Animator*				mpAnimator;
+		float					mSpeed;
+		const std::wstring		mAnimIdleKey;
+		const std::wstring		mAnimMoveKey;
+		
 	};
 }
 

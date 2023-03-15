@@ -3,6 +3,7 @@
 #include "jhGameObject.h"
 #include "jhInput.h"
 #include "jhTime.h"
+#include "jhAnimator.h"
 
 namespace jh
 {
@@ -10,11 +11,19 @@ namespace jh
 		: Script()
 		, mpTranform(nullptr)
 		, mSpeed(20.0f)
+		, mAnimIdleKey(L"ZeldaIdle")
+		, mAnimMoveKey(L"ZeldaMove")
+		, mpAnimator(nullptr)
 	{
 	}
 
 	void PlayerScript::Initialize()
 	{
+		mpAnimator = static_cast<Animator*>(GetOwner()->GetComponentOrNull(eComponentType::ANIMATOR));
+		assert(mpAnimator != nullptr);
+		mpAnimator->GetStartEvent(mAnimMoveKey) = std::bind(&PlayerScript::Start, this);
+		mpAnimator->GetCompleteEvent(mAnimMoveKey) = std::bind(&PlayerScript::Complete, this);
+		mpAnimator->GetEndEvent(mAnimMoveKey) = std::bind(&PlayerScript::End, this);
 	}
 	void PlayerScript::Update()
 	{
@@ -50,6 +59,18 @@ namespace jh
 		}
 
 		mpTranform->SetPosition(pos);
+
+		assert(mpAnimator != nullptr);
+		if (Input::GetKeyState(eKeyCode::N_1) == eKeyState::PRESSED)
+		{
+			mpAnimator->PlayAnimation(mAnimIdleKey, true);
+		}
+
+		if (Input::GetKeyState(eKeyCode::N_2) == eKeyState::PRESSED)
+		{
+			mpAnimator->PlayAnimation(mAnimMoveKey, true);
+		}
+
 	}
 	void PlayerScript::FixedUpdate()
 	{
@@ -76,6 +97,18 @@ namespace jh
 		int a = 0;
 	}
 	void PlayerScript::OnTriggerExit(Collider2D* pOtherCollider)
+	{
+		int a = 0;
+	}
+	void PlayerScript::Start()
+	{
+		int a = 0;
+	}
+	void PlayerScript::Complete()
+	{
+		int a = 0;
+	}
+	void PlayerScript::End()
 	{
 		int a = 0;
 	}

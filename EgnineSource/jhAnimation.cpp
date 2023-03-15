@@ -28,7 +28,7 @@ namespace jh
 		mAccumTimer += Time::DeltaTime();
 
 		// 타이머가 해당 프레임의 유지시간보다 크면 다음 인덱스로 이동
-		if (mSpriteSheets[mIndex].Duration < mAccumTimer)
+		if (mAccumTimer >= mSpriteSheets[mIndex].Duration)
 		{
 			mAccumTimer = 0.0f;
 			++mIndex;
@@ -86,6 +86,14 @@ namespace jh
 	}
 	void Animation::ClearShaderTexture()
 	{
+		Texture::Clear(ATLAS_TEXTURE_SLOT_NUMBER);
+		// Texture Clear
+		ConstantBuffer* pAnimConstantBuffer = renderer::pConstantBuffers[static_cast<UINT>(eConstantBufferType::ANIMATION)];
+		assert(pAnimConstantBuffer != nullptr);
+		renderer::AnimationConstantBuffer animationConstantBuffer = {};
+		animationConstantBuffer.AnimationType = static_cast<UINT>(eAnimatnionType::NO_ANIMATION);
+		pAnimConstantBuffer->WriteConstantBufferAtGPU(&animationConstantBuffer);
+		pAnimConstantBuffer->SetConstantBufferAtShader(eShaderStage::PIXEL_SHADER);
 	}
 	void Animation::Reset()
 	{

@@ -15,6 +15,13 @@ namespace jh
 		mcpShaderResourceView.Reset();
 	}
 
+	void Texture::Clear(UINT startSlot)
+	{
+		ID3D11ShaderResourceView* pSrv = nullptr;
+		graphics::GetDevice()->SetShaderResourceView(eShaderStage::VERTEX_SHADER, startSlot, &pSrv);
+		graphics::GetDevice()->SetShaderResourceView(eShaderStage::PIXEL_SHADER, startSlot, &pSrv);
+	}
+
 	HRESULT Texture::Load(const std::wstring& fileName)
 	{
 		std::filesystem::path path = std::filesystem::current_path();
@@ -66,6 +73,8 @@ namespace jh
 		//graphics::GetDevice()->SetShaderResourceView(eShaderStage::HULL_SHADER, 0, mcpShaderResourceView.GetAddressOf());
 		//graphics::GetDevice()->SetShaderResourceView(eShaderStage::CS, 0, mcpShaderResourceView.GetAddressOf());
 	}
+
+
 
 	void Texture::createShaderResourceView()
 	{

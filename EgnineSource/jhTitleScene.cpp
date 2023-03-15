@@ -67,19 +67,28 @@ namespace jh
 		//object::DontDestroyOnLoad(pPlayerObj);
 		pCollider2D->SetSize(Vector2(1.5f, 1.5f));
 
-		//Animator* pPlayerAnimator = new Animator();
-		//pPlayerAnimator->Create(
-		//	L"ZeldaIdle",
-		//	Resources::Find<Texture>(renderer::ZELDA_TEXTURE_KEY),
-		//	Vector2::Zero,
-		//	Vector2(120.f, 130.0f),
-		//	Vector2::Zero,
-		//	10,
-		//	3,
-		//	0.1f
-		//);
-		//pPlayerObj->AddComponent(pPlayerAnimator);
-		//pPlayerAnimator->PlayAnimation(L"ZeldaIdle", true);
+		Animator* pPlayerAnimator = new Animator();
+		pPlayerAnimator->Create(
+			L"ZeldaIdle",
+			Resources::Find<Texture>(renderer::ZELDA_TEXTURE_KEY),
+			Vector2::Zero,
+			Vector2(120.f, 130.0f),
+			Vector2::Zero,
+			3,
+			0.1f
+		);
+		pPlayerAnimator->Create(
+			L"ZeldaMove",
+			Resources::Find<Texture>(renderer::ZELDA_TEXTURE_KEY),
+			Vector2(0.0f, 520.0f),
+			Vector2(120.f, 130.0f),
+			Vector2::Zero,
+			8,
+			0.1f
+		);
+
+		pPlayerObj->AddComponent(pPlayerAnimator);
+		pPlayerAnimator->PlayAnimation(L"ZeldaIdle", true);
 
 
 		// Monster
