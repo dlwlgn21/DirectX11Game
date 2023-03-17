@@ -9,6 +9,7 @@
 #include "jhConstantBuffer.h"
 #include "jhCamera.h"
 #include "jhLight.h"
+#include "jhStructuredBuffer.h"
 
 constexpr const UINT VERTEX_COUNT = 4;
 
@@ -60,6 +61,10 @@ namespace jh::renderer
 		UINT	AnimationType;				// 애니메이션 안 쓸수도 있어서. 배경만 나와야 할 수도 있어서.
 	};
 
+	CBUFFER(LightConstantBuffer, CBSLOT_NUMBER_OF_LIGHT)
+	{
+		UINT NumberOfLights;
+	};
 
 	extern Vertex											vertices[VERTEX_COUNT];
 	extern ConstantBuffer*									pConstantBuffers[];
@@ -72,6 +77,7 @@ namespace jh::renderer
 	extern std::vector<LightAttribute>						lights;
 
 	extern Camera*											pMainCamera;
+	extern StructuredBuffer*								pLightStructuredBuffer;
 
 	extern const std::wstring CHARACTER_SHADER_KEY;
 	extern const std::wstring SPRITE_SHADER_KEY;
@@ -88,6 +94,7 @@ namespace jh::renderer
 	extern const std::wstring MONSTER_TEXTURE_KEY;
 	extern const std::wstring TITLE_BACKGROUND_TEXTURE_KEY;
 	extern const std::wstring ZELDA_TEXTURE_KEY;
+	extern const std::wstring ZOMBIE_TEXTURE_KEY;
 
 	extern const std::wstring PLAYER_MATERIAL_KEY;
 	extern const std::wstring SPRITE_MATERIAL_KEY;
@@ -106,6 +113,7 @@ namespace jh::renderer
 	void Initialize();
 	void Release();
 	void Render();
-
+	void PushLightAttribute(LightAttribute lightAttribute);
+	void BindLightBufferAtGPU();
 }
 

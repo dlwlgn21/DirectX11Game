@@ -17,8 +17,9 @@ namespace jh::renderer
 	std::vector<Camera*>							pCameras[static_cast<UINT>(eSceneType::COUNT)];
 	std::vector<DebugMesh>							debugMeshs;
 	std::vector<LightAttribute>						lights;
-	
+
 	Camera*											pMainCamera = nullptr;
+	StructuredBuffer*								pLightStructuredBuffer;
 
 	static const std::wstring CHARACTER_SHADER_KEY = L"CharacterShader";
 	static const std::wstring SPRITE_SHADER_KEY = L"SpriteShader";
@@ -35,6 +36,7 @@ namespace jh::renderer
 	static const std::wstring MONSTER_TEXTURE_KEY = L"MonsterTexture";
 	static const std::wstring TITLE_BACKGROUND_TEXTURE_KEY = L"BackGroundTexture";
 	static const std::wstring ZELDA_TEXTURE_KEY = L"ZeldaTexture";
+	static const std::wstring ZOMBIE_TEXTURE_KEY = L"WildZombieTexture";
 
 	static const std::wstring PLAYER_MATERIAL_KEY = L"PlayerMaterial";
 	static const std::wstring SPRITE_MATERIAL_KEY = L"SpriteMaterial";
@@ -49,6 +51,7 @@ namespace jh::renderer
 	static const std::wstring RECT_DEBUG_MESH_KEY = L"RectDebugMesh";
 	static const std::wstring CIRCLE_DEBUG_MESH_KEY = L"CircleDebugMesh";
 
+	
 	__forceinline void CreateMeshAndVertexAndIndexBuffer()
 	{
 		const int SLICE_COUNT = 80;
@@ -420,6 +423,13 @@ namespace jh::renderer
 
 		pConstantBuffers[static_cast<UINT>(eConstantBufferType::ANIMATION)] = new ConstantBuffer(eConstantBufferType::ANIMATION);
 		pConstantBuffers[static_cast<UINT>(eConstantBufferType::ANIMATION)]->CreateBuffer(sizeof(AnimationConstantBuffer));
+
+		pConstantBuffers[static_cast<UINT>(eConstantBufferType::LIGHT)] = new ConstantBuffer(eConstantBufferType::LIGHT);
+		pConstantBuffers[static_cast<UINT>(eConstantBufferType::LIGHT)]->CreateBuffer(sizeof(LightConstantBuffer));
+	
+		// StructuredBuffer
+		pLightStructuredBuffer = new StructuredBuffer();
+		pLightStructuredBuffer->Create(sizeof(LightAttribute), 128, eShaderResourceViewType::NONE, nullptr);
 	}
 
 	__forceinline void CreateMeterial() {
@@ -435,7 +445,7 @@ namespace jh::renderer
 		// Monster
 		Material* pMonsterMaterial = new Material();
 		pMonsterMaterial->SetShader(Resources::Find<Shader>(SPRITE_SHADER_KEY));
-		Texture* pMonsterTexture = Resources::Find<Texture>(MONSTER_TEXTURE_KEY);
+		Texture* pMonsterTexture = Resources::Find<Texture>(ZOMBIE_TEXTURE_KEY);
 		assert(pMonsterTexture != nullptr);
 		pMonsterMaterial->SetTexture(pMonsterTexture);
 		Resources::Insert<Material>(MONSTER_MATERIAL_KEY, pMonsterMaterial);
@@ -491,6 +501,7 @@ namespace jh::renderer
 		Resources::Load<Texture>(MONSTER_TEXTURE_KEY,			L"MonsterIdleImage.png");
 		Resources::Load<Texture>(TITLE_BACKGROUND_TEXTURE_KEY,	L"TitleImage.png");
 		Resources::Load<Texture>(ZELDA_TEXTURE_KEY,				L"ZeldaSprite.png");
+		Resources::Load<Texture>(ZOMBIE_TEXTURE_KEY,			L"WildZombie.png");
 		//ZeldaSprite.png
 	}
 
@@ -501,7 +512,6 @@ namespace jh::renderer
 		{
 			pCameras[i].reserve(8);
 		}
-
 
 		CreateMeshAndVertexAndIndexBuffer();
 		LoadAndSetShader();
@@ -514,6 +524,7 @@ namespace jh::renderer
 	}
 	void Release()
 	{
+
 		for (int i = 0; i < static_cast<UINT>(eConstantBufferType::COUNT); ++i) 
 		{
 			if (pConstantBuffers[i] == nullptr)
@@ -523,15 +534,20 @@ namespace jh::renderer
 			delete pConstantBuffers[i];
 			pConstantBuffers[i] = nullptr;
 		}
-
 		for (int i = 0; i < static_cast<UINT>(eSamplerType::COUNT); ++i) 
 		{
 			cpSamplerStates[i].Reset();
+		}
+		if (pLightStructuredBuffer != nullptr)
+		{
+			delete pLightStructuredBuffer;
 		}
 	}
 
 	void Render()
 	{
+		// 라이팅 먼저 적용해준다는 뜻
+		BindLightBufferAtGPU();
 		eSceneType eCurrSceneType = SceneManager::GetInatance().GetCurrentScene()->GetSceneType();
 		for (auto* pCam : pCameras[static_cast<UINT>(eCurrSceneType)])
 		{
@@ -541,5 +557,26 @@ namespace jh::renderer
 		}
 
 		pCameras[static_cast<UINT>(eCurrSceneType)].clear();
+		lights.clear();
+	}
+
+	void PushLightAttribute(LightAttribute lightAttribute)
+	{
+		lights.push_back(lightAttribute);
+	}
+	void BindLightBufferAtGPU()
+	{
+		pLightStructuredBuffer->BindBufferAtGPU(lights.data(), static_cast<UINT>(lights.size()));
+		pLightStructuredBuffer->SetShaderResourceView(eShaderStage::VERTEX_SHADER, StructuredBuffer::TEXTURE_REGISTER_NUMBER);
+		pLightStructuredBuffer->SetShaderResourceView(eShaderStage::PIXEL_SHADER, StructuredBuffer::TEXTURE_REGISTER_NUMBER);
+
+		LightConstantBuffer lightConstantBuffer = {};
+		lightConstantBuffer.NumberOfLights = static_cast<UINT>(lights.size());
+		
+		ConstantBuffer* pConstantBuffer = pConstantBuffers[static_cast<UINT>(eConstantBufferType::LIGHT)];
+		assert(pConstantBuffer != nullptr);
+		pConstantBuffer->WriteConstantBufferAtGPU(&lightConstantBuffer);
+		pConstantBuffer->SetConstantBufferAtShader(eShaderStage::VERTEX_SHADER);
+		pConstantBuffer->SetConstantBufferAtShader(eShaderStage::PIXEL_SHADER);
 	}
 }

@@ -49,7 +49,7 @@ namespace jh
 	void Animation::Render()
 	{
 	}
-	void Animation::Create(const std::wstring& animKey, Texture* pAtalsImage, Vector2 leftTop, Vector2 seperatingSize, Vector2 offset, UINT spriteCount, float duration)
+	void Animation::Create(const std::wstring& animKey, Texture* pAtalsImage, Vector2 leftTop, Vector2 seperatingSize, Vector2 offset, UINT spriteCount, float duration, float magnification)
 	{
 		assert(pAtalsImage != nullptr);
 		mpAtlasImage = pAtalsImage;
@@ -64,7 +64,7 @@ namespace jh
 			sprite.Size = Vector2(seperatingSize.x / width, seperatingSize.y / height);
 			sprite.Offset = offset;
 			sprite.Duration = duration;
-			sprite.AtlasSize = Vector2(200 / width, 200 / height);					// PixelShader에서 아틀라스의 크기를 알게 하기 위해서 넣어주는 값
+			sprite.AtlasSize = Vector2(magnification / width, magnification / height);					// PixelShader에서 아틀라스의 크기를 알게 하기 위해서 넣어주는 값
 			mSpriteSheets.push_back(sprite);
 		}
 	}

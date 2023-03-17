@@ -3,6 +3,7 @@
 
 namespace jh::graphics
 {
+	const UINT StructuredBuffer::TEXTURE_REGISTER_NUMBER = 13;
 	StructuredBuffer::StructuredBuffer()
 		: mcpShaderResourceView(nullptr)
 		, meShaderResourceViewType(eShaderResourceViewType::NONE)
@@ -12,7 +13,7 @@ namespace jh::graphics
 	}
 	StructuredBuffer::~StructuredBuffer()
 	{
-		mcpShaderResourceView.Reset();
+		//mcpShaderResourceView.Reset();
 	}
 	bool StructuredBuffer::Create(UINT size, UINT stride, eShaderResourceViewType eSRVType, void* pData)
 	{
@@ -54,7 +55,7 @@ namespace jh::graphics
 		}
 		return true;
 	}
-	void StructuredBuffer::Bind(void* pData, UINT bufferSize)
+	void StructuredBuffer::BindBufferAtGPU(void* pData, UINT bufferSize)
 	{
 		if (mStride < bufferSize)
 		{

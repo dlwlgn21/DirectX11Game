@@ -63,7 +63,7 @@ namespace jh
 	void Animator::Render()
 	{
 	}
-	void Animator::Create(const std::wstring& animKey, Texture* pAtalsImage, Vector2 leftTop, Vector2 seperatingSize, Vector2 offset,  UINT spriteCount, float duration)
+	void Animator::Create(const std::wstring& animKey, Texture* pAtalsImage, Vector2 leftTop, Vector2 seperatingSize, Vector2 offset,  UINT spriteCount, float duration, float magnification)
 	{
 		if (pAtalsImage == nullptr)
 			{assert(false);}
@@ -73,7 +73,7 @@ namespace jh
 			{assert(false);}
 
 		pAnimation = new Animation();
-		pAnimation->Create(animKey, pAtalsImage, leftTop, seperatingSize, offset, spriteCount, duration);
+		pAnimation->Create(animKey, pAtalsImage, leftTop, seperatingSize, offset, spriteCount, duration, magnification);
 		mAnimationMap.insert(std::make_pair(animKey, pAnimation));
 		Events* pEvents = new Events();
 		mEventsMap.insert(std::make_pair(animKey, pEvents));

@@ -7,6 +7,7 @@ namespace jh
 {
 	Light::Light()
 		: Component(eComponentType::LIGHT)
+		, mLightAttribute{}
 	{
 	}
 
@@ -25,7 +26,7 @@ namespace jh
 		Vector3 position = pTransform->GetPosition();
 		mLightAttribute.Position = Vector4(position.x, position.y, position.z, 1.0f);
 		mLightAttribute.Direction = Vector4(pTransform->GetRight().x, pTransform->GetRight().y, pTransform->GetRight().z, 1.0f);
-		renderer::lights.push_back(mLightAttribute);
+		renderer::PushLightAttribute(mLightAttribute);
 	}
 
 	void Light::Render()

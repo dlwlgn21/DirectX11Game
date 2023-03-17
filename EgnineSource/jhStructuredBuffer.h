@@ -12,11 +12,12 @@ namespace jh::graphics
 		~StructuredBuffer();
 
 		bool Create(UINT size, UINT stride, eShaderResourceViewType eSRVType, void* pData);
-		void Bind(void* pData, UINT bufferSize);
+		void BindBufferAtGPU(void* pData, UINT bufferSize);
 		void SetShaderResourceView(eShaderStage eStage, UINT slot);
 
 		UINT GetSize() const { return mSize; }
 		UINT GetStride() const { return mStride; }
+		static const UINT TEXTURE_REGISTER_NUMBER;
 	private:
 		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> mcpShaderResourceView;
 		eShaderResourceViewType meShaderResourceViewType;

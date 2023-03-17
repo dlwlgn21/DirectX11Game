@@ -37,6 +37,11 @@ cbuffer Animation : register(b4)
     uint   animationType;
 }
 
+cbuffer NumberOfLight : register(b5)
+{
+    uint NumberOfLight;
+}
+
 SamplerState pointSampler : register(s0);
 SamplerState linearSampler : register(s1);
 SamplerState anisotropicSampler : register(s2);
@@ -46,3 +51,38 @@ texture2D defaultTexture : register(t0);
 texture2D atlasTexture : register(t12);
 
 StructuredBuffer<LightAttribute> lightAttributes : register(t13);
+
+void CalculateLight(in out LightColor pLightColor, float3 worldPosition, uint idx)
+{
+    
+    /*
+    	DIRECTIONAL_LIGHT,
+		POINT_LIGHT,
+		SPOT_LIGHT,
+    */
+    const int DIRECTIONAL_LIGHT = 0;
+    const int POINT_LIGHT = 1;
+    const int SPOT_LIGHT = 2;
+    if (lightAttributes[idx].Type == DIRECTIONAL_LIGHT)
+    {
+        pLightColor.Diffuse += lightAttributes[idx].Color.Diffuse;
+    }
+    else if (lightAttributes[idx].Type == POINT_LIGHT)
+    {
+        float length = distance(lightAttributes[idx].Position.xy, worldPosition.xy);
+        if (length < lightAttributes[idx].Radius)
+        {
+            // 빛이 범위 안이라면
+            float ratio = 1.0f - (length / lightAttributes[idx].Radius);
+            pLightColor.Diffuse += (lightAttributes[idx].Color.Diffuse * ratio);
+        }
+
+    }
+    else
+    {
+        // 3D에서 추가될 부분
+    }
+    //pLightColor.Diffuse += lightAttributes[0].Color.Diffuse;
+
+    
+}

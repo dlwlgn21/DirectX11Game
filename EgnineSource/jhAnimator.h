@@ -51,7 +51,8 @@ namespace jh
 			Vector2 size,
 			Vector2 offset,
 			UINT spriteCount,
-			float duration
+			float duration,
+			float magnification
 		);
 		void PlayAnimation(const std::wstring& key, bool bIsLooping);
 		void BindAtShader();

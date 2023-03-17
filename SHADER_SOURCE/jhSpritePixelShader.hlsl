@@ -9,6 +9,7 @@ struct VSIn
 struct VSOut
 {
     float4 Pos : SV_POSITION;
+    float3 WolrdPos : POSITION; // PS에서 라이팅 계산하기 위해 보내주는 정보.
     float4 Color : COLOR;
     float2 UV : TEXCOORD;
 };
@@ -39,5 +40,17 @@ float4 main(VSOut _in) : SV_Target
         color = defaultTexture.Sample(pointSampler, _in.UV);
     }
 
+    LightColor lightColor = (LightColor)0.0f;
+    for (uint i = 0; i < NumberOfLight; ++i)
+    {
+        CalculateLight(lightColor, _in.WolrdPos, i);
+    }
+    
+    //if (NumberOfLight <= 0)
+    //{
+    //    lightColor = (LightColor)1.0f;
+    //}
+    
+    color *= lightColor.Diffuse;
     return color;
 }

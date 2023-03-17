@@ -45,7 +45,8 @@ namespace jh
 			Vector2 size, 
 			Vector2 offset, 
 			UINT spriteCount,
-			float duration
+			float duration,
+			float magnification
 		);
 		void BindAtShader();
 		void ClearShaderTexture();

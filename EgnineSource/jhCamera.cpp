@@ -17,7 +17,7 @@ namespace jh
 
 	Camera::Camera()
 		: Component(eComponentType::CAMERA)
-		, meProjectionType(eProjectionType::ORTHOGRAPHIC)
+		, meProjectionType(eProjectionType::PERSPECTIVE)
 		, mAspectRatio(1.0f)
 		, mNearPlain(1.0f)
 		, mFarPlain(1000.0f)

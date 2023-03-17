@@ -16,6 +16,7 @@
 #define CBSLOT_GRID (2)
 #define CBSLOT_FADE_OUT (3)
 #define CBSLOT_ANIMATOR (4)
+#define CBSLOT_NUMBER_OF_LIGHT (5)
 
 namespace jh::graphics
 {
@@ -105,6 +106,7 @@ namespace jh::graphics
 		GRID,
 		FADE_OUT,
 		ANIMATION,
+		LIGHT,
 		COUNT
 	};
 
@@ -148,12 +150,24 @@ namespace jh::graphics
 		math::Vector4 DiffuseLight;			// 분산광 물체의 표면에서 분산되어 눈으로 바로 들어오는 빛. 각도에 따라 밝기가 다르다.
 		math::Vector4 SpcularLight;			// 반사광 분산광과 달리 한방향으로 완전히 반사되는 빛. 반사되는 부분은 흰색의 광으로 보인다. 즉 하이라이트
 		math::Vector4 AmbientLight;			// 주변광 수많은 반사를 거쳐서 광원이 불분명한 빛.	물체를 덮고 있는 빛이며 일정한 밝기의 색으로 표시한다.
-		math::Vector4 EmissiveLight;		// 발광체 물체자체가 빛나고 있는 빛.
+		//math::Vector4 EmissiveLight;		// 발광체 물체자체가 빛나고 있는 빛.
 		math::Vector4 Position;
 		math::Vector4 Direction;
 		eLightType ELightType;
 		float Radius;						// 빛의 영향을 받는 범위
 		float Angle;
 		int padding;
+		LightAttribute()
+			: DiffuseLight(math::Vector4(0.0f, 0.0f, 0.0f, 0.0f))
+			, AmbientLight(math::Vector4(0.0f, 0.0f, 0.0f, 0.0f))
+			//, EmissiveLight(math::Vector4(0.0f, 0.0f, 0.0f, 0.0f))
+			, Position(math::Vector4(0.0f, 0.0f, 0.0f, 0.0f))
+			, Direction(math::Vector4(0.0f, 0.0f, 0.0f, 0.0f))
+			, ELightType(eLightType::DIRECTIONAL_LIGHT)
+			, Radius(0.0f)
+			, Angle(0.0f)
+			, padding(0)
+		{
+		}
 	};
 }
