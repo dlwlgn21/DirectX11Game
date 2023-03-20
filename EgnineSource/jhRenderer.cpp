@@ -37,6 +37,7 @@ namespace jh::renderer
 	static const std::wstring TITLE_BACKGROUND_TEXTURE_KEY = L"BackGroundTexture";
 	static const std::wstring ZELDA_TEXTURE_KEY = L"ZeldaTexture";
 	static const std::wstring ZOMBIE_TEXTURE_KEY = L"WildZombieTexture";
+	static const std::wstring BATTLE_SCENE_TEXTURE_KEY = L"BattleSceneTexture";
 
 	static const std::wstring PLAYER_MATERIAL_KEY = L"PlayerMaterial";
 	static const std::wstring SPRITE_MATERIAL_KEY = L"SpriteMaterial";
@@ -485,16 +486,16 @@ namespace jh::renderer
 		pDebugMaterial->SetShader(Resources::Find<Shader>(DEBUG_SHADER_KEY));
 		Resources::Insert<Material>(DEBUG_MATERIAL_KEY, pDebugMaterial);
 
-		//
+		// Background
 		Material* pBackgroundMaterial = new Material();
 		pBackgroundMaterial->SetShader(Resources::Find<Shader>(BACK_GROUND_SHADER_KEY));
-		pBackgroundMaterial->SetTexture(Resources::Find<Texture>(TITLE_BACKGROUND_TEXTURE_KEY));
+		pBackgroundMaterial->SetTexture(Resources::Find<Texture>(BATTLE_SCENE_TEXTURE_KEY));
 		Resources::Insert<Material>(TITLE_BACKGROUND_MATERIAL_KEY, pBackgroundMaterial);
 	}
 
 	__forceinline void CreateTexture()
 	{
-		Resources::Load<Texture>(PLAYER_TEXTURE_KEY,			L"PlayerIdleImage.png");
+		Resources::Load<Texture>(PLAYER_TEXTURE_KEY,			L"CharacterAtlas.png");
 		Resources::Load<Texture>(DEFAULT_TEXTURE_KEY,			L"DefaultTexture.png");
 		Resources::Load<Texture>(HPBAR_TEXTURE_KEY,				L"HPBar.png");
 		Resources::Load<Texture>(FADE_OUT_TEXTURE_KEY,			L"FadeOutTexture.png");
@@ -502,6 +503,7 @@ namespace jh::renderer
 		Resources::Load<Texture>(TITLE_BACKGROUND_TEXTURE_KEY,	L"TitleImage.png");
 		Resources::Load<Texture>(ZELDA_TEXTURE_KEY,				L"ZeldaSprite.png");
 		Resources::Load<Texture>(ZOMBIE_TEXTURE_KEY,			L"WildZombie.png");
+		Resources::Load<Texture>(BATTLE_SCENE_TEXTURE_KEY,		L"70s Apt4B.png");
 		//ZeldaSprite.png
 	}
 
@@ -538,10 +540,10 @@ namespace jh::renderer
 		{
 			cpSamplerStates[i].Reset();
 		}
-		if (pLightStructuredBuffer != nullptr)
-		{
-			delete pLightStructuredBuffer;
-		}
+		//if (pLightStructuredBuffer != nullptr)
+		//{
+		//	delete pLightStructuredBuffer;
+		//}
 	}
 
 	void Render()

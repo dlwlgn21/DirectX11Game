@@ -33,6 +33,10 @@ namespace jh
 		float					mSpeed;
 		const std::wstring		mAnimIdleKey;
 		const std::wstring		mAnimMoveKey;
+		const std::wstring		mAnimLeftPunchKey;
+		const std::wstring		mAnimRightPunchKey;
+		bool					mbIsMoving;
+		bool					mbIsPunching;
 		
 	};
 }

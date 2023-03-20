@@ -55,7 +55,7 @@ namespace jh
 		static eKeyState GetKeyState(eKeyCode keyCode);
 		static Vector2 GetMousePos() { return mMousePos; }
 		static Vector2 GetMousePos(HWND hwnd);
-
+		static bool IsAnyKeyPressed();
 	private:
 		static std::vector<Key> mKeys;
 		static Vector2 mMousePos;

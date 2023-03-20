@@ -6,6 +6,7 @@ namespace jh
 	{
 		NONE = 0,
 		CAMERA,
+		BACKGROUND,
 		GRID,
 		MONSTER, 
 		PLAYER,

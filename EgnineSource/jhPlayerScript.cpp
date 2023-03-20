@@ -4,16 +4,21 @@
 #include "jhInput.h"
 #include "jhTime.h"
 #include "jhAnimator.h"
+#include "jhAnimation.h"
 
 namespace jh
 {
 	PlayerScript::PlayerScript()
 		: Script()
 		, mpTranform(nullptr)
-		, mSpeed(20.0f)
-		, mAnimIdleKey(L"ZeldaIdle")
-		, mAnimMoveKey(L"ZeldaMove")
+		, mSpeed(10.0f)
+		, mAnimIdleKey(L"PlayerIdle")
+		, mAnimMoveKey(L"PlayerMove")
+		, mAnimLeftPunchKey(L"PlayerLeftPunch")
+		, mAnimRightPunchKey(L"PlayerRightPunch")
 		, mpAnimator(nullptr)
+		, mbIsMoving(false)
+		, mbIsPunching(false)
 	{
 	}
 
@@ -30,22 +35,59 @@ namespace jh
 		mpTranform = static_cast<Transform*>(GetOwner()->GetComponentOrNull(eComponentType::TRANSFORM));
 		assert(mpTranform != nullptr);
 		Vector3 pos = mpTranform->GetPosition();
+
+		if (mbIsPunching)
+		{
+			if (mpAnimator->GetCurrentAnimatingAnimation()->IsAnimComplete())
+			{
+				mbIsPunching = false;
+			}
+			goto PROCESSING_INPUT;
+		}
+
+		if (!Input::IsAnyKeyPressed())
+		{
+			mpAnimator->PlayAnimation(mAnimIdleKey, true);
+			mbIsMoving = false;
+		}
+
+PROCESSING_INPUT:
 		if (Input::GetKeyState(eKeyCode::UP) == eKeyState::PRESSED)
 		{
 			pos.y += mSpeed * Time::DeltaTime();
+			mbIsMoving = true;
 		}
 
 		if (Input::GetKeyState(eKeyCode::DOWN) == eKeyState::PRESSED)
 		{
 			pos.y -= mSpeed * Time::DeltaTime();
+			mbIsMoving = true;
 		}
 		if (Input::GetKeyState(eKeyCode::RIGHT) == eKeyState::PRESSED)
 		{
 			pos.x += mSpeed * Time::DeltaTime();
+			mbIsMoving = true;
 		}
 		if (Input::GetKeyState(eKeyCode::LEFT) == eKeyState::PRESSED)
 		{
 			pos.x -= mSpeed * Time::DeltaTime();
+			mbIsMoving = true;
+		}
+
+		assert(mpAnimator != nullptr);
+		if (Input::GetKeyState(eKeyCode::N_1) == eKeyState::UP)
+		{
+			mpAnimator->PlayAnimation(mAnimIdleKey, true);
+		}
+
+		if (Input::GetKeyState(eKeyCode::N_2) == eKeyState::UP)
+		{
+			mpAnimator->PlayAnimation(mAnimMoveKey, true);
+		}
+
+		if (mbIsMoving && !mbIsPunching)
+		{
+			mpAnimator->PlayAnimation(mAnimMoveKey, true);
 		}
 
 		if (Input::GetKeyState(eKeyCode::P) == eKeyState::PRESSED)
@@ -58,18 +100,19 @@ namespace jh
 			pos.z += mSpeed * Time::DeltaTime();
 		}
 
+		if (Input::GetKeyState(eKeyCode::Z) == eKeyState::PRESSED)
+		{
+			mpAnimator->PlayAnimation(mAnimLeftPunchKey, true);
+			mbIsPunching = true;
+		}
+		else if (Input::GetKeyState(eKeyCode::X) == eKeyState::PRESSED)
+		{
+			mpAnimator->PlayAnimation(mAnimRightPunchKey, true);
+			mbIsPunching = true;
+		}
+
 		mpTranform->SetPosition(pos);
 
-		assert(mpAnimator != nullptr);
-		if (Input::GetKeyState(eKeyCode::N_1) == eKeyState::PRESSED)
-		{
-			mpAnimator->PlayAnimation(mAnimIdleKey, true);
-		}
-
-		if (Input::GetKeyState(eKeyCode::N_2) == eKeyState::PRESSED)
-		{
-			mpAnimator->PlayAnimation(mAnimMoveKey, true);
-		}
 
 	}
 	void PlayerScript::FixedUpdate()

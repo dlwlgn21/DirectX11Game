@@ -10,7 +10,13 @@ namespace jh
 		, mLightAttribute{}
 	{
 	}
-
+	Light::~Light()
+	{
+		if (renderer::pLightStructuredBuffer != nullptr)
+		{
+			delete renderer::pLightStructuredBuffer;
+		}
+	}
 	void Light::Initialize()
 	{
 	}

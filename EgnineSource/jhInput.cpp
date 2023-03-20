@@ -96,7 +96,17 @@ namespace jh
 	void Input::Render(HDC hdc)
 	{
 	}
-
+	bool Input::IsAnyKeyPressed()
+	{
+		for (auto& e : mKeys)
+		{
+			if (e.state != eKeyState::NONE)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 	eKeyState Input::GetKeyState(eKeyCode keyCode)
 	{
 		return mKeys[static_cast<UINT>(keyCode)].state;

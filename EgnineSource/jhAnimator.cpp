@@ -120,7 +120,7 @@ namespace jh
 		{
 			assert(false); return;
 		}
-		mCurrAnimatingAnimation->Reset();
+		//mCurrAnimatingAnimation->Reset();
 		mbIsAnimationLooping = bIsLooping;
 
 		pEvents = FindEventsOrNull(mCurrAnimatingAnimation->GetAnimationKey());

@@ -24,8 +24,15 @@ VSOut main(VSIn _in)
     
     //worldPos.x = _in.Pos.x * fCameraScale.x * fResolution.x + fCameraPosition.x;
     //worldPos.y = _in.Pos.y * fCameraScale.y * fResolution.y + fCameraPosition.y;
+    float4 worldPos = mul(_in.Pos, worldMat);
+    float4 viewPos = mul(worldPos, viewMat);
+    float4 projectionPos = mul(viewPos, projectionMat);
     
-    output.Pos = float4(_in.Pos.xy * MESH_SCALE, 30.0f, 1.0f);
+    //output.Pos = projectionPos;
+    //output.Color = _in.Color;
+    //output.UV = _in.UV;
+    
+    output.Pos = float4(worldPos.xy * MESH_SCALE, 30.0f, 1.0f);
     output.UV = _in.UV;
     
     return output;

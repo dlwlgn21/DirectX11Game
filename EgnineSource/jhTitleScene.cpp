@@ -36,6 +36,7 @@ namespace jh
 		// Camera Game Obj
 		GameObject* pCameraObj = jh::object::Instantiate(eLayerType::CAMERA);
 		Camera* pCameraComponent = new Camera();
+		pCameraComponent->SetProjectionType(Camera::eProjectionType::ORTHOGRAPHIC);
 		//pCameraComponent->registerCameraAtRenderer();
 		pCameraObj->AddComponent(pCameraComponent);
 		pCameraComponent->TurnLayerMasks(eLayerType::UI, false);
@@ -45,14 +46,14 @@ namespace jh
 
 		// LightObject
 		GameObject* pDirectionalLight = jh::object::Instantiate(eLayerType::PLAYER);
-		pDirectionalLight->GetTransform()->SetPosition(Vector3(3.0f, 0.0f, 0.0f));
+		pDirectionalLight->GetTransform()->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
 		Light* pLightComponent = new Light();
 		//pLightComponent->SetLightType(eLightType::DIRECTIONAL_LIGHT);
 		//pLightComponent->SetDiffuse(Vector4(1.0f, 0.0f, 1.0f, 1.0f));
 
 		pLightComponent->SetLightType(eLightType::POINT_LIGHT);
-		pLightComponent->SetDiffuse(Vector4(1.0f, 0.0f, 1.0f, 1.0f));
-		pLightComponent->SetRadius(15.0f);
+		pLightComponent->SetDiffuse(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+		pLightComponent->SetRadius(200.0f);
 		pDirectionalLight->AddComponent(pLightComponent);
 
 		// BackGround
@@ -64,45 +65,45 @@ namespace jh
 
 		// Player
 		Player* pPlayerObj = jh::object::Instantiate<Player>(eLayerType::PLAYER, Vector3(-3.0f, 0.0f, 20.0f), Vector3(0.0f, 0.0f, 0.0f));
-		SpriteRenderer* pPlayerSpriteRenderer = new SpriteRenderer();
-		pPlayerSpriteRenderer->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
-		pPlayerSpriteRenderer->SetMaterial(Resources::Find<Material>(MONSTER_MATERIAL_KEY));
-		pPlayerObj->AddComponent(pPlayerSpriteRenderer);
-		PlayerScript* pPlayerScript = new PlayerScript();
-		pPlayerObj->AddComponent(pPlayerScript);
-		pPlayerObj->SetName(L"Player");
-		Collider2D* pCollider2D = new Collider2D();
-		pCollider2D->SetType(eColliderType::CIRCLE);
-		pCollider2D->SetRadius(1.0f);
-		pPlayerObj->GetTransform()->SetScale(Vector3(3.0f, 3.0f, 1.0f));
-		pPlayerObj->AddComponent(pCollider2D);
-		//object::DontDestroyOnLoad(pPlayerObj);
-		//pCollider2D->SetSize(Vector2(1.5f, 1.5f));
+		//SpriteRenderer* pPlayerSpriteRenderer = new SpriteRenderer();
+		//pPlayerSpriteRenderer->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
+		//pPlayerSpriteRenderer->SetMaterial(Resources::Find<Material>(PLAYER_MATERIAL_KEY));
+		//pPlayerObj->AddComponent(pPlayerSpriteRenderer);
+		//PlayerScript* pPlayerScript = new PlayerScript();
+		//pPlayerObj->AddComponent(pPlayerScript);
+		//pPlayerObj->SetName(L"Player");
+		//Collider2D* pCollider2D = new Collider2D();
+		//pCollider2D->SetType(eColliderType::CIRCLE);
+		//pCollider2D->SetRadius(1.0f);
+		//pPlayerObj->GetTransform()->SetScale(Vector3(5.0f, 5.0f, 1.0f));
+		//pPlayerObj->AddComponent(pCollider2D);
+		////object::DontDestroyOnLoad(pPlayerObj);
+		////pCollider2D->SetSize(Vector2(1.5f, 1.5f));
 
-		Animator* pPlayerAnimator = new Animator();
-		pPlayerAnimator->Create(
-			L"ZeldaIdle",
-			Resources::Find<Texture>(renderer::ZOMBIE_TEXTURE_KEY),
-			Vector2::Zero,
-			Vector2(96.0f, 96.0f),
-			Vector2::Zero,
-			9,
-			0.1f,
-			100
-		);
-		pPlayerAnimator->Create(
-			L"ZeldaMove",
-			Resources::Find<Texture>(renderer::ZOMBIE_TEXTURE_KEY),
-			Vector2(0.0f, 96.0f),
-			Vector2(96.0f, 96.0f),
-			Vector2::Zero,
-			10,
-			0.1f,
-			100
-		);
+		//Animator* pPlayerAnimator = new Animator();
+		//pPlayerAnimator->Create(
+		//	L"PlayerIdle",
+		//	Resources::Find<Texture>(renderer::PLAYER_TEXTURE_KEY),
+		//	Vector2::Zero,
+		//	Vector2(48.0f, 32.0f),
+		//	Vector2::Zero,
+		//	4,
+		//	0.25f,
+		//	100
+		//);
+		//pPlayerAnimator->Create(
+		//	L"PlayerMove",
+		//	Resources::Find<Texture>(renderer::PLAYER_TEXTURE_KEY),
+		//	Vector2(0.0f, 128.0f),
+		//	Vector2(48.0f, 32.0f),
+		//	Vector2::Zero,
+		//	9,
+		//	0.25f,
+		//	100
+		//);
 
-		pPlayerObj->AddComponent(pPlayerAnimator);
-		pPlayerAnimator->PlayAnimation(L"ZeldaIdle", true);
+		//pPlayerObj->AddComponent(pPlayerAnimator);
+		//pPlayerAnimator->PlayAnimation(L"PlayerIdle", true);
 
 
 		// Monster
@@ -121,6 +122,14 @@ namespace jh
 		//pCollider2DTwo->SetRadius(1.0f);
 		//pMonsterObjTwo->AddComponent(pCollider2DTwo);
 		//CollisionManager::GetInstance().CollisionLayerCheck(eLayerType::PLAYER, eLayerType::MONSTER, true);
+
+		GameObject* pBattleSceneObject = jh::object::Instantiate<GameObject>(eLayerType::BACKGROUND);
+		pBattleSceneObject->GetTransform()->SetPosition(Vector3(0.0f, 0.0f, 30.0f));
+		SpriteRenderer* pBattleSceneSpriteRenderer = new SpriteRenderer();
+		pBattleSceneSpriteRenderer->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
+		pBattleSceneSpriteRenderer->SetMaterial(Resources::Find<Material>(TITLE_BACKGROUND_MATERIAL_KEY));
+		pBattleSceneObject->AddComponent(pBattleSceneSpriteRenderer);
+
 		Scene::Initalize();
 	}
 	void TitleScene::Update()

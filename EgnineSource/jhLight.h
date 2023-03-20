@@ -10,7 +10,7 @@ namespace jh
 	{
 	public:
 		Light();
-		virtual ~Light() = default;
+		virtual ~Light();
 
 		void Initialize() override;
 		void Update() override;

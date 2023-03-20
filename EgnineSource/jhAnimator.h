@@ -58,7 +58,7 @@ namespace jh
 		void BindAtShader();
 		void ClearShaderTexture();
 
-
+		__forceinline Animation* GetCurrentAnimatingAnimation() const { return mCurrAnimatingAnimation; }
 		Animation* FindAnimationOrNull(const std::wstring& key);
 		Events* FindEventsOrNull(const std::wstring& key);
 
