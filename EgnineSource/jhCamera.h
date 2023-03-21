@@ -17,8 +17,8 @@ namespace jh
 
 		__forceinline static const Matrix& GetGPUViewMatrix()			{ return sViewMat; }
 		__forceinline static const Matrix& GetGPUProjectionMatrix()	{ return sProjectionMat; }
-		__forceinline static void SetGPUViewMatrix(Matrix viewMat) { sViewMat = viewMat; }
-		__forceinline static void SetGPUProjectionMatrix(Matrix progectionMat) { sProjectionMat = progectionMat; }
+		__forceinline static void SetGPUViewMatrix(const Matrix viewMat) { sViewMat = viewMat; }
+		__forceinline static void SetGPUProjectionMatrix(const Matrix progectionMat) { sProjectionMat = progectionMat; }
 
 		Camera();
 		virtual ~Camera() = default;

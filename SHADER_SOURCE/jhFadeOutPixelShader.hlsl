@@ -15,6 +15,6 @@ struct VSOut
 
 float4 main(VSOut _in) : SV_TARGET
 {
-    float time = fDeltaTime.x;
+    float time = fUVPosition.x;
     return float4(0.0f, 0.0f, 0.0f, time);
 }

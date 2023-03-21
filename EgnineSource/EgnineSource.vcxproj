@@ -167,6 +167,7 @@
     <ClInclude Include="jhAnimation.h" />
     <ClInclude Include="jhAnimator.h" />
     <ClInclude Include="jhApplication.h" />
+    <ClInclude Include="jhBackgroundScript.h" />
     <ClInclude Include="jhCamera.h" />
     <ClInclude Include="jhCameraScript.h" />
     <ClInclude Include="jhCollider.h" />
@@ -216,6 +217,7 @@
     <ClCompile Include="jhAnimation.cpp" />
     <ClCompile Include="jhAnimator.cpp" />
     <ClCompile Include="jhApplication.cpp" />
+    <ClCompile Include="jhBackgroundScript.cpp" />
     <ClCompile Include="jhCamera.cpp" />
     <ClCompile Include="jhCameraScript.cpp" />
     <ClCompile Include="jhCollider.cpp" />

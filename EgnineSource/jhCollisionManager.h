@@ -31,11 +31,13 @@ namespace jh
 		void Update();
 		void FixedUpdate();
 		void Render();
+		void SetCollisionLayerCheck(const eLayerType eLeftLayer, const eLayerType eRightLayer, const bool bIsEnable = true);
 
-		void CheckLayerCollision(Scene* pScene, const eLayerType eLeftLayer, const eLayerType eRightLayer);
-		void CollisionLayerCheck(const eLayerType eLeftLayer, const eLayerType eRightLayer, bool bIsEnable = true);
-		void CheckValidColliderCollision(Collider2D* pLeftCollider, Collider2D* pRightCollider);
-		bool Intersect(Collider2D* pLeftCollider, Collider2D* pRightCollider);
+	private:
+		void checkLayerCollision(Scene* pScene, const eLayerType eLeftLayer, const eLayerType eRightLayer);
+		void checkValidColliderCollision(Collider2D* pLeftCollider, Collider2D* pRightCollider);
+		
+		bool isIntersect(Collider2D* pLeftCollider, Collider2D* pRightCollider);
 
 	private:
 		std::bitset<static_cast<UINT>(eLayerType::COUNT)> mLayerCollisionMatrix[static_cast<UINT>(eLayerType::COUNT)];

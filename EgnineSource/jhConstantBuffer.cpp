@@ -12,7 +12,7 @@ namespace jh::graphics
 	ConstantBuffer::~ConstantBuffer()
 	{
 	}
-	bool ConstantBuffer::CreateBuffer(UINT bufferSize)
+	bool ConstantBuffer::CreateBuffer(const UINT bufferSize)
 	{
 		ZeroMemory(&BufferDesc, sizeof(D3D11_BUFFER_DESC));
 		BufferDesc.ByteWidth =				bufferSize;
@@ -32,7 +32,7 @@ namespace jh::graphics
 	{
 		graphics::GetDevice()->BindBufferAtGPU(CpBuffer.Get(), pData, BufferDesc.ByteWidth);
 	}
-	void ConstantBuffer::SetConstantBufferAtShader(eShaderStage shaderStage)
+	void ConstantBuffer::SetConstantBufferAtShader(const eShaderStage shaderStage)
 	{
 		graphics::GetDevice()->SetConstantBufferAtShader(shaderStage, meType, CpBuffer.Get());
 	}

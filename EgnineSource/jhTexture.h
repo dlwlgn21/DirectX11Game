@@ -25,7 +25,7 @@ namespace jh
 		Texture();
 		virtual ~Texture();
 
-		static void Clear(UINT startSlot);
+		static void Clear(const UINT startSlot);
 		HRESULT Load(const std::wstring& fileName) override;
 		void SetShaderResourceView(graphics::eShaderStage shaderStage, UINT slot);
 		void Clear();

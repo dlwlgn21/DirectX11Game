@@ -14,7 +14,7 @@
 #define CBSLOT_TRANSFORM (0)
 #define CBSLOT_MATERIAL (1)
 #define CBSLOT_GRID (2)
-#define CBSLOT_FADE_OUT (3)
+#define CBSLOT_TRANSLATE_UV (3)
 #define CBSLOT_ANIMATOR (4)
 #define CBSLOT_NUMBER_OF_LIGHT (5)
 
@@ -104,7 +104,7 @@ namespace jh::graphics
 		TRANSFORM,
 		MATERIAL,
 		GRID,
-		FADE_OUT,
+		TRANSLATE_UV,
 		ANIMATION,
 		LIGHT,
 		COUNT

@@ -18,12 +18,12 @@ namespace jh
 			{
 				if (mLayerCollisionMatrix[row][col])
 				{
-					CheckLayerCollision(pCurrScene, static_cast<eLayerType>(row), static_cast<eLayerType>(col));
+					checkLayerCollision(pCurrScene, static_cast<eLayerType>(row), static_cast<eLayerType>(col));
 				}
 			}
 		}
 	}
-	void CollisionManager::CheckLayerCollision(Scene* pScene, const eLayerType eLeftLayer, const eLayerType eRightLayer)
+	void CollisionManager::checkLayerCollision(Scene* pScene, const eLayerType eLeftLayer, const eLayerType eRightLayer)
 	{
 		const std::vector<GameObject*>& leftLayerGameObjects = pScene->GetAllGameObjectsFromLayer(eLeftLayer);
 		const std::vector<GameObject*>& rightLayerGameObjects = pScene->GetAllGameObjectsFromLayer(eRightLayer);
@@ -45,11 +45,11 @@ namespace jh
 				if (pLeftObject == pRightObject)
 					{continue;}
 
-				CheckValidColliderCollision(pLeftCollider, pRightCollider);
+				checkValidColliderCollision(pLeftCollider, pRightCollider);
 			}
 		}
 	}
-	void CollisionManager::CheckValidColliderCollision(Collider2D* pLeftCollider, Collider2D* pRightCollider)
+	void CollisionManager::checkValidColliderCollision(Collider2D* pLeftCollider, Collider2D* pRightCollider)
 	{
 		ColliderID colliderID;
 		colliderID.Left = static_cast<UINT32>(pLeftCollider->GetColliderID());
@@ -67,7 +67,7 @@ namespace jh
 		}
 
 		// 생성한 충돌정보 바탕으로 충돌체크 시작.
-		if (Intersect(pLeftCollider, pRightCollider))
+		if (isIntersect(pLeftCollider, pRightCollider))
 		{
 
 			// 충돌 중이지 않은 상태 Enter
@@ -121,7 +121,7 @@ namespace jh
 
 	}
 
-	bool CollisionManager::Intersect(Collider2D* pLeftCollider, Collider2D* pRightCollider)
+	bool CollisionManager::isIntersect(Collider2D* pLeftCollider, Collider2D* pRightCollider)
 	{
 		// RECT
 		// 0 --- 1
@@ -211,7 +211,7 @@ namespace jh
 	}
 
 
-	void CollisionManager::CollisionLayerCheck(const eLayerType eLeftLayer, const eLayerType eRightLayer, bool bIsEnable)
+	void CollisionManager::SetCollisionLayerCheck(const eLayerType eLeftLayer, const eLayerType eRightLayer, const bool bIsEnable)
 	{
 		UINT row = 0;
 		UINT col = 0;

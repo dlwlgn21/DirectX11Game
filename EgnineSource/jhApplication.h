@@ -31,7 +31,7 @@ namespace jh
 		
 		void Present();
 
-		void SetWindowAndGraphicDevice(HWND hwnd, UINT width, UINT height);
+		void SetWindowAndGraphicDevice(HWND hwnd, const UINT width, const UINT height);
 		HWND GetHwnd() const { return mHwnd; }
 		UINT GetWidth() const { return mWidth; }
 		UINT GetHeight() const { return mHeight; }

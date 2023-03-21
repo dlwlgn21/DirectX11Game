@@ -12,7 +12,7 @@ namespace jh
 		friend class GameObject;
 
 		Component(const eComponentType eType);
-		virtual ~Component();
+		virtual ~Component() = default;
 
 		virtual void Initialize() = 0;
 		virtual void Update() = 0;

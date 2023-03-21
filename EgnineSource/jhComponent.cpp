@@ -8,8 +8,4 @@ namespace jh
 		, mpOwner(nullptr)
 	{
 	}
-
-	Component::~Component()
-	{
-	}
 }

@@ -57,15 +57,15 @@ namespace jh
 			meState = eState::DEAD;
 		}
 
-		__forceinline eState GetState() const { return meState; }
+		__forceinline eState GetState() const							{ return meState; }
 
-		__forceinline void DontDestroy() { mbIsDontDestroy = true; }
-		__forceinline bool IsDontDestroy() const { return mbIsDontDestroy; }
+		__forceinline void DontDestroy()								{ mbIsDontDestroy = true; }
+		__forceinline bool IsDontDestroy() const						{ return mbIsDontDestroy; }
 
-		__forceinline eLayerType GetLayerType() const {return meLayerType;}
-		__forceinline void SetLayerType(const eLayerType eType) { meLayerType = eType; }
+		__forceinline eLayerType GetLayerType() const					{ return meLayerType;}
+		__forceinline void SetLayerType(const eLayerType eType)			{ meLayerType = eType; }
 
-		__forceinline std::vector<Script*>& GetScripts() { return mScripts; }
+		__forceinline const std::vector<Script*>& GetScripts() const	{ return mScripts; }
 
 	protected:
 		std::vector<Component*> mComponents;

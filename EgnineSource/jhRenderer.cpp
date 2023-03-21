@@ -51,7 +51,7 @@ namespace jh::renderer
 	static const std::wstring RECT_MESH_KEY = L"RectMesh";
 	static const std::wstring RECT_DEBUG_MESH_KEY = L"RectDebugMesh";
 	static const std::wstring CIRCLE_DEBUG_MESH_KEY = L"CircleDebugMesh";
-
+	static const std::wstring BATTLE_SCENE_MESH_KEY = L"BattleSceneMesh";
 	
 	__forceinline void CreateMeshAndVertexAndIndexBuffer()
 	{
@@ -79,6 +79,15 @@ namespace jh::renderer
 		Resources::Insert<Mesh>(RECT_MESH_KEY, pMesh);
 		pMesh->CreateVertexBuffer(vertices, VERTEX_COUNT);
 
+		vertices[0].UV = Vector2(0.25f, 0.25f);
+		vertices[1].UV = Vector2(0.75f, 0.25f);
+		vertices[2].UV = Vector2(0.75f, 0.75f);
+		vertices[3].UV = Vector2(0.25f, 0.75f);
+
+		Mesh* pBackgroundMesh = new Mesh();
+		Resources::Insert<Mesh>(BATTLE_SCENE_MESH_KEY, pBackgroundMesh);
+		pBackgroundMesh->CreateVertexBuffer(vertices, VERTEX_COUNT);
+
 		// ÀÎµ¦½º ¹öÆÛ
 		std::vector<UINT> indexes;
 		indexes.reserve(SLICE_COUNT);
@@ -92,6 +101,7 @@ namespace jh::renderer
 		indexes.push_back(0);
 
 		pMesh->CreateIndexBuffer(indexes.data(), static_cast<UINT>(indexes.size()));
+		pBackgroundMesh->CreateIndexBuffer(indexes.data(), static_cast<UINT>(indexes.size()));
 
 		vertices[0].Position = Vector4(-0.5f, 0.5f, -0.01f, 1.0f);
 		vertices[0].Color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
@@ -421,6 +431,9 @@ namespace jh::renderer
 
 		pConstantBuffers[static_cast<UINT>(eConstantBufferType::GRID)] = new ConstantBuffer(eConstantBufferType::GRID);
 		pConstantBuffers[static_cast<UINT>(eConstantBufferType::GRID)]->CreateBuffer(sizeof(GridConstantBuffer));
+
+		pConstantBuffers[static_cast<UINT>(eConstantBufferType::TRANSLATE_UV)] = new ConstantBuffer(eConstantBufferType::TRANSLATE_UV);
+		pConstantBuffers[static_cast<UINT>(eConstantBufferType::TRANSLATE_UV)]->CreateBuffer(sizeof(TranslateUVConstantBuffer));
 
 		pConstantBuffers[static_cast<UINT>(eConstantBufferType::ANIMATION)] = new ConstantBuffer(eConstantBufferType::ANIMATION);
 		pConstantBuffers[static_cast<UINT>(eConstantBufferType::ANIMATION)]->CreateBuffer(sizeof(AnimationConstantBuffer));

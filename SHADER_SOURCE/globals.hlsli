@@ -24,9 +24,9 @@ cbuffer Grid : register(b2)
     float2 fCameraScale;
 }
 
-cbuffer FadeOut : register(b3)
+cbuffer TranslateBuffer : register(b3)
 {
-    float4 fDeltaTime;
+    float4 fUVPosition;
 }
 cbuffer Animation : register(b4)
 {

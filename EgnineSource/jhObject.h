@@ -8,7 +8,7 @@
 
 namespace jh::object
 {
-	static GameObject* Instantiate(eLayerType eLayer)
+	static GameObject* Instantiate(const eLayerType eLayer)
 	{
 		GameObject* pGameObj = new GameObject();
 		Scene* pScene = SceneManager::GetInatance().GetCurrentScene();
@@ -19,7 +19,7 @@ namespace jh::object
 		return pGameObj;
 	}
 
-	static EditorObject* InstantiateEditorObject(eLayerType eLayer)
+	static EditorObject* InstantiateEditorObject(const eLayerType eLayer)
 	{
 		EditorObject* pGameObj = new EditorObject();
 		Scene* pScene = SceneManager::GetInatance().GetCurrentScene();
@@ -30,7 +30,7 @@ namespace jh::object
 		return pGameObj;
 	}
 	template<typename T>
-	static T* Instantiate(eLayerType eLayer)
+	static T* Instantiate(const eLayerType eLayer)
 	{
 		T* pGameObj = new T();
 		Scene* pScene = SceneManager::GetInatance().GetCurrentScene();
@@ -41,7 +41,7 @@ namespace jh::object
 		return pGameObj;
 	}
 
-	static GameObject* Instantiate(eLayerType eLayer, Scene* pScene)
+	static GameObject* Instantiate(const eLayerType eLayer, Scene* pScene)
 	{
 		GameObject* pGameObj = new GameObject();
 		assert(pScene != nullptr);
@@ -50,7 +50,7 @@ namespace jh::object
 		layer.AddGameObject(pGameObj, eLayer);
 		return pGameObj;
 	}
-	static GameObject* Instantiate(eLayerType eLayer, Transform* pTransformParent)
+	static GameObject* Instantiate(const eLayerType eLayer, Transform* pTransformParent)
 	{
 		assert(pTransformParent != nullptr);
 		GameObject* pGameObj = new GameObject();
@@ -66,7 +66,7 @@ namespace jh::object
 		return pGameObj;
 	}
 
-	static GameObject* Instantiate(eLayerType eLayer, Vector3 position, Vector3 rotation)
+	static GameObject* Instantiate(const eLayerType eLayer, const Vector3 position, const Vector3 rotation)
 	{
 		GameObject* pGameObj = new GameObject();
 		Scene* pScene = SceneManager::GetInatance().GetCurrentScene();
@@ -83,7 +83,7 @@ namespace jh::object
 	}
 
 	template<typename T>
-	static T* Instantiate(eLayerType eLayer, Vector3 position, Vector3 rotation)
+	static T* Instantiate(const eLayerType eLayer, const Vector3 position, const Vector3 rotation)
 	{
 		T* pGameObj = new T();
 		Scene* pScene = SceneManager::GetInatance().GetCurrentScene();
@@ -98,7 +98,7 @@ namespace jh::object
 
 		return pGameObj;
 	}
-	static GameObject* Instantiate(eLayerType eLayer, Vector3 position, Vector3 rotation, Transform* pTransformParent)
+	static GameObject* Instantiate(const eLayerType eLayer, const Vector3 position, const Vector3 rotation, Transform* pTransformParent)
 	{
 		assert(pTransformParent != nullptr);
 		GameObject* pGameObj = new GameObject();

@@ -23,6 +23,6 @@ float4 main(VSOut _in) : SV_TARGET
     //    return float4(1.0f, 1.0f, 0.0f, 1.0f);
     //}
     
-    color = defaultTexture.Sample(pointSampler, _in.UV);
+    color = defaultTexture.Sample(pointSampler, _in.UV + fUVPosition.xy);
     return color;
 }

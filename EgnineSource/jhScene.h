@@ -9,7 +9,7 @@ namespace jh
 	class Scene : public Entity
 	{
 	public:
-		Scene(eSceneType eType);
+		Scene(const eSceneType eType);
 		virtual ~Scene();
 
 		virtual void Initalize();
@@ -23,8 +23,8 @@ namespace jh
 		virtual void OnExit();
 
 		void AddGameObject(GameObject* pGameObj, const  eLayerType type);
-		__forceinline Layer& GetLayer(const eLayerType eType) { return mLayers[static_cast<UINT>(eType)]; }
-		eSceneType GetSceneType() const { return meSceneType; }
+		__forceinline Layer& GetLayer(const eLayerType eType)				{ return mLayers[static_cast<UINT>(eType)]; }
+		eSceneType GetSceneType() const										{ return meSceneType; }
 		std::vector<GameObject*> GetAllLayerDontDestroyGameObjects();
 		const std::vector<GameObject*>& GetAllGameObjectsFromLayer(const eLayerType eType);
 	protected:

@@ -59,7 +59,7 @@ namespace jh
 		mspGraphicDevice->Present();
 	}
 
-	void Application::SetWindowAndGraphicDevice(HWND hwnd, UINT width, UINT height)
+	void Application::SetWindowAndGraphicDevice(HWND hwnd, const UINT width, const UINT height)
 	{
 		if (mspGraphicDevice == nullptr)
 		{

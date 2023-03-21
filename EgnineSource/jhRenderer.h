@@ -46,9 +46,9 @@ namespace jh::renderer
 		Vector2 fResolution;
 		Vector2 fCameraScale;
 	};
-	CBUFFER(FadeOutConstantBuffer, CBSLOT_FADE_OUT)
+	CBUFFER(TranslateUVConstantBuffer, CBSLOT_TRANSLATE_UV)
 	{
-		Vector4 fDeltaTime;
+		Vector4 fUVPosition;
 	};
 
 	CBUFFER(AnimationConstantBuffer, CBSLOT_ANIMATOR)
@@ -109,6 +109,7 @@ namespace jh::renderer
 	extern const std::wstring RECT_MESH_KEY;
 	extern const std::wstring RECT_DEBUG_MESH_KEY;
 	extern const std::wstring CIRCLE_DEBUG_MESH_KEY;
+	extern const std::wstring BATTLE_SCENE_MESH_KEY;
 
 	__forceinline void ifFailed(HRESULT hr) { if (FAILED(hr)) { assert(false); } }
 	void Initialize();

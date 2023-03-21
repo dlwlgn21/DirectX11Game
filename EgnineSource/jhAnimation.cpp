@@ -49,7 +49,7 @@ namespace jh
 	void Animation::Render()
 	{
 	}
-	void Animation::Create(const std::wstring& animKey, Texture* pAtalsImage, Vector2 leftTop, Vector2 seperatingSize, Vector2 offset, UINT spriteCount, float duration, float magnification)
+	void Animation::Create(const std::wstring& animKey, Texture* pAtalsImage, const Vector2 leftTop, const Vector2 seperatingSize, const Vector2 offset, const UINT spriteCount, const float duration, const float magnification)
 	{
 		assert(pAtalsImage != nullptr);
 		mpAtlasImage = pAtalsImage;

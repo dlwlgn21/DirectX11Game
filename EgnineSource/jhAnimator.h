@@ -46,13 +46,13 @@ namespace jh
 
 		void Create(
 			const std::wstring& animName,
-			Texture* pAtalsImage,
-			Vector2 leftTop,
-			Vector2 size,
-			Vector2 offset,
-			UINT spriteCount,
-			float duration,
-			float magnification
+			 Texture* pAtalsImage,
+			const Vector2 leftTop,
+			const Vector2 size,
+			const Vector2 offset,
+			const UINT spriteCount,
+			const float duration,
+			const float magnification
 		);
 		void PlayAnimation(const std::wstring& key, bool bIsLooping);
 		void BindAtShader();

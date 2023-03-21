@@ -11,8 +11,8 @@ namespace jh
 		~Mesh();
 
 		HRESULT Load(const std::wstring& path) override;
-		bool CreateVertexBuffer(void* pData, UINT count);
-		bool CreateIndexBuffer(void* pData, UINT count);
+		bool CreateVertexBuffer(void* pData, const UINT count);
+		bool CreateIndexBuffer(void* pData, const UINT count);
 
 		void SetVertexAndIndexBufferAtIA();
 		void Render();

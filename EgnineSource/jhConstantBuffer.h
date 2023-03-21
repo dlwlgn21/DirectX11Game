@@ -10,9 +10,9 @@ namespace jh::graphics
 		ConstantBuffer(const eConstantBufferType eType);
 		virtual ~ConstantBuffer();
 
-		bool CreateBuffer(UINT bufferSize);
+		bool CreateBuffer(const UINT bufferSize);
 		void WriteConstantBufferAtGPU(void* data);
-		void SetConstantBufferAtShader(eShaderStage shaderStage);
+		void SetConstantBufferAtShader(const eShaderStage shaderStage);
 
 	private:
 		const eConstantBufferType meType;

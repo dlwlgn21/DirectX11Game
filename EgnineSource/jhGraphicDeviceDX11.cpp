@@ -139,13 +139,13 @@ namespace jh::graphics
 
 	GraphicDevice_DX11::~GraphicDevice_DX11()
 	{
-		renderer::Release();
 		mcpSamplerState.Reset();
 		mcpDepthStencilView.Reset();
 		mcpRenderTargetView.Reset();
 		mcpDepthStencilBuffer.Reset();
 		mcpRenderTarget.Reset();
 		mcpSwapChain.Reset();
+		renderer::Release();
 		mcpContext.Reset();
 		mcpDevice.Reset();
 	}
@@ -520,7 +520,7 @@ namespace jh::graphics
 
 	}
 
-	void GraphicDevice_DX11::SetConstantBufferAtShader(eShaderStage eStage, eConstantBufferType eType, ID3D11Buffer* pBuffer)
+	void GraphicDevice_DX11::SetConstantBufferAtShader(const eShaderStage eStage, const eConstantBufferType eType, ID3D11Buffer* pBuffer)
 	{
 		switch (eStage)
 		{
@@ -538,7 +538,7 @@ namespace jh::graphics
 		}
 	}
 
-	void graphics::GraphicDevice_DX11::SetVertexBufferAtIA(UINT startSlot, UINT numBuffers, ID3D11Buffer* const* pBuffer, const UINT* pStride, const UINT* pOffeset)
+	void graphics::GraphicDevice_DX11::SetVertexBufferAtIA(const UINT startSlot, const UINT numBuffers, ID3D11Buffer* const* pBuffer, const UINT* pStride, const UINT* pOffeset)
 	{
 		mcpContext->IASetVertexBuffers(
 			startSlot,
@@ -578,7 +578,7 @@ namespace jh::graphics
 		mcpContext->PSSetShader(pPixelShader, ppClassInstance, numClassInstances);
 	}
 
-	void GraphicDevice_DX11::SetShaderResourceView(eShaderStage eStage, UINT slot, ID3D11ShaderResourceView* const* ppShaderResourceViews)
+	void GraphicDevice_DX11::SetShaderResourceView(const eShaderStage eStage, const UINT slot, ID3D11ShaderResourceView* const* ppShaderResourceViews)
 	{
 		switch (eStage)
 		{
@@ -598,7 +598,7 @@ namespace jh::graphics
 
 
 
-	void GraphicDevice_DX11::SetSamplersAtShader(eShaderStage eStage, UINT slot, UINT numSamplers,  ID3D11SamplerState* const* ppSamplerState)
+	void GraphicDevice_DX11::SetSamplersAtShader(const eShaderStage eStage, const UINT slot, const UINT numSamplers,  ID3D11SamplerState* const* ppSamplerState)
 	{
 		switch (eStage)
 		{
@@ -616,7 +616,7 @@ namespace jh::graphics
 		}
 	}
 
-	void GraphicDevice_DX11::SetSamplerAtALLShaders(UINT slot, UINT numSamplers, ID3D11SamplerState* const* ppSamplerState)
+	void GraphicDevice_DX11::SetSamplerAtALLShaders(const UINT slot, const UINT numSamplers, ID3D11SamplerState* const* ppSamplerState)
 	{
 		mcpContext->VSSetSamplers(slot, numSamplers, ppSamplerState);
 		mcpContext->PSSetSamplers(slot, numSamplers, ppSamplerState);
@@ -642,7 +642,7 @@ namespace jh::graphics
 		mcpSwapChain->Present(0, 0);
 	}
 
-	void GraphicDevice_DX11::DrawIndexed(UINT idxCount, UINT startIdxLocation, UINT baseVertexLocation)
+	void GraphicDevice_DX11::DrawIndexed(const UINT idxCount, const UINT startIdxLocation, const UINT baseVertexLocation)
 	{
 		mcpContext->DrawIndexed(idxCount, startIdxLocation, baseVertexLocation);
 	}

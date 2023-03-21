@@ -2,7 +2,7 @@
 
 namespace jh
 {
-	Scene::Scene(eSceneType eType)
+	Scene::Scene(const eSceneType eType)
 		: meSceneType(eType)
 	{
 		mLayers.reserve(static_cast<UINT>(eLayerType::COUNT));

@@ -17,7 +17,7 @@ namespace jh
 
 		HRESULT Load(const std::wstring& path) override;
 
-		void SetDataAtConstantBuffer(eGPUPrameterType eGPUParamType, void* pData);
+		void SetDataAtConstantBuffer(const eGPUPrameterType eGPUParamType, void* pData);
 		void BindConstantBufferAndShaderAndSetTextureSRVAtShader();
 		void Clear();
 

@@ -61,7 +61,7 @@ namespace jh
 		mScenes.clear();
 	}
 
-	void SceneManager::LoadScene(eSceneType eType)
+	void SceneManager::LoadScene(const eSceneType eType)
 	{
 		assert(mpCurrentScene != nullptr);
 		mpCurrentScene->OnExit();

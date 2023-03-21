@@ -15,7 +15,7 @@ namespace jh
 		mcpShaderResourceView.Reset();
 	}
 
-	void Texture::Clear(UINT startSlot)
+	void Texture::Clear(const UINT startSlot)
 	{
 		ID3D11ShaderResourceView* pSrv = nullptr;
 		graphics::GetDevice()->SetShaderResourceView(eShaderStage::VERTEX_SHADER, startSlot, &pSrv);

@@ -22,7 +22,7 @@ namespace jh
 	{
 		return S_OK;
 	}
-	bool Mesh::CreateVertexBuffer(void* pData, UINT count)
+	bool Mesh::CreateVertexBuffer(void* pData, const UINT count)
 	{
 		ZeroMemory(&mVertexBufferDesc, sizeof(D3D11_BUFFER_DESC));
 		mVertexBufferDesc.ByteWidth = sizeof(renderer::Vertex) * count;
@@ -41,7 +41,7 @@ namespace jh
 
 		return true;
 	}
-	bool Mesh::CreateIndexBuffer(void* pData, UINT count)
+	bool Mesh::CreateIndexBuffer(void* pData, const UINT count)
 	{
 		mIdxCount = count;
 		ZeroMemory(&mIndexBufferDesc, sizeof(D3D11_BUFFER_DESC));

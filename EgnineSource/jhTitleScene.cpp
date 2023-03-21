@@ -21,6 +21,7 @@
 #include "jhCollisionManager.h"
 #include "jhAnimator.h"
 #include "jhLight.h"
+#include "jhBackgroundScript.h"
 
 namespace jh
 {
@@ -125,10 +126,12 @@ namespace jh
 
 		GameObject* pBattleSceneObject = jh::object::Instantiate<GameObject>(eLayerType::BACKGROUND);
 		pBattleSceneObject->GetTransform()->SetPosition(Vector3(0.0f, 0.0f, 30.0f));
+		BackgroundScript* pBackgroundScript = new BackgroundScript();
 		SpriteRenderer* pBattleSceneSpriteRenderer = new SpriteRenderer();
-		pBattleSceneSpriteRenderer->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
+		pBattleSceneSpriteRenderer->SetMesh(Resources::Find<Mesh>(BATTLE_SCENE_MESH_KEY));
 		pBattleSceneSpriteRenderer->SetMaterial(Resources::Find<Material>(TITLE_BACKGROUND_MATERIAL_KEY));
 		pBattleSceneObject->AddComponent(pBattleSceneSpriteRenderer);
+		pBattleSceneObject->AddComponent(pBackgroundScript);
 
 		Scene::Initalize();
 	}

@@ -27,7 +27,7 @@ namespace jh
 		return S_OK;
 	}
 
-	void Material::SetDataAtConstantBuffer(eGPUPrameterType eGPUParamType, void* pData)
+	void Material::SetDataAtConstantBuffer(const eGPUPrameterType eGPUParamType, void* pData)
 	{
 		switch (eGPUParamType)
 		{
