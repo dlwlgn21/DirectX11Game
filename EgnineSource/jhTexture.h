@@ -27,7 +27,8 @@ namespace jh
 
 		static void Clear(const UINT startSlot);
 		HRESULT Load(const std::wstring& fileName) override;
-		void SetShaderResourceView(graphics::eShaderStage shaderStage, UINT slot);
+		bool Create(const UINT width, const UINT height, const DXGI_FORMAT format, const UINT bindFlag);
+		void SetShaderResourceView(const graphics::eShaderStage shaderStage, const UINT slot);
 		void Clear();
 
 		UINT GetHeight() const { return static_cast<UINT>(mImage.GetMetadata().height); }
@@ -40,6 +41,9 @@ namespace jh
 		ScratchImage										mImage;
 		Microsoft::WRL::ComPtr<ID3D11Texture2D>				mcpTexture;
 		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>	mcpShaderResourceView;
+		Microsoft::WRL::ComPtr<ID3D11DepthStencilView>		mcpDepthStencilView;
+		Microsoft::WRL::ComPtr<ID3D11RenderTargetView>		mcpRenderTargetView;
+		Microsoft::WRL::ComPtr<ID3D11UnorderedAccessView>	mcpUnorderedAccessView;
 		D3D11_TEXTURE2D_DESC								mTextureDesc;
 	};
 }

@@ -7,12 +7,20 @@ namespace jh
 	Texture::Texture()
 		: Resource(eResourceType::TEXTURE)
 		, mTextureDesc{}
+		, mcpTexture(nullptr)
+		, mcpShaderResourceView(nullptr)
+		, mcpDepthStencilView(nullptr)
+		, mcpRenderTargetView(nullptr)
+		, mcpUnorderedAccessView(nullptr)
 	{
 	}
 	Texture::~Texture()
 	{
 		mcpTexture.Reset();
 		mcpShaderResourceView.Reset();
+		mcpDepthStencilView.Reset();
+		mcpRenderTargetView.Reset();
+		mcpUnorderedAccessView.Reset();
 	}
 
 	void Texture::Clear(const UINT startSlot)
@@ -58,7 +66,68 @@ namespace jh
 		return S_OK;
 	}
 
-	void Texture::SetShaderResourceView(graphics::eShaderStage shaderStage, UINT slot)
+	bool Texture::Create(const UINT width, const UINT height, const DXGI_FORMAT format, const UINT bindFlag)
+	{
+		//Depth stencil texture
+		mTextureDesc.BindFlags = bindFlag;
+		mTextureDesc.Usage = D3D11_USAGE_DEFAULT;
+		mTextureDesc.CPUAccessFlags = 0;
+		mTextureDesc.Format = format;
+		mTextureDesc.Width = width;
+		mTextureDesc.Height = height;
+		mTextureDesc.ArraySize = 1;
+
+		mTextureDesc.SampleDesc.Count = 1;
+		mTextureDesc.SampleDesc.Quality = 0;
+
+		mTextureDesc.MipLevels = 0;
+		mTextureDesc.MiscFlags = 0;
+
+		if (!GetDevice()->CreateTexture(&mTextureDesc, mcpTexture.GetAddressOf()))
+			return false;
+
+		if (bindFlag & D3D11_BIND_FLAG::D3D11_BIND_DEPTH_STENCIL)
+		{
+			if (!GetDevice()->CreateDepthStencilView(mcpTexture.Get(), nullptr, mcpDepthStencilView.GetAddressOf()))
+			{
+				assert(false);
+				return false;
+			}
+		}
+
+		if (bindFlag & D3D11_BIND_FLAG::D3D11_BIND_SHADER_RESOURCE)
+		{
+			D3D11_SHADER_RESOURCE_VIEW_DESC tSRVDesc = {};
+			tSRVDesc.Format = format;
+			tSRVDesc.Texture2D.MipLevels = 1;
+			tSRVDesc.Texture2D.MostDetailedMip = 0;
+			tSRVDesc.ViewDimension = D3D11_SRV_DIMENSION::D3D11_SRV_DIMENSION_TEXTURE2D;
+
+			if (!GetDevice()->CreateShaderResourceView(mcpTexture.Get(), nullptr, mcpShaderResourceView.GetAddressOf()))
+			{
+				assert(false);
+				return false;
+			}
+		}
+
+		if (bindFlag & D3D11_BIND_FLAG::D3D11_BIND_UNORDERED_ACCESS)
+		{
+			D3D11_UNORDERED_ACCESS_VIEW_DESC tUAVDesc = {};
+			tUAVDesc.Format = format;
+			tUAVDesc.Texture2D.MipSlice = 0;
+			tUAVDesc.ViewDimension = D3D11_UAV_DIMENSION::D3D11_UAV_DIMENSION_TEXTURE2D;
+
+			if (!GetDevice()->CreateUnorderedAccessView(mcpTexture.Get(), nullptr, mcpUnorderedAccessView.GetAddressOf()))
+			{
+				assert(false);
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	void Texture::SetShaderResourceView(const graphics::eShaderStage shaderStage, const UINT slot)
 	{
 		graphics::GetDevice()->SetShaderResourceView(shaderStage, slot, mcpShaderResourceView.GetAddressOf());
 	}

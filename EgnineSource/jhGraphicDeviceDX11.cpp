@@ -317,6 +317,26 @@ namespace jh::graphics
 		}
 		return true;
 	}
+	bool GraphicDevice_DX11::CreateUnorderedAccessView(ID3D11Resource* pResource, const D3D11_UNORDERED_ACCESS_VIEW_DESC* pDesc, ID3D11UnorderedAccessView** ppUAView)
+	{
+		if (FAILED(mcpDevice->CreateUnorderedAccessView(pResource, pDesc, ppUAView)))
+		{
+			assert(false);
+			return false;
+		}
+
+		return true;
+	}
+	bool GraphicDevice_DX11::CreateDepthStencilView(ID3D11Resource* pResource, const D3D11_DEPTH_STENCIL_VIEW_DESC* pDesc, ID3D11DepthStencilView** ppDepthStencilView)
+	{
+		if (FAILED(mcpDevice->CreateDepthStencilView(pResource, pDesc, ppDepthStencilView)))
+		{
+			assert(false);
+			return false;
+		}
+		return true;
+	}
+
 
 	bool GraphicDevice_DX11::CreateShaderResourceView(ID3D11Resource* pResource, const D3D11_SHADER_RESOURCE_VIEW_DESC* pDesc, ID3D11ShaderResourceView** ppShaderResourceView)
 	{
