@@ -1,9 +1,11 @@
 #pragma once
 #include "jhGraphics.h"
 #include "jhEnums.h"
+#include "jhTexture.h"
 
 namespace jh::graphics
 {
+	//class Texture;
 	class GraphicDevice_DX11 final
 	{
 	public:
@@ -53,27 +55,22 @@ namespace jh::graphics
 		void DrawIndexed(const UINT idxCount, const UINT startIdxLocation, const UINT baseVertexLocation);
 
 
-		__forceinline void ClearRenderTargetViewAndDepthStencilView()
-		{
-			FLOAT backGroundColor[4] = { 0.2f, 0.2f, 0.2f, 0.2f };
-			mcpContext->ClearRenderTargetView(mcpRenderTargetView.Get(), backGroundColor);
-			mcpContext->ClearDepthStencilView(
-				mcpDepthStencilView.Get(),
-				D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL,
-				1.0f,
-				0
-			);
-		}
+		void ClearRenderTargetViewAndDepthStencilView();
+
 	private:
 		void ifFailed(HRESULT hr) { if (FAILED(hr)) { assert(false); } }
+
 	private:
 		Microsoft::WRL::ComPtr<ID3D11Device>				mcpDevice;
 		Microsoft::WRL::ComPtr<ID3D11DeviceContext>			mcpContext;
 
 		Microsoft::WRL::ComPtr<ID3D11Texture2D>				mcpRenderTarget;
 		Microsoft::WRL::ComPtr<ID3D11RenderTargetView>		mcpRenderTargetView;
-		Microsoft::WRL::ComPtr<ID3D11Texture2D>				mcpDepthStencilBuffer;
-		Microsoft::WRL::ComPtr<ID3D11DepthStencilView>		mcpDepthStencilView;
+
+		std::unique_ptr<class Texture>						mspDepthStencilBuffer;
+
+		//Microsoft::WRL::ComPtr<ID3D11Texture2D>				mcpDepthStencilBuffer;
+		//Microsoft::WRL::ComPtr<ID3D11DepthStencilView>		mcpDepthStencilView;
 
 		Microsoft::WRL::ComPtr<IDXGISwapChain>				mcpSwapChain;
 		Microsoft::WRL::ComPtr<ID3D11SamplerState>			mcpSamplerState;

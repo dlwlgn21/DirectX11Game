@@ -11,6 +11,7 @@ namespace jh::graphics
 	// OMSetRenderTargets(), RSSetViewports() 까지.
 	GraphicDevice_DX11::GraphicDevice_DX11(graphics::eValidationMode mode)
 	{
+		graphics::GetDevice() = this;
 		// 1. Device와 Swapchain을 생성한다.
 		// 2. 백버퍼에 실제로 렌더링할 렌더타겟 뷰를 생성해야 한다.
 		// 3. 화면을 클리어 해주어야 한다. 뷰 포트를 생성해주어야 한다.
@@ -140,9 +141,9 @@ namespace jh::graphics
 	GraphicDevice_DX11::~GraphicDevice_DX11()
 	{
 		mcpSamplerState.Reset();
-		mcpDepthStencilView.Reset();
+		//mcpDepthStencilView.Reset();
 		mcpRenderTargetView.Reset();
-		mcpDepthStencilBuffer.Reset();
+		//mcpDepthStencilBuffer.Reset();
 		mcpRenderTarget.Reset();
 		mcpSwapChain.Reset();
 		renderer::Release();
@@ -264,18 +265,23 @@ namespace jh::graphics
 			D3D11_BIND_DEPTH_STENCIL                    // 텍스쳐를 어느 용도로 쓸래?
 		);
 
-		mcpDevice->CreateTexture2D(
+
+		mspDepthStencilBuffer = std::make_unique<Texture>();
+		//mspDepthStencilBuffer->Create();
+		mspDepthStencilBuffer->Create(Application::GetInstance().GetWidth(), Application::GetInstance().GetHeight(), DXGI_FORMAT_D24_UNORM_S8_UINT, D3D11_BIND_FLAG::D3D11_BIND_DEPTH_STENCIL);
+
+		hr = mcpDevice->CreateTexture2D(
 			&depthStencilDesc,
 			nullptr,
-			mcpDepthStencilBuffer.ReleaseAndGetAddressOf()
+			mspDepthStencilBuffer->GetTexture().GetAddressOf()
 		);
 		ifFailed(hr);
 
 		CD3D11_DEPTH_STENCIL_VIEW_DESC depthStencilViewDesc(D3D11_DSV_DIMENSION_TEXTURE2D);
-		mcpDevice->CreateDepthStencilView(
-			mcpDepthStencilBuffer.Get(),
-			&depthStencilViewDesc,
-			mcpDepthStencilView.ReleaseAndGetAddressOf()
+		hr = mcpDevice->CreateDepthStencilView(
+			mspDepthStencilBuffer->GetTexture().Get(),
+			nullptr,
+			mspDepthStencilBuffer->GetDepthStencilView().GetAddressOf()
 		);
 		ifFailed(hr);
 
@@ -283,7 +289,7 @@ namespace jh::graphics
 		mcpContext->OMSetRenderTargets(
 			1,
 			mcpRenderTargetView.GetAddressOf(),
-			mcpDepthStencilView.Get()
+			mspDepthStencilBuffer->GetDepthStencilView().Get()
 		);
 		return false;
 	}
@@ -438,7 +444,22 @@ namespace jh::graphics
 		}
 		return true;
 	}
+	bool graphics::GraphicDevice_DX11::CreateComputeShader(const void* pShaderBytecode, SIZE_T BytecodeLength, ID3D11ClassLinkage* pClassLinkage, ID3D11ComputeShader** ppComputeShader)
+	{
+		HRESULT hr = mcpDevice->CreateComputeShader(
+			pShaderBytecode, 
+			BytecodeLength, 
+			pClassLinkage, 
+			ppComputeShader
+		);
 
+		if (FAILED(hr))
+		{
+			assert(false);
+			return false;
+		}
+		return true;
+	}
 	bool graphics::GraphicDevice_DX11::CreatePixelShader(const void* pShaderByteCode, SIZE_T byteCodeLength, ID3D11ClassLinkage* pClassLinkage, ID3D11PixelShader** ppPixelShader)
 	{
 		HRESULT hr = mcpDevice->CreatePixelShader(
@@ -665,5 +686,17 @@ namespace jh::graphics
 	void GraphicDevice_DX11::DrawIndexed(const UINT idxCount, const UINT startIdxLocation, const UINT baseVertexLocation)
 	{
 		mcpContext->DrawIndexed(idxCount, startIdxLocation, baseVertexLocation);
+	}
+
+	void GraphicDevice_DX11::ClearRenderTargetViewAndDepthStencilView()
+	{
+		FLOAT backGroundColor[4] = { 0.2f, 0.2f, 0.2f, 0.2f };
+		mcpContext->ClearRenderTargetView(mcpRenderTargetView.Get(), backGroundColor);
+		mcpContext->ClearDepthStencilView(
+			mspDepthStencilBuffer->GetDepthStencilView().Get(),
+			D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL,
+			1.0f,
+			0
+		);
 	}
 }
