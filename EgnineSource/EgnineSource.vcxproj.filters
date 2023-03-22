@@ -257,6 +257,7 @@
     <ClCompile Include="jhBackgroundScript.cpp">
       <Filter>Component\Script</Filter>
     </ClCompile>
+    <ClCompile Include="jhComputeShader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -405,6 +406,7 @@
     <ClInclude Include="jhBackgroundScript.h">
       <Filter>Component\Script</Filter>
     </ClInclude>
+    <ClInclude Include="jhComputeShader.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="jhMath.inl">

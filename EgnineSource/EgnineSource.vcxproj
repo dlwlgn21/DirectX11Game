@@ -175,6 +175,7 @@
     <ClInclude Include="jhCollider3D.h" />
     <ClInclude Include="jhCollisionManager.h" />
     <ClInclude Include="jhComponent.h" />
+    <ClInclude Include="jhComputeShader.h" />
     <ClInclude Include="jhConstantBuffer.h" />
     <ClInclude Include="jhEntity.h" />
     <ClInclude Include="jhEnums.h" />
@@ -225,6 +226,7 @@
     <ClCompile Include="jhCollider3D.cpp" />
     <ClCompile Include="jhCollisionManager.cpp" />
     <ClCompile Include="jhComponent.cpp" />
+    <ClCompile Include="jhComputeShader.cpp" />
     <ClCompile Include="jhConstantBuffer.cpp" />
     <ClCompile Include="jhEntity.cpp" />
     <ClCompile Include="jhFadeInScript.cpp" />
