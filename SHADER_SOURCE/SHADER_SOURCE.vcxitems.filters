@@ -57,6 +57,12 @@
     <FxCompile Include="$(MSBuildThisFileDirectory)PaintComputeShader.hlsl">
       <Filter>ComputeShader</Filter>
     </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)jhParticleVertexShader.hlsl">
+      <Filter>VertexShader</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)jhParticlePixelShader.hlsl">
+      <Filter>PixelShader</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)globals.hlsli" />

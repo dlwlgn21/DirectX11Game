@@ -4,20 +4,24 @@ namespace jh
 {
 	PaintShader::PaintShader()
 		: ComputeShader()
-		, mspTargetTexture()
+		, mpTargetTexture(nullptr)
 	{
 
 	}
 
 	void PaintShader::Bind()
 	{
-		mspTargetTexture->SetUnorderdAccessView(0);
-		mThreadGroupX = mspTargetTexture->GetWidth() / mThreadGroupCountX + 1;
-		mThreadGroupY = mspTargetTexture->GetHeight() / mThreadGroupCountY + 1;
+		assert(mpTargetTexture != nullptr);
+		// 요기서 PaintComputeShader의 
+		// RWTexture2D<float4> tex : register(u0)와 연결됨. 
+		mpTargetTexture->SetUnorderdAccessView(0);
+		mThreadGroupX = mpTargetTexture->GetDescWidth() / mThreadGroupCountX + 1;
+		mThreadGroupY = mpTargetTexture->GetDescHeight() / mThreadGroupCountY + 1;
 		mThreadGroupZ = 1;
 	}
 	void PaintShader::Clear()
 	{
-		mspTargetTexture->ClearUnorderdAccessView(0);
+		assert(mpTargetTexture != nullptr);
+		mpTargetTexture->ClearUnorderdAccessView(0);
 	}
 }

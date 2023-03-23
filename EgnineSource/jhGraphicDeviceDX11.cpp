@@ -634,6 +634,9 @@ namespace jh::graphics
 		case jh::graphics::eShaderStage::PIXEL_SHADER:
 			mcpContext->PSSetShaderResources(slot, 1, ppShaderResourceViews);
 			break;
+		case jh::graphics::eShaderStage::COMPUTE_SHADER:
+			mcpContext->CSSetShaderResources(slot, 1, ppShaderResourceViews);
+			break;
 		case jh::graphics::eShaderStage::COUNT:
 			assert(false);
 			break;

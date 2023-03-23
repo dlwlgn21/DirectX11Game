@@ -64,6 +64,15 @@ namespace jh::renderer
 	{
 		UINT NumberOfLights;
 	};
+	CBUFFER(ParticleConstantBuffer, CBSLOT_PARTICLE_SYSTEM)
+	{
+		Vector4 Position;
+		Vector4 Direction;
+		float LifeTime;
+		float CurrTime;
+		float Speed;
+		UINT Active;
+	};
 
 	extern Vertex											vertices[VERTEX_COUNT];
 	extern ConstantBuffer*									pConstantBuffers[];
@@ -85,6 +94,8 @@ namespace jh::renderer
 	extern const std::wstring FADE_OUT_SHADER_KEY;
 	extern const std::wstring DEBUG_SHADER_KEY;
 	extern const std::wstring BACK_GROUND_SHADER_KEY;
+	extern const std::wstring PAINT_SHADER_KEY;
+	extern const std::wstring PARTICLE_SHADER_KEY;
 
 	extern const std::wstring PLAYER_TEXTURE_KEY;
 	extern const std::wstring DEFAULT_TEXTURE_KEY;
@@ -95,6 +106,7 @@ namespace jh::renderer
 	extern const std::wstring ZELDA_TEXTURE_KEY;
 	extern const std::wstring ZOMBIE_TEXTURE_KEY;
 	extern const std::wstring BATTLE_SCENE_TEXTURE_KEY;
+	extern const std::wstring PAINT_TEXTURE_KEY;
 
 	extern const std::wstring PLAYER_MATERIAL_KEY;
 	extern const std::wstring SPRITE_MATERIAL_KEY;
@@ -104,6 +116,7 @@ namespace jh::renderer
 	extern const std::wstring DEBUG_MATERIAL_KEY;
 	extern const std::wstring MONSTER_MATERIAL_KEY;
 	extern const std::wstring TITLE_BACKGROUND_MATERIAL_KEY;
+	extern const std::wstring PARTICLE_MATERIAL_KEY;
 
 	extern const std::wstring RECT_MESH_KEY;
 	extern const std::wstring RECT_DEBUG_MESH_KEY;

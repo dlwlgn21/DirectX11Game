@@ -36,6 +36,8 @@ namespace jh
 
 		UINT GetHeight() const { return static_cast<UINT>(mImage.GetMetadata().height); }
 		UINT GetWidth() const { return static_cast<UINT>(mImage.GetMetadata().width); }
+		UINT GetDescHeight() const { return static_cast<UINT>(mTextureDesc.Height); }
+		UINT GetDescWidth() const { return static_cast<UINT>(mTextureDesc.Width); }
 
 		Microsoft::WRL::ComPtr<ID3D11Texture2D> GetTexture() const							{ return mcpTexture; }
 		Microsoft::WRL::ComPtr<ID3D11DepthStencilView> GetDepthStencilView() const			{ return mcpDepthStencilView; }

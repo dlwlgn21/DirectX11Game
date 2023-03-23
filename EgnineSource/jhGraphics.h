@@ -17,6 +17,7 @@
 #define CBSLOT_TRANSLATE_UV (3)
 #define CBSLOT_ANIMATOR (4)
 #define CBSLOT_NUMBER_OF_LIGHT (5)
+#define CBSLOT_PARTICLE_SYSTEM (6)
 
 namespace jh::graphics
 {
@@ -35,7 +36,7 @@ namespace jh::graphics
 		DOMAIN_SHADER,
 		GEOMETRY_SHADER,
 		PIXEL_SHADER,
-		CS,
+		COMPUTE_SHADER,
 		COUNT,
 	};
 	enum class eRenderingMode
@@ -107,6 +108,7 @@ namespace jh::graphics
 		TRANSLATE_UV,
 		ANIMATION,
 		LIGHT,
+		PARTICLE_SYSTEM,
 		COUNT
 	};
 
@@ -169,5 +171,16 @@ namespace jh::graphics
 			, padding(0)
 		{
 		}
+	};
+
+	struct Particle
+	{
+		math::Vector4 Position;
+		math::Vector4 Direction;
+		
+		float LifeTime;
+		float CurrTime;
+		float Speed;
+		UINT Active;
 	};
 }

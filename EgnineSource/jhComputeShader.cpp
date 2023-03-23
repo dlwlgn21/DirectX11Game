@@ -56,13 +56,13 @@ namespace jh
 				nullptr,
 				mcpComputeShader.ReleaseAndGetAddressOf()
 			);
-		return false;
+		return true;
 	}
 	void ComputeShader::OnExcute()
 	{
 		Bind();
 		graphics::GetDevice()->SetComputeShader(mcpComputeShader.Get(), nullptr, 0);
-		graphics::GetDevice()->Dispatch(mThreadGroupCountX, mThreadGroupCountY, mThreadGroupCountZ);
+		graphics::GetDevice()->Dispatch(mThreadGroupX, mThreadGroupY, mThreadGroupZ);
 		Clear();
 	}
 	void ComputeShader::Bind()

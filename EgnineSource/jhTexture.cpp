@@ -28,6 +28,7 @@ namespace jh
 		ID3D11ShaderResourceView* pSrv = nullptr;
 		graphics::GetDevice()->SetShaderResourceView(eShaderStage::VERTEX_SHADER, startSlot, &pSrv);
 		graphics::GetDevice()->SetShaderResourceView(eShaderStage::PIXEL_SHADER, startSlot, &pSrv);
+		graphics::GetDevice()->SetShaderResourceView(eShaderStage::COMPUTE_SHADER, startSlot, &pSrv);
 	}
 
 	HRESULT Texture::Load(const std::wstring& fileName)

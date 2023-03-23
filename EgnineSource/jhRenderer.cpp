@@ -4,8 +4,7 @@
 #include "jhTexture.h"
 #include "jhSceneManager.h"
 #include "jhShader.h"
-#include "jhComputeShader.h"
-
+#include "jhPaintShader.h"
 
 using namespace jh::graphics;
 namespace jh::renderer
@@ -30,6 +29,9 @@ namespace jh::renderer
 	static const std::wstring FADE_OUT_SHADER_KEY = L"FadeOutShader";
 	static const std::wstring DEBUG_SHADER_KEY = L"DebugShader";
 	static const std::wstring BACK_GROUND_SHADER_KEY = L"BackGroundShader";
+	static const std::wstring PAINT_SHADER_KEY = L"PaintShader";
+	static const std::wstring PARTICLE_SHADER_KEY = L"ParticleShader";
+
 
 	static const std::wstring PLAYER_TEXTURE_KEY = L"PlayerTexture";
 	static const std::wstring DEFAULT_TEXTURE_KEY = L"DefaultTexture";
@@ -40,6 +42,7 @@ namespace jh::renderer
 	static const std::wstring ZELDA_TEXTURE_KEY = L"ZeldaTexture";
 	static const std::wstring ZOMBIE_TEXTURE_KEY = L"WildZombieTexture";
 	static const std::wstring BATTLE_SCENE_TEXTURE_KEY = L"BattleSceneTexture";
+	static const std::wstring PAINT_TEXTURE_KEY = L"PaintTexture";
 
 	static const std::wstring PLAYER_MATERIAL_KEY = L"PlayerMaterial";
 	static const std::wstring SPRITE_MATERIAL_KEY = L"SpriteMaterial";
@@ -49,6 +52,7 @@ namespace jh::renderer
 	static const std::wstring DEBUG_MATERIAL_KEY = L"DebugMaterial";
 	static const std::wstring MONSTER_MATERIAL_KEY = L"MonsterMaterial";
 	static const std::wstring TITLE_BACKGROUND_MATERIAL_KEY = L"TitleBackground";
+	static const std::wstring PARTICLE_MATERIAL_KEY = L"ParticleMaterial";
 
 	static const std::wstring RECT_MESH_KEY = L"RectMesh";
 	static const std::wstring RECT_DEBUG_MESH_KEY = L"RectDebugMesh";
@@ -221,7 +225,20 @@ namespace jh::renderer
 		Resources::Insert<Shader>(BACK_GROUND_SHADER_KEY, pBackgroundShader);
 
 		// PaintShader
-		ComputeShader* pPaintShader = new ComputeShader();
+		PaintShader* pPaintShader = new PaintShader();
+		pPaintShader->Create(L"PaintComputeShader.hlsl", "main");
+		Resources::Insert<ComputeShader>(PAINT_SHADER_KEY, pPaintShader);
+
+
+		// ParticleShader
+		Shader* pParticleShader = new Shader();
+		pParticleShader->Create(graphics::eShaderStage::VERTEX_SHADER, L"jhParticleVertexShader.hlsl", "main");
+		pParticleShader->Create(graphics::eShaderStage::PIXEL_SHADER, L"jhParticlePixelShader.hlsl", "main");
+		pParticleShader->SetRasterizerState(eRasterizerStateType::SOLID_NONE);
+		pParticleShader->SetDepthStencilState(eDepthStencilStateType::NO_WRITE);
+		pParticleShader->SetBlendState(eBlendStateType::ALPHA_BLEND);
+		Resources::Insert<Shader>(PARTICLE_SHADER_KEY, pParticleShader);
+
 	}
 
 	__forceinline void SetupInputLayout()
@@ -233,6 +250,7 @@ namespace jh::renderer
 		Shader* pFadeOutShader =	Resources::Find<Shader>(FADE_OUT_SHADER_KEY);
 		Shader* pDebugShader =		Resources::Find<Shader>(DEBUG_SHADER_KEY);
 		Shader* pBackgroundShader =	Resources::Find<Shader>(BACK_GROUND_SHADER_KEY);
+		Shader* pParticleShader =	Resources::Find<Shader>(PARTICLE_SHADER_KEY);
 
 		const UINT ELEMENT_DESC_COUNT = 3;
 		D3D11_INPUT_ELEMENT_DESC inputDesc[ELEMENT_DESC_COUNT] = {};
@@ -315,6 +333,13 @@ namespace jh::renderer
 			pBackgroundShader->GetInputLayoutAddressOf()
 		);
 
+		graphics::GetDevice()->CreateInputLayout(
+			inputDesc,
+			ELEMENT_DESC_COUNT,
+			pParticleShader->GetVertexShaderBlob(),
+			pParticleShader->GetVertexShaderBlobSize(),
+			pParticleShader->GetInputLayoutAddressOf()
+		);
 
 	}
 
@@ -446,6 +471,9 @@ namespace jh::renderer
 		pConstantBuffers[static_cast<UINT>(eConstantBufferType::LIGHT)] = new ConstantBuffer(eConstantBufferType::LIGHT);
 		pConstantBuffers[static_cast<UINT>(eConstantBufferType::LIGHT)]->CreateBuffer(sizeof(LightConstantBuffer));
 	
+		pConstantBuffers[static_cast<UINT>(eConstantBufferType::PARTICLE_SYSTEM)] = new ConstantBuffer(eConstantBufferType::PARTICLE_SYSTEM);
+		pConstantBuffers[static_cast<UINT>(eConstantBufferType::PARTICLE_SYSTEM)]->CreateBuffer(sizeof(ParticleConstantBuffer));
+
 		// StructuredBuffer
 		pLightStructuredBuffer = new StructuredBuffer();
 		pLightStructuredBuffer->Create(sizeof(LightAttribute), 128, eShaderResourceViewType::NONE, nullptr);
@@ -509,6 +537,12 @@ namespace jh::renderer
 		pBackgroundMaterial->SetShader(Resources::Find<Shader>(BACK_GROUND_SHADER_KEY));
 		pBackgroundMaterial->SetTexture(Resources::Find<Texture>(BATTLE_SCENE_TEXTURE_KEY));
 		Resources::Insert<Material>(TITLE_BACKGROUND_MATERIAL_KEY, pBackgroundMaterial);
+
+		// Patricle
+		Material* pPatricleMaterial = new Material();
+		pPatricleMaterial->SetShader(Resources::Find<Shader>(PARTICLE_SHADER_KEY));
+		pPatricleMaterial->SetTexture(Resources::Find<Texture>(BATTLE_SCENE_TEXTURE_KEY));
+		Resources::Insert<Material>(PARTICLE_MATERIAL_KEY, pPatricleMaterial);
 	}
 
 	__forceinline void CreateTexture()
@@ -516,13 +550,23 @@ namespace jh::renderer
 		Resources::Load<Texture>(PLAYER_TEXTURE_KEY,			L"CharacterAtlas.png");
 		Resources::Load<Texture>(DEFAULT_TEXTURE_KEY,			L"DefaultTexture.png");
 		Resources::Load<Texture>(HPBAR_TEXTURE_KEY,				L"HPBar.png");
-		Resources::Load<Texture>(FADE_OUT_TEXTURE_KEY,			L"FadeOutTexture.png");
+		Resources::Load<Texture>(FADE_OUT_TEXTURE_KEY,			L"Smile.png");
 		Resources::Load<Texture>(MONSTER_TEXTURE_KEY,			L"MonsterIdleImage.png");
 		Resources::Load<Texture>(TITLE_BACKGROUND_TEXTURE_KEY,	L"TitleImage.png");
 		Resources::Load<Texture>(ZELDA_TEXTURE_KEY,				L"ZeldaSprite.png");
 		Resources::Load<Texture>(ZOMBIE_TEXTURE_KEY,			L"WildZombie.png");
 		Resources::Load<Texture>(BATTLE_SCENE_TEXTURE_KEY,		L"70s Apt4B.png");
 		//ZeldaSprite.png
+
+		// CreateTexure
+		Texture* pUAVTexture = new Texture();
+		pUAVTexture->Create(
+			1024, 
+			1024, 
+			DXGI_FORMAT::DXGI_FORMAT_R8G8B8A8_UNORM, 
+			D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS	// 읽기 쓰기 같이 하기 위해서 이렇게 바인드플래그 설정함
+		);
+		Resources::Insert<Texture>(PAINT_TEXTURE_KEY, pUAVTexture);
 	}
 
 	void Initialize()

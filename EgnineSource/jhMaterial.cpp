@@ -63,6 +63,8 @@ namespace jh
 		//assert(mpTexture != nullptr);
 		if (mpTexture != nullptr)
 		{
+			
+			// 요게 Shader의 texture2D defaultTexture : register(t0)로 연결됨. t0 그르니까 0번 슬롯 이라는 것.
 			mpTexture->SetShaderResourceView(eShaderStage::PIXEL_SHADER, 0);
 		}
 

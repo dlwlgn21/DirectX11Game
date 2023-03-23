@@ -12,8 +12,8 @@ namespace jh
 		void Bind() override;
 		void Clear() override;
 
-		void SetTarget(std::unique_ptr<Texture> pTextrue) { mspTargetTexture = std::move(pTextrue); }
+		void SetTarget(Texture* pTextrue) { assert(pTextrue != nullptr); mpTargetTexture = pTextrue; }
 	private:
-		std::unique_ptr<Texture> mspTargetTexture;
+		Texture* mpTargetTexture;
 	};
 }

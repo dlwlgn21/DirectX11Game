@@ -195,6 +195,7 @@
     <ClInclude Include="jhMonster.h" />
     <ClInclude Include="jhObject.h" />
     <ClInclude Include="jhPaintShader.h" />
+    <ClInclude Include="jhParicleSystem.h" />
     <ClInclude Include="jhPlayer.h" />
     <ClInclude Include="jhPlayerScript.h" />
     <ClInclude Include="jhPlayScene.h" />
@@ -244,6 +245,7 @@
     <ClCompile Include="jhMaterial.cpp" />
     <ClCompile Include="jhMonster.cpp" />
     <ClCompile Include="jhPaintShader.cpp" />
+    <ClCompile Include="jhParicleSystem.cpp" />
     <ClCompile Include="jhPlayer.cpp" />
     <ClCompile Include="jhPlayerScript.cpp" />
     <ClCompile Include="jhPlayScene.cpp" />
