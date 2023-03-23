@@ -34,7 +34,6 @@ namespace jh::graphics
 		void BindViewports(D3D11_VIEWPORT* pViewport);
 		void BindViewports();
 		void BindBufferAtGPU(ID3D11Buffer* pBuffer, void* pData, UINT size);
-		
 		void SetConstantBufferAtShader(const eShaderStage eStage, const eConstantBufferType eType, ID3D11Buffer* pBuffer);
 		void SetVertexBufferAtIA(const UINT startSlot, const UINT numBuffers, ID3D11Buffer* const* pBuffer, const UINT* pStride, const UINT* pOffeset);
 		void SetIndexBufferAtIA(ID3D11Buffer* pIdxBufferm, DXGI_FORMAT format, UINT offset);
@@ -42,14 +41,17 @@ namespace jh::graphics
 		void SetInputLayout(ID3D11InputLayout* pInputLayout);
 		void SetVertexShader(ID3D11VertexShader* pVertexShader, ID3D11ClassInstance* const* ppClassInstance, UINT numClassInstances);
 		void SetPixelShader(ID3D11PixelShader* pPixelShader, ID3D11ClassInstance* const* ppClassInstance, UINT numClassInstances);
+		void SetComputeShader(ID3D11ComputeShader* pComputeShader, ID3D11ClassInstance* const* ppClassInstance, UINT numClassInstances);
 		void SetShaderResourceView(const eShaderStage eStage, const UINT slot, ID3D11ShaderResourceView* const* ppShaderResourceViews);
+		void SetUnorderedAccessView(const UINT startSlot, const UINT NumUAVs, ID3D11UnorderedAccessView* const* ppUnorderedAccessViews, const UINT* pUAVInitialCounts);
+
 		void SetSamplersAtShader(const eShaderStage eStage, const UINT slot, const UINT numSamplers, ID3D11SamplerState* const* ppSamplerState);
 		void SetSamplerAtALLShaders(const UINT slot, const UINT numSamplers, ID3D11SamplerState* const* ppSamplerState);
 		void SetRasterizerState(ID3D11RasterizerState* pRasterizerState);
 		void SetDepthStencilStateAtOM(ID3D11DepthStencilState* pDepthStencilState);
 		void SetBlendStateAtOM(ID3D11BlendState* pBlendState);
 		void Present();
-
+		void Dispatch(UINT threadGroupCountX, UINT threadGroupCountY, UINT threadGroupCountZ);
 		ID3D11DeviceContext* GetContext() const { return mcpContext.Get(); }
 		ID3D11Device* GetID3D11Device() const { return mcpDevice.Get(); }
 		void DrawIndexed(const UINT idxCount, const UINT startIdxLocation, const UINT baseVertexLocation);

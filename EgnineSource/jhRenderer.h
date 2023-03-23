@@ -5,7 +5,6 @@
 
 
 #include "jhMesh.h"
-#include "jhShader.h"
 #include "jhConstantBuffer.h"
 #include "jhCamera.h"
 #include "jhLight.h"

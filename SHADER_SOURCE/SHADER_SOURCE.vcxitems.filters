@@ -7,6 +7,9 @@
     <Filter Include="PixelShader">
       <UniqueIdentifier>{ed10ef5f-8a64-4413-85e3-8b5089671748}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ComputeShader">
+      <UniqueIdentifier>{c9d0d82d-f12f-466c-a605-14bf0c5d9c6e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="$(MSBuildThisFileDirectory)jhCharacterVertexShader.hlsl">
@@ -50,6 +53,9 @@
     </FxCompile>
     <FxCompile Include="$(MSBuildThisFileDirectory)jhBackGroundPixelShader.hlsl">
       <Filter>PixelShader</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)PaintComputeShader.hlsl">
+      <Filter>ComputeShader</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

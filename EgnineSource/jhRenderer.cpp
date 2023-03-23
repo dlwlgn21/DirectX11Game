@@ -3,6 +3,8 @@
 #include "jhMaterial.h"
 #include "jhTexture.h"
 #include "jhSceneManager.h"
+#include "jhShader.h"
+#include "jhComputeShader.h"
 
 
 using namespace jh::graphics;
@@ -217,6 +219,9 @@ namespace jh::renderer
 		pBackgroundShader->Create(graphics::eShaderStage::VERTEX_SHADER, L"jhBackGroundVertexShader.hlsl", "main");
 		pBackgroundShader->Create(graphics::eShaderStage::PIXEL_SHADER, L"jhBackGroundPixelShader.hlsl", "main");
 		Resources::Insert<Shader>(BACK_GROUND_SHADER_KEY, pBackgroundShader);
+
+		// PaintShader
+		ComputeShader* pPaintShader = new ComputeShader();
 	}
 
 	__forceinline void SetupInputLayout()

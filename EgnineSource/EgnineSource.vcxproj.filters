@@ -124,6 +124,9 @@
     <Filter Include="Component\Ligit">
       <UniqueIdentifier>{4fd0cf6a-f3df-4f58-a4aa-00d055b481c8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource\Shader\ComputeShader">
+      <UniqueIdentifier>{a9d2f0f0-df38-4217-b5b1-8a372fe5ac27}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EgnineSource.cpp" />
@@ -257,7 +260,12 @@
     <ClCompile Include="jhBackgroundScript.cpp">
       <Filter>Component\Script</Filter>
     </ClCompile>
-    <ClCompile Include="jhComputeShader.cpp" />
+    <ClCompile Include="jhComputeShader.cpp">
+      <Filter>Resource\Shader\ComputeShader</Filter>
+    </ClCompile>
+    <ClCompile Include="jhPaintShader.cpp">
+      <Filter>Resource\Shader\ComputeShader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -406,7 +414,12 @@
     <ClInclude Include="jhBackgroundScript.h">
       <Filter>Component\Script</Filter>
     </ClInclude>
-    <ClInclude Include="jhComputeShader.h" />
+    <ClInclude Include="jhComputeShader.h">
+      <Filter>Resource\Shader\ComputeShader</Filter>
+    </ClInclude>
+    <ClInclude Include="jhPaintShader.h">
+      <Filter>Resource\Shader\ComputeShader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="jhMath.inl">

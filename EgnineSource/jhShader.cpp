@@ -1,8 +1,6 @@
 #include "jhShader.h"
 #include "jhRenderer.h"
 
-using namespace jh::graphics;
-
 namespace jh
 {
 	Shader::Shader()

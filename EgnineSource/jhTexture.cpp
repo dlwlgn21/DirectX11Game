@@ -143,6 +143,17 @@ namespace jh
 		//graphics::GetDevice()->SetShaderResourceView(eShaderStage::CS, 0, mcpShaderResourceView.GetAddressOf());
 	}
 
+	void Texture::SetUnorderdAccessView(const UINT startSlot)
+	{
+		UINT initValue = -1;
+		graphics::GetDevice()->SetUnorderedAccessView(startSlot, 1, mcpUnorderedAccessView.GetAddressOf(), &initValue);
+	}
+	void Texture::ClearUnorderdAccessView(const UINT startSlot)
+	{
+		ID3D11UnorderedAccessView* pNull = nullptr;
+		UINT initValue = -1;
+		graphics::GetDevice()->SetUnorderedAccessView(startSlot, 1, &pNull, &initValue);
+	}
 
 
 	void Texture::createShaderResourceView()

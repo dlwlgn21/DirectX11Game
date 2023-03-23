@@ -619,6 +619,11 @@ namespace jh::graphics
 		mcpContext->PSSetShader(pPixelShader, ppClassInstance, numClassInstances);
 	}
 
+	void GraphicDevice_DX11::SetComputeShader(ID3D11ComputeShader* pComputeShader, ID3D11ClassInstance* const* ppClassInstance, UINT numClassInstances)
+	{
+		mcpContext->CSSetShader(pComputeShader, ppClassInstance, numClassInstances);
+	}
+
 	void GraphicDevice_DX11::SetShaderResourceView(const eShaderStage eStage, const UINT slot, ID3D11ShaderResourceView* const* ppShaderResourceViews)
 	{
 		switch (eStage)
@@ -637,6 +642,10 @@ namespace jh::graphics
 		}
 	}
 
+	void GraphicDevice_DX11::SetUnorderedAccessView(const UINT startSlot, const UINT NumUAVs, ID3D11UnorderedAccessView*const* ppUnorderedAccessViews, const UINT* pUAVInitialCounts)
+	{
+		mcpContext->CSSetUnorderedAccessViews(startSlot, NumUAVs, ppUnorderedAccessViews, pUAVInitialCounts);
+	}
 
 
 	void GraphicDevice_DX11::SetSamplersAtShader(const eShaderStage eStage, const UINT slot, const UINT numSamplers,  ID3D11SamplerState* const* ppSamplerState)
@@ -681,6 +690,11 @@ namespace jh::graphics
 	void GraphicDevice_DX11::Present()
 	{
 		mcpSwapChain->Present(0, 0);
+	}
+
+	void GraphicDevice_DX11::Dispatch(UINT threadGroupCountX, UINT threadGroupCountY, UINT threadGroupCountZ)
+	{
+		mcpContext->Dispatch(threadGroupCountX, threadGroupCountY, threadGroupCountZ);
 	}
 
 	void GraphicDevice_DX11::DrawIndexed(const UINT idxCount, const UINT startIdxLocation, const UINT baseVertexLocation)
