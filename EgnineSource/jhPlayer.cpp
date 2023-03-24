@@ -25,6 +25,7 @@ namespace jh
 		this->AddComponent(pCollider2D);
 
 		Vector2 animSize(48.0f, 32.0f);
+		Vector2 offset(0.015f, 0.0f);
 		float height = 32.0f;
 		Animator* pPlayerAnimator = new Animator();
 		pPlayerAnimator->Create(
@@ -32,7 +33,7 @@ namespace jh
 			Resources::Find<Texture>(renderer::PLAYER_TEXTURE_KEY),
 			Vector2::Zero,
 			animSize,
-			Vector2::Zero,
+			offset,
 			4,
 			0.15f,
 			100
@@ -42,7 +43,7 @@ namespace jh
 			Resources::Find<Texture>(renderer::PLAYER_TEXTURE_KEY),
 			Vector2(0.0f, height * 4),
 			animSize,
-			Vector2::Zero,
+			offset,
 			9,
 			0.15f,
 			100
@@ -52,7 +53,7 @@ namespace jh
 			Resources::Find<Texture>(renderer::PLAYER_TEXTURE_KEY),
 			Vector2(0.0f, height * 12),
 			animSize,
-			Vector2::Zero,
+			offset,
 			6,
 			0.1f,
 			100
@@ -62,7 +63,7 @@ namespace jh
 			Resources::Find<Texture>(renderer::PLAYER_TEXTURE_KEY),
 			Vector2(0.0f, height * 13),
 			animSize,
-			Vector2::Zero,
+			offset,
 			5,
 			0.1f,
 			100

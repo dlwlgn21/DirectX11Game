@@ -25,6 +25,7 @@ VSOut main(VSIn _in)
     output.Pos = projectionPos;
     output.WolrdPos = float3(worldPos.x, worldPos.y, worldPos.z);
     output.Color = _in.Color;
+    _in.UV.x = 1 - _in.UV.x;
     output.UV = _in.UV;
     return output;
 }

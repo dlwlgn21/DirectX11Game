@@ -40,17 +40,17 @@ float4 main(VSOut _in) : SV_Target
         color = defaultTexture.Sample(pointSampler, _in.UV);
     }
 
-    LightColor lightColor = (LightColor)0.0f;
-    for (uint i = 0; i < NumberOfLight; ++i)
-    {
-        CalculateLight(lightColor, _in.WolrdPos, i);
-    }
+    //LightColor lightColor = (LightColor)0.0f;
+    //for (uint i = 0; i < NumberOfLight; ++i)
+    //{
+    //    CalculateLight(lightColor, _in.WolrdPos, i);
+    //}
     
     //if (NumberOfLight <= 0)
     //{
     //    lightColor = (LightColor)1.0f;
     //}
     
-    color *= lightColor.Diffuse;
+    //color *= lightColor.Diffuse;
     return color;
 }

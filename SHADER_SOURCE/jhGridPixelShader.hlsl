@@ -29,15 +29,17 @@ float4 main(VSOut _in) : SV_TARGET
     
     if (abs(worldX + 1) % WIDTH <= THICKNESS)
     {
+        discard;
         return Out;
     }
     
     if (abs(worldY + 1) % HEIGHT <= THICKNESS)
     {
+        discard;
         return Out;
     }
     
     discard;
     
-    return float4(1.0f, 0.1f, 1.0f, 1.0f);
+    return float4(1.0f, 0.1f, 1.0f, 0.0f);
 }

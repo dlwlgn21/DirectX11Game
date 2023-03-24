@@ -37,9 +37,9 @@ namespace jh
 	{
 		{
 			//PaintShader
-			PaintShader* pPaintShader = static_cast<PaintShader*>(Resources::Find<PaintShader>(PAINT_SHADER_KEY));
-			pPaintShader->SetTarget(Resources::Find<Texture>(PAINT_TEXTURE_KEY));
-			pPaintShader->OnExcute();
+			//PaintShader* pPaintShader = static_cast<PaintShader*>(Resources::Find<PaintShader>(PAINT_SHADER_KEY));
+			//pPaintShader->SetTarget(Resources::Find<Texture>(PAINT_TEXTURE_KEY));
+			//pPaintShader->OnExcute();
 		}
 
 
@@ -60,16 +60,16 @@ namespace jh
 
 		{
 			// LightObject
-			GameObject* pDirectionalLight = jh::object::Instantiate(eLayerType::PLAYER);
-			pDirectionalLight->GetTransform()->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
-			Light* pLightComponent = new Light();
-			//pLightComponent->SetLightType(eLightType::DIRECTIONAL_LIGHT);
-			//pLightComponent->SetDiffuse(Vector4(1.0f, 0.0f, 1.0f, 1.0f));
+			//GameObject* pDirectionalLight = jh::object::Instantiate(eLayerType::PLAYER);
+			//pDirectionalLight->GetTransform()->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
+			//Light* pLightComponent = new Light();
+			////pLightComponent->SetLightType(eLightType::DIRECTIONAL_LIGHT);
+			////pLightComponent->SetDiffuse(Vector4(1.0f, 0.0f, 1.0f, 1.0f));
 
-			pLightComponent->SetLightType(eLightType::POINT_LIGHT);
-			pLightComponent->SetDiffuse(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
-			pLightComponent->SetRadius(200.0f);
-			pDirectionalLight->AddComponent(pLightComponent);
+			//pLightComponent->SetLightType(eLightType::POINT_LIGHT);
+			//pLightComponent->SetDiffuse(Vector4(1.0f, 0.5f, 1.0f, 1.0f));
+			//pLightComponent->SetRadius(300.0f);
+			//pDirectionalLight->AddComponent(pLightComponent);
 		}
 
 		{
@@ -147,15 +147,17 @@ namespace jh
 		{
 			GameObject* pBattleSceneObject = jh::object::Instantiate<GameObject>(eLayerType::PLAYER);
 			pBattleSceneObject->GetTransform()->SetPosition(Vector3(0.0f, 0.0f, 1.0f));
-			//BackgroundScript* pBackgroundScript = new BackgroundScript();
 			SpriteRenderer* pBattleSceneSpriteRenderer = new SpriteRenderer();
-			//pBattleSceneSpriteRenderer->SetMesh(Resources::Find<Mesh>(BATTLE_SCENE_MESH_KEY));
-			pBattleSceneSpriteRenderer->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
+			pBattleSceneSpriteRenderer->SetMesh(Resources::Find<Mesh>(BATTLE_SCENE_MESH_KEY));
+			//pBattleSceneSpriteRenderer->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
+			// 
 			// Added Part For ComputeShader
-			Resources::Find<Material>(TITLE_BACKGROUND_MATERIAL_KEY)->SetTexture(Resources::Find<Texture>(PAINT_TEXTURE_KEY));
+			//Resources::Find<Material>(TITLE_BACKGROUND_MATERIAL_KEY)->SetTexture(Resources::Find<Texture>(PAINT_TEXTURE_KEY));
+			
+			BackgroundScript* pBackgroundScript = new BackgroundScript();
 			pBattleSceneSpriteRenderer->SetMaterial(Resources::Find<Material>(TITLE_BACKGROUND_MATERIAL_KEY));
 			pBattleSceneObject->AddComponent(pBattleSceneSpriteRenderer);
-			//pBattleSceneObject->AddComponent(pBackgroundScript);
+			pBattleSceneObject->AddComponent(pBackgroundScript);
 		}
 
 		Scene::Initalize();

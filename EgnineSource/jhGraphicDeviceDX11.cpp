@@ -707,7 +707,7 @@ namespace jh::graphics
 
 	void GraphicDevice_DX11::ClearRenderTargetViewAndDepthStencilView()
 	{
-		const FLOAT BACK_GROUND_COLOR[4] = { 0.2f, 0.2f, 0.2f, 0.2f };
+		const FLOAT BACK_GROUND_COLOR[4] = { 1.0f, 0.0f, 1.0f, 0.0f };
 		mcpContext->ClearRenderTargetView(mcpRenderTargetView.Get(), BACK_GROUND_COLOR);
 		mcpContext->ClearDepthStencilView(
 			mspDepthStencilBuffer->GetDepthStencilView().Get(),

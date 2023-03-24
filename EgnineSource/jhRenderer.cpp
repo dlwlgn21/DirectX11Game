@@ -85,10 +85,12 @@ namespace jh::renderer
 		Resources::Insert<Mesh>(RECT_MESH_KEY, pMesh);
 		pMesh->CreateVertexBuffer(vertices, VERTEX_COUNT);
 
-		vertices[0].UV = Vector2(0.25f, 0.25f);
-		vertices[1].UV = Vector2(0.75f, 0.25f);
-		vertices[2].UV = Vector2(0.75f, 0.75f);
-		vertices[3].UV = Vector2(0.25f, 0.75f);
+
+		// For BackgroundMesh Texture
+		vertices[0].UV = Vector2(0.15f, 0.15f);
+		vertices[1].UV = Vector2(0.85f, 0.15f);
+		vertices[2].UV = Vector2(0.85f, 0.85f);
+		vertices[3].UV = Vector2(0.15f, 0.85f);
 
 		Mesh* pBackgroundMesh = new Mesh();
 		Resources::Insert<Mesh>(BATTLE_SCENE_MESH_KEY, pBackgroundMesh);
@@ -181,6 +183,10 @@ namespace jh::renderer
 		Shader* pSpriteShader = new Shader();
 		pSpriteShader->Create(graphics::eShaderStage::VERTEX_SHADER, L"jhSpriteVertexShader.hlsl", "main");
 		pSpriteShader->Create(graphics::eShaderStage::PIXEL_SHADER, L"jhSpritePixelShader.hlsl", "main");
+		//pSpriteShader->SetRasterizerState(eRasterizerStateType::SOLID_NONE);
+		//pSpriteShader->SetDepthStencilState(eDepthStencilStateType::LESS_FIRST);
+		//pSpriteShader->SetBlendState(eBlendStateType::ALPHA_BLEND);
+		
 		Resources::Insert<Shader>(SPRITE_SHADER_KEY, pSpriteShader);
 
 		// UI
@@ -555,7 +561,7 @@ namespace jh::renderer
 		Resources::Load<Texture>(TITLE_BACKGROUND_TEXTURE_KEY,	L"TitleImage.png");
 		Resources::Load<Texture>(ZELDA_TEXTURE_KEY,				L"ZeldaSprite.png");
 		Resources::Load<Texture>(ZOMBIE_TEXTURE_KEY,			L"WildZombie.png");
-		Resources::Load<Texture>(BATTLE_SCENE_TEXTURE_KEY,		L"70s Apt4B.png");
+		Resources::Load<Texture>(BATTLE_SCENE_TEXTURE_KEY,		L"Cataclysm_Street_2.png");
 		//ZeldaSprite.png
 
 		// CreateTexure
