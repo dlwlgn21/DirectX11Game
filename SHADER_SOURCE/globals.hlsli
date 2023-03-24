@@ -35,6 +35,8 @@ cbuffer Animation : register(b4)
     float2 offset;
     float2 atlasImageSize;
     uint   animationType;
+    uint   isFlip;
+
 }
 
 cbuffer NumberOfLight : register(b5)

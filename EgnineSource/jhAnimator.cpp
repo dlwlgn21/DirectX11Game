@@ -6,7 +6,7 @@ namespace jh
 {
 	Animator::Animator()
 		: Component(eComponentType::ANIMATOR)
-		, mCurrAnimatingAnimation(nullptr)
+		, mpCurrAnimatingAnimation(nullptr)
 		, mbIsAnimationLooping(false)
 	{
 		mAnimationMap.reserve(16);
@@ -34,15 +34,15 @@ namespace jh
 	}
 	void Animator::Update()
 	{
-		if (mCurrAnimatingAnimation == nullptr)
+		if (mpCurrAnimatingAnimation == nullptr)
 		{
 			assert(false);
 			return;
 		}
 
-		if (mCurrAnimatingAnimation->IsAnimComplete())
+		if (mpCurrAnimatingAnimation->IsAnimComplete())
 		{
-			Events* pEvents = FindEventsOrNull(mCurrAnimatingAnimation->GetAnimationKey());
+			Events* pEvents = FindEventsOrNull(mpCurrAnimatingAnimation->GetAnimationKey());
 			if (pEvents == nullptr)
 			{
 				assert(false);
@@ -51,11 +51,11 @@ namespace jh
 			pEvents->CompleteEvent();
 			if (mbIsAnimationLooping)
 			{
-				mCurrAnimatingAnimation->Reset();
+				mpCurrAnimatingAnimation->Reset();
 			}
 		}
 
-		mCurrAnimatingAnimation->Update();
+		mpCurrAnimatingAnimation->Update();
 	}
 	void Animator::FixedUpdate()
 	{
@@ -101,7 +101,7 @@ namespace jh
 
 	void Animator::PlayAnimation(const std::wstring& animKey, bool bIsLooping)
 	{
-		Animation* pPrevAnim = mCurrAnimatingAnimation;
+		Animation* pPrevAnim = mpCurrAnimatingAnimation;
 		Events* pEvents = nullptr;
 
 		if (pPrevAnim != nullptr)
@@ -115,15 +115,15 @@ namespace jh
 			pEvents->EndEvent();
 		}
 
-		mCurrAnimatingAnimation = FindAnimationOrNull(animKey);
-		if (mCurrAnimatingAnimation == nullptr)
+		mpCurrAnimatingAnimation = FindAnimationOrNull(animKey);
+		if (mpCurrAnimatingAnimation == nullptr)
 		{
 			assert(false); return;
 		}
 		//mCurrAnimatingAnimation->Reset();
 		mbIsAnimationLooping = bIsLooping;
 
-		pEvents = FindEventsOrNull(mCurrAnimatingAnimation->GetAnimationKey());
+		pEvents = FindEventsOrNull(mpCurrAnimatingAnimation->GetAnimationKey());
 		if (pEvents == nullptr)
 			{ return;}
 
@@ -132,22 +132,22 @@ namespace jh
 
 	void Animator::BindAtShader()
 	{
-		if (mCurrAnimatingAnimation == nullptr)
+		if (mpCurrAnimatingAnimation == nullptr)
 		{
 			assert(false);
 		}
 
-		mCurrAnimatingAnimation->BindAtShader();
+		mpCurrAnimatingAnimation->BindAtShader();
 	}
 
 	void Animator::ClearShaderTexture()
 	{
-		if (mCurrAnimatingAnimation == nullptr)
+		if (mpCurrAnimatingAnimation == nullptr)
 		{
 			assert(false);
 		}
 
-		mCurrAnimatingAnimation->ClearShaderTexture();
+		mpCurrAnimatingAnimation->ClearShaderTexture();
 	}
 
 	std::function<void()>& Animator::GetStartEvent(const std::wstring& key)
@@ -176,5 +176,10 @@ namespace jh
 			assert(false);
 		}
 		return pEvents->EndEvent.mEvent;
+	}
+	void Animator::SetCurrAnimationHorizontalFlip(const bool isFlip)
+	{
+		assert(mpCurrAnimatingAnimation != nullptr);
+		mpCurrAnimatingAnimation->SetHorizontalFlip(isFlip);
 	}
 }

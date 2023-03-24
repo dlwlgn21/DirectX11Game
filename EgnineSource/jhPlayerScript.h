@@ -5,6 +5,13 @@ namespace jh
 {
 	class Animator;
 	class Transform;
+
+	enum class ePlayerLookDirection
+	{
+		LEFT,
+		RIGHT,
+		COUNT
+	};
 	class PlayerScript final : public Script
 	{
 	public:
@@ -37,7 +44,7 @@ namespace jh
 		const std::wstring		mAnimRightPunchKey;
 		bool					mbIsMoving;
 		bool					mbIsPunching;
-		
+		ePlayerLookDirection    meLookDir;
 	};
 }
 

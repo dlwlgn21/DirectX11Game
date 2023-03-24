@@ -54,7 +54,7 @@ namespace jh
 
 		__forceinline bool IsAnimComplete() const { return mbIsAnimComplete; }
 		const std::wstring& GetAnimationKey() { return mAnimKey; }
-
+		void SetHorizontalFlip(const bool isFlip) { mbIsHorizontalFlip = isFlip; }
 	private:
 		std::wstring			mAnimKey;
 		Animator*				mpAnimator;
@@ -63,7 +63,7 @@ namespace jh
 		UINT					mIndex;
 		float					mAccumTimer;
 		bool					mbIsAnimComplete;
-
+		bool					mbIsHorizontalFlip;
 	};
 }
 

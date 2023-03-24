@@ -58,7 +58,7 @@ namespace jh
 		void BindAtShader();
 		void ClearShaderTexture();
 
-		__forceinline Animation* GetCurrentAnimatingAnimation() const { return mCurrAnimatingAnimation; }
+		__forceinline Animation* GetCurrentAnimatingAnimation() const { return mpCurrAnimatingAnimation; }
 		Animation* FindAnimationOrNull(const std::wstring& key);
 		Events* FindEventsOrNull(const std::wstring& key);
 
@@ -66,10 +66,12 @@ namespace jh
 		std::function<void()>& GetCompleteEvent(const std::wstring& key);
 		std::function<void()>& GetEndEvent(const std::wstring& key);
 
+		void SetCurrAnimationHorizontalFlip(const bool isFlip);
+
 	private:
 		std::unordered_map<std::wstring, Animation*>	mAnimationMap;
 		std::unordered_map<std::wstring, Events*>		mEventsMap;
-		Animation*										mCurrAnimatingAnimation;
+		Animation*										mpCurrAnimatingAnimation;
 		bool											mbIsAnimationLooping;
 	};
 }

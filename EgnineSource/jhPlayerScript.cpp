@@ -19,6 +19,7 @@ namespace jh
 		, mpAnimator(nullptr)
 		, mbIsMoving(false)
 		, mbIsPunching(false)
+		, meLookDir(ePlayerLookDirection::RIGHT)
 	{
 	}
 
@@ -35,7 +36,7 @@ namespace jh
 		mpTranform = static_cast<Transform*>(GetOwner()->GetComponentOrNull(eComponentType::TRANSFORM));
 		assert(mpTranform != nullptr);
 		Vector3 pos = mpTranform->GetPosition();
-
+		Vector3 prevPos = pos;
 		if (mbIsPunching)
 		{
 			if (mpAnimator->GetCurrentAnimatingAnimation()->IsAnimComplete())
@@ -66,23 +67,24 @@ PROCESSING_INPUT:
 		if (Input::GetKeyState(eKeyCode::RIGHT) == eKeyState::PRESSED)
 		{
 			pos.x += mSpeed * Time::DeltaTime();
+			meLookDir = ePlayerLookDirection::RIGHT;
 			mbIsMoving = true;
 		}
 		if (Input::GetKeyState(eKeyCode::LEFT) == eKeyState::PRESSED)
 		{
 			pos.x -= mSpeed * Time::DeltaTime();
 			mbIsMoving = true;
+			meLookDir = ePlayerLookDirection::LEFT;
 		}
 
 		assert(mpAnimator != nullptr);
-		if (Input::GetKeyState(eKeyCode::N_1) == eKeyState::UP)
+		if (meLookDir == ePlayerLookDirection::RIGHT)
 		{
-			mpAnimator->PlayAnimation(mAnimIdleKey, true);
+			mpAnimator->SetCurrAnimationHorizontalFlip(false);
 		}
-
-		if (Input::GetKeyState(eKeyCode::N_2) == eKeyState::UP)
+		else
 		{
-			mpAnimator->PlayAnimation(mAnimMoveKey, true);
+			mpAnimator->SetCurrAnimationHorizontalFlip(true);
 		}
 
 		if (mbIsMoving && !mbIsPunching)
@@ -112,8 +114,6 @@ PROCESSING_INPUT:
 		}
 
 		mpTranform->SetPosition(pos);
-
-
 	}
 	void PlayerScript::FixedUpdate()
 	{

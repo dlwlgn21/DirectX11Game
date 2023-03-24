@@ -6,6 +6,8 @@
 
 constexpr const UINT MAX_SPRITE_SHEETS_COUNT = 16;
 constexpr const UINT ATLAS_TEXTURE_SLOT_NUMBER = 12;
+constexpr const UINT FLIPED = 1;
+constexpr const UINT NO_FLIPED = 0;
 namespace jh
 {
 	Animation::Animation()
@@ -15,6 +17,7 @@ namespace jh
 		, mIndex(0)
 		, mAccumTimer(0.0f)
 		, mbIsAnimComplete(false)
+		, mbIsHorizontalFlip(false)
 	{
 		mSpriteSheets.reserve(MAX_SPRITE_SHEETS_COUNT);
 	}
@@ -71,6 +74,7 @@ namespace jh
 	void Animation::BindAtShader()
 	{
 		assert(mpAtlasImage != nullptr);
+		mpAtlasImage->SetShaderResourceView(graphics::eShaderStage::VERTEX_SHADER, ATLAS_TEXTURE_SLOT_NUMBER);
 		mpAtlasImage->SetShaderResourceView(graphics::eShaderStage::PIXEL_SHADER, ATLAS_TEXTURE_SLOT_NUMBER);
 		ConstantBuffer* pAnimConstantBuffer = renderer::pConstantBuffers[static_cast<UINT>(eConstantBufferType::ANIMATION)];
 		assert(pAnimConstantBuffer != nullptr);
@@ -81,7 +85,16 @@ namespace jh
 		animConstantBuffer.Offset = mSpriteSheets[mIndex].Offset;
 		animConstantBuffer.Size = mSpriteSheets[mIndex].Size;
 		animConstantBuffer.AtlasImageSize = mSpriteSheets[mIndex].AtlasSize;
+		if (mbIsHorizontalFlip)
+		{
+			animConstantBuffer.IsFlip = FLIPED;
+		}
+		else
+		{
+			animConstantBuffer.IsFlip = NO_FLIPED;
+		}
 		pAnimConstantBuffer->WriteConstantBufferAtGPU(&animConstantBuffer);
+		pAnimConstantBuffer->SetConstantBufferAtShader(graphics::eShaderStage::VERTEX_SHADER);
 		pAnimConstantBuffer->SetConstantBufferAtShader(graphics::eShaderStage::PIXEL_SHADER);
 	}
 	void Animation::ClearShaderTexture()
@@ -93,6 +106,7 @@ namespace jh
 		renderer::AnimationConstantBuffer animationConstantBuffer = {};
 		animationConstantBuffer.AnimationType = static_cast<UINT>(eAnimatnionType::NO_ANIMATION);
 		pAnimConstantBuffer->WriteConstantBufferAtGPU(&animationConstantBuffer);
+		pAnimConstantBuffer->SetConstantBufferAtShader(eShaderStage::VERTEX_SHADER);
 		pAnimConstantBuffer->SetConstantBufferAtShader(eShaderStage::PIXEL_SHADER);
 	}
 	void Animation::Reset()

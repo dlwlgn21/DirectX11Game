@@ -58,6 +58,7 @@ namespace jh::renderer
 		Vector2 AtlasImageSize;
 
 		UINT	AnimationType;				// 애니메이션 안 쓸수도 있어서. 배경만 나와야 할 수도 있어서.
+		UINT	IsFlip;				// 애니메이션 안 쓸수도 있어서. 배경만 나와야 할 수도 있어서.
 	};
 
 	CBUFFER(LightConstantBuffer, CBSLOT_NUMBER_OF_LIGHT)
