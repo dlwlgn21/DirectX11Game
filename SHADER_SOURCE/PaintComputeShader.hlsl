@@ -16,10 +16,10 @@ void main( uint3 DTid : SV_DispatchThreadID )
     {
         return;
     }
+    
+    if (DTid.x == cos(fData * 2) * 1024 || DTid.y >= sin(fData * 3) * 1024)
+    {
+        return;
+    }
     tex[DTid.xy] = float4(cos(fData * 2), sin(fData * 3), tan(fData * 17), 1.0f);
-
-    //tex[DTid.xy] = float4(a, 1.0f, c, 1.0f);
-    
-    
-
 }
