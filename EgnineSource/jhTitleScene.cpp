@@ -37,9 +37,9 @@ namespace jh
 	{
 		{
 			//PaintShader
-			//PaintShader* pPaintShader = static_cast<PaintShader*>(Resources::Find<PaintShader>(PAINT_SHADER_KEY));
-			//pPaintShader->SetTarget(Resources::Find<Texture>(PAINT_TEXTURE_KEY));
-			//pPaintShader->OnExcute();
+			PaintShader* pPaintShader = static_cast<PaintShader*>(Resources::Find<PaintShader>(PAINT_SHADER_KEY));
+			pPaintShader->SetTarget(Resources::Find<Texture>(PAINT_TEXTURE_KEY));
+			pPaintShader->OnExcute();
 		}
 
 
@@ -83,7 +83,7 @@ namespace jh
 
 		// Player
 		{
-			Player* pPlayerObj = jh::object::Instantiate<Player>(eLayerType::PLAYER, Vector3(-3.0f, 0.0f, 20.0f), Vector3(0.0f, 0.0f, 0.0f));
+			Player* pPlayerObj = jh::object::Instantiate<Player>(eLayerType::PLAYER, Vector3(0.0f, 0.0f, 20.0f), Vector3(0.0f, 0.0f, 0.0f));
 		}
 
 		{
@@ -149,6 +149,7 @@ namespace jh
 			pBattleSceneObject->GetTransform()->SetPosition(Vector3(0.0f, 0.0f, 1.0f));
 			SpriteRenderer* pBattleSceneSpriteRenderer = new SpriteRenderer();
 			pBattleSceneSpriteRenderer->SetMesh(Resources::Find<Mesh>(BATTLE_SCENE_MESH_KEY));
+			
 			//pBattleSceneSpriteRenderer->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
 			// 
 			// Added Part For ComputeShader
@@ -160,6 +161,17 @@ namespace jh
 			pBattleSceneObject->AddComponent(pBackgroundScript);
 		}
 
+		{
+			GameObject* pComputeObject = jh::object::Instantiate<GameObject>(eLayerType::MONSTER);
+			pComputeObject->GetTransform()->SetPosition(Vector3(2.0f, 0.0f, 1.0f));
+			SpriteRenderer* pComputeObjectSpriteRenderer = new SpriteRenderer();
+			pComputeObjectSpriteRenderer->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
+			pComputeObjectSpriteRenderer->SetMaterial(Resources::Find<Material>(PAINT_MATERIAL_KEY));
+			pComputeObject->AddComponent(pComputeObjectSpriteRenderer);
+
+			//BackgroundScript* pBackgroundScript = new BackgroundScript();
+			//pBattleSceneObject->AddComponent(pBackgroundScript);
+		}
 		Scene::Initalize();
 	}
 	void TitleScene::Update()

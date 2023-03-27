@@ -31,13 +31,15 @@ namespace jh
 		void SetShaderResourceView(const graphics::eShaderStage shaderStage, const UINT slot);
 		void Clear();
 
+
+		//void CreateUAV(const DXGI_FORMAT format);
+
+
 		void SetUnorderdAccessView(const UINT startSlot);
 		void ClearUnorderdAccessView(const UINT startSlot);
 
-		UINT GetHeight() const { return static_cast<UINT>(mImage.GetMetadata().height); }
-		UINT GetWidth() const { return static_cast<UINT>(mImage.GetMetadata().width); }
-		UINT GetDescHeight() const { return static_cast<UINT>(mTextureDesc.Height); }
-		UINT GetDescWidth() const { return static_cast<UINT>(mTextureDesc.Width); }
+		UINT GetHeight() const { return static_cast<UINT>(mTextureDesc.Height); }
+		UINT GetWidth() const { return static_cast<UINT>(mTextureDesc.Width); }
 
 		Microsoft::WRL::ComPtr<ID3D11Texture2D> GetTexture() const							{ return mcpTexture; }
 		Microsoft::WRL::ComPtr<ID3D11DepthStencilView> GetDepthStencilView() const			{ return mcpDepthStencilView; }

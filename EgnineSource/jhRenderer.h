@@ -32,12 +32,7 @@ namespace jh::renderer
 	};
 	CBUFFER(MaterialConstantBuffer, CBSLOT_MATERIAL)
 	{
-		int iData;
 		float fData;
-		Vector2 Xy;
-		Vector3 Xyz;
-		Vector4 Xyzw;
-		Matrix Matrix;
 	};
 	CBUFFER(GridConstantBuffer, CBSLOT_GRID)
 	{
@@ -108,6 +103,7 @@ namespace jh::renderer
 	extern const std::wstring ZOMBIE_TEXTURE_KEY;
 	extern const std::wstring BATTLE_SCENE_TEXTURE_KEY;
 	extern const std::wstring PAINT_TEXTURE_KEY;
+	extern const std::wstring SMILE_TEXTURE_KEY;
 
 	extern const std::wstring PLAYER_MATERIAL_KEY;
 	extern const std::wstring SPRITE_MATERIAL_KEY;
@@ -118,6 +114,7 @@ namespace jh::renderer
 	extern const std::wstring MONSTER_MATERIAL_KEY;
 	extern const std::wstring TITLE_BACKGROUND_MATERIAL_KEY;
 	extern const std::wstring PARTICLE_MATERIAL_KEY;
+	extern const std::wstring PAINT_MATERIAL_KEY;
 
 	extern const std::wstring RECT_MESH_KEY;
 	extern const std::wstring RECT_DEBUG_MESH_KEY;

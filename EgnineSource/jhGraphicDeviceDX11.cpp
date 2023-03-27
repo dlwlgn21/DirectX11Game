@@ -571,10 +571,11 @@ namespace jh::graphics
 		case jh::graphics::eShaderStage::PIXEL_SHADER:
 			mcpContext->PSSetConstantBuffers(static_cast<UINT>(eType), 1, &pBuffer);
 			break;
-		case jh::graphics::eShaderStage::COUNT:
-			assert(false);
+		case jh::graphics::eShaderStage::COMPUTE_SHADER:
+			mcpContext->CSSetConstantBuffers(static_cast<UINT>(eType), 1, &pBuffer);
 			break;
 		default:
+			assert(false);
 			break;
 		}
 	}
@@ -707,7 +708,7 @@ namespace jh::graphics
 
 	void GraphicDevice_DX11::ClearRenderTargetViewAndDepthStencilView()
 	{
-		const FLOAT BACK_GROUND_COLOR[4] = { 1.0f, 0.0f, 1.0f, 0.0f };
+		const FLOAT BACK_GROUND_COLOR[4] = { 0.2f, 0.2f, 0.2f, 0.0f };
 		mcpContext->ClearRenderTargetView(mcpRenderTargetView.Get(), BACK_GROUND_COLOR);
 		mcpContext->ClearDepthStencilView(
 			mspDepthStencilBuffer->GetDepthStencilView().Get(),

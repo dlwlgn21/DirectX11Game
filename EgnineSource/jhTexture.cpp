@@ -128,6 +128,20 @@ namespace jh
 		return true;
 	}
 
+	//void Texture::CreateUAV(const DXGI_FORMAT format)
+	//{
+	//	D3D11_UNORDERED_ACCESS_VIEW_DESC tUAVDesc = {};
+	//	tUAVDesc.Format = format;
+	//	tUAVDesc.Texture2D.MipSlice = 0;
+	//	tUAVDesc.ViewDimension = D3D11_UAV_DIMENSION::D3D11_UAV_DIMENSION_TEXTURE2D;
+
+	//	if (!GetDevice()->CreateUnorderedAccessView(mcpTexture.Get(), nullptr, mcpUnorderedAccessView.GetAddressOf()))
+	//	{
+	//		assert(false);
+	//		return;
+	//	}
+	//}
+
 	void Texture::SetShaderResourceView(const graphics::eShaderStage shaderStage, const UINT slot)
 	{
 		graphics::GetDevice()->SetShaderResourceView(shaderStage, slot, mcpShaderResourceView.GetAddressOf());
@@ -174,5 +188,6 @@ namespace jh
 
 		// TODO : 이거 에러 일으킬 수 있음. reinterpret_cast 때문.
 		mcpShaderResourceView->GetResource(reinterpret_cast<ID3D11Resource**>(mcpTexture.GetAddressOf()));
+		mcpTexture->GetDesc(&mTextureDesc);
 	}
 }

@@ -17,7 +17,7 @@ namespace jh
 	}
 	ComputeShader::~ComputeShader()
 	{
-		mcpComputeShader.Reset();
+		mcpComputeShader.Reset(); 
 		mcpBlob.Reset();
 	}
 	HRESULT ComputeShader::Load(const std::wstring& path)
@@ -64,11 +64,5 @@ namespace jh
 		graphics::GetDevice()->SetComputeShader(mcpComputeShader.Get(), nullptr, 0);
 		graphics::GetDevice()->Dispatch(mThreadGroupX, mThreadGroupY, mThreadGroupZ);
 		Clear();
-	}
-	void ComputeShader::Bind()
-	{
-	}
-	void ComputeShader::Clear()
-	{
 	}
 }

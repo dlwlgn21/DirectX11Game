@@ -43,6 +43,7 @@ namespace jh::renderer
 	static const std::wstring ZOMBIE_TEXTURE_KEY = L"WildZombieTexture";
 	static const std::wstring BATTLE_SCENE_TEXTURE_KEY = L"BattleSceneTexture";
 	static const std::wstring PAINT_TEXTURE_KEY = L"PaintTexture";
+	static const std::wstring SMILE_TEXTURE_KEY = L"SmileTexture";
 
 	static const std::wstring PLAYER_MATERIAL_KEY = L"PlayerMaterial";
 	static const std::wstring SPRITE_MATERIAL_KEY = L"SpriteMaterial";
@@ -53,7 +54,8 @@ namespace jh::renderer
 	static const std::wstring MONSTER_MATERIAL_KEY = L"MonsterMaterial";
 	static const std::wstring TITLE_BACKGROUND_MATERIAL_KEY = L"TitleBackground";
 	static const std::wstring PARTICLE_MATERIAL_KEY = L"ParticleMaterial";
-
+	static const std::wstring PAINT_MATERIAL_KEY = L"PaintMaterial";
+	
 	static const std::wstring RECT_MESH_KEY = L"RectMesh";
 	static const std::wstring RECT_DEBUG_MESH_KEY = L"RectDebugMesh";
 	static const std::wstring CIRCLE_DEBUG_MESH_KEY = L"CircleDebugMesh";
@@ -549,6 +551,13 @@ namespace jh::renderer
 		pPatricleMaterial->SetShader(Resources::Find<Shader>(PARTICLE_SHADER_KEY));
 		pPatricleMaterial->SetTexture(Resources::Find<Texture>(BATTLE_SCENE_TEXTURE_KEY));
 		Resources::Insert<Material>(PARTICLE_MATERIAL_KEY, pPatricleMaterial);
+
+
+		Material* pPaintMeterial = new Material();
+		pPaintMeterial->SetShader(Resources::Find<Shader>(SPRITE_SHADER_KEY));
+		pPaintMeterial->SetTexture(Resources::Find<Texture>(PAINT_TEXTURE_KEY));
+		Resources::Insert<Material>(PAINT_MATERIAL_KEY, pPaintMeterial);
+		pPaintMeterial->SetComputeShader(Resources::Find<PaintShader>(PAINT_SHADER_KEY));
 	}
 
 	__forceinline void CreateTexture()
@@ -560,9 +569,12 @@ namespace jh::renderer
 		Resources::Load<Texture>(MONSTER_TEXTURE_KEY,			L"MonsterIdleImage.png");
 		Resources::Load<Texture>(TITLE_BACKGROUND_TEXTURE_KEY,	L"TitleImage.png");
 		Resources::Load<Texture>(ZELDA_TEXTURE_KEY,				L"ZeldaSprite.png");
-		Resources::Load<Texture>(ZOMBIE_TEXTURE_KEY,			L"WildZombie.png");
-		Resources::Load<Texture>(BATTLE_SCENE_TEXTURE_KEY,		L"Cataclysm_Street_2.png");
+		Resources::Load<Texture>(ZOMBIE_TEXTURE_KEY, 			L"WildZombie.png");
+		Resources::Load<Texture>(BATTLE_SCENE_TEXTURE_KEY,		L"Merge.png");
+		Resources::Load<Texture>(SMILE_TEXTURE_KEY,				L"Smile.png");
 		//ZeldaSprite.png
+
+		//Resources::Find<Texture>(BATTLE_SCENE_TEXTURE_KEY)->CreateUAV(DXGI_FORMAT::DXGI_FORMAT_R8G8B8A8_UNORM);
 
 		// CreateTexure
 		Texture* pUAVTexture = new Texture();

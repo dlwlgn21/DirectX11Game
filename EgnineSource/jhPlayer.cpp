@@ -21,7 +21,7 @@ namespace jh
 		Collider2D* pCollider2D = new Collider2D();
 		pCollider2D->SetType(eColliderType::CIRCLE);
 		pCollider2D->SetRadius(1.0f);
-		this->GetTransform()->SetScale(Vector3(7.0f, 7.0f, 1.0f));
+		this->GetTransform()->SetScale(Vector3(3.0f, 3.0f, 1.0f));
 		this->AddComponent(pCollider2D);
 
 		Vector2 animSize(48.0f, 32.0f);

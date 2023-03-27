@@ -27,11 +27,11 @@ namespace jh
 
 		if (Input::GetKeyState(eKeyCode::UP) == eKeyState::PRESSED)
 		{
-			mUVMove.y += mSpeed * Time::DeltaTime();
+			mUVMove.y -= mSpeed * Time::DeltaTime();
 		}
 		if (Input::GetKeyState(eKeyCode::DOWN) == eKeyState::PRESSED)
 		{
-			mUVMove.y -= mSpeed * Time::DeltaTime();
+			mUVMove.y += mSpeed * Time::DeltaTime();
 		}
 		if (Input::GetKeyState(eKeyCode::LEFT) == eKeyState::PRESSED)
 		{

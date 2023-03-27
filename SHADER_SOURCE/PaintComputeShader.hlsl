@@ -1,3 +1,5 @@
+#include "globals.hlsli"
+
 
 RWTexture2D<float4> tex : register(u0);
 // RW ¶æ : Read, Write °¡´É
@@ -14,6 +16,10 @@ void main( uint3 DTid : SV_DispatchThreadID )
     {
         return;
     }
-    tex[DTid.xy] = float4(1.0f, 0.0f, 1.0f, 1.0f);
+    tex[DTid.xy] = float4(cos(fData * 2), sin(fData * 3), tan(fData * 17), 1.0f);
+
+    //tex[DTid.xy] = float4(a, 1.0f, c, 1.0f);
+    
+    
 
 }

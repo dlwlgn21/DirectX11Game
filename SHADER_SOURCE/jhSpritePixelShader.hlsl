@@ -52,5 +52,7 @@ float4 main(VSOut _in) : SV_Target
     //}
     
     //color *= lightColor.Diffuse;
+    
+    //return float4(cos(fData * 7), sin(fData * 3), cos(fData * 2), 1.0f);
     return color;
 }

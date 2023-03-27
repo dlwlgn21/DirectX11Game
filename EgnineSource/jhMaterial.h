@@ -9,6 +9,10 @@ namespace jh
 {
 	class Texture;
 	class Shader;
+
+	// AddedPart At 0327
+	class PaintShader;
+
 	class Material : public Resource
 	{
 	public:
@@ -29,11 +33,20 @@ namespace jh
 		eRenderingMode GetRenderingMode() const						{ return meRenderingMode; }
 		void SetRenderingMode(const eRenderingMode eRenderingMode)	{ meRenderingMode = eRenderingMode; }
 
+
+		// AddedPart At 0327
+		void SetComputeShader(PaintShader* pComputeShader) { assert(pComputeShader != nullptr); mpComputeShader = static_cast<PaintShader*>(pComputeShader); }
+
 	private:
 		Shader* mpShader;
 		Texture* mpTexture;
 		renderer::MaterialConstantBuffer mMaterialConstantBuffer;
 		eRenderingMode meRenderingMode;
+
+
+		// AddedPart At 0327
+		PaintShader* mpComputeShader;
+		float mAccum;
 	};
 }
 

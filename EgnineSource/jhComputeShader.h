@@ -15,8 +15,8 @@ namespace jh
 		bool Create(const std::wstring& shaderFileName, const std::string& funcName);
 		void OnExcute();
 
-		virtual void Bind();
-		virtual void Clear();
+		virtual void Bind() = 0;
+		virtual void Clear() = 0;
 
 	protected:
 		Microsoft::WRL::ComPtr<ID3DBlob>			mcpBlob;

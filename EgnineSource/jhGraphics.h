@@ -114,12 +114,7 @@ namespace jh::graphics
 
 	enum class eGPUPrameterType
 	{
-		INT,
 		FLOAT,
-		VECTOR2,
-		VECTOR3,
-		VECTOR4,
-		MATRIX,
 		COUNT
 	};
 
