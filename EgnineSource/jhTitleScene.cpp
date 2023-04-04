@@ -23,6 +23,7 @@
 #include "jhLight.h"
 #include "jhBackgroundScript.h"
 #include "jhPaintShader.h"
+#include "jhParicleSystem.h"
 
 namespace jh
 {
@@ -37,11 +38,10 @@ namespace jh
 	{
 		{
 			//PaintShader
-			PaintShader* pPaintShader = static_cast<PaintShader*>(Resources::Find<PaintShader>(PAINT_SHADER_KEY));
-			pPaintShader->SetTarget(Resources::Find<Texture>(PAINT_TEXTURE_KEY));
-			pPaintShader->OnExcute();
+			//PaintShader* pPaintShader = static_cast<PaintShader*>(Resources::Find<PaintShader>(PAINT_SHADER_KEY));
+			//pPaintShader->SetTarget(Resources::Find<Texture>(PAINT_TEXTURE_KEY));
+			//pPaintShader->OnExcute();
 		}
-
 
 
 		{
@@ -84,6 +84,7 @@ namespace jh
 		// Player
 		{
 			Player* pPlayerObj = jh::object::Instantiate<Player>(eLayerType::PLAYER, Vector3(0.0f, 0.0f, 20.0f), Vector3(0.0f, 0.0f, 0.0f));
+			pPlayerObj->GetTransform()->SetScale(Vector3(5.0f, 5.0f, 1.0f));
 		}
 
 		{
@@ -161,16 +162,25 @@ namespace jh
 			pBattleSceneObject->AddComponent(pBackgroundScript);
 		}
 
-		{
-			GameObject* pComputeObject = jh::object::Instantiate<GameObject>(eLayerType::MONSTER);
-			pComputeObject->GetTransform()->SetPosition(Vector3(2.0f, 0.0f, 1.0f));
-			SpriteRenderer* pComputeObjectSpriteRenderer = new SpriteRenderer();
-			pComputeObjectSpriteRenderer->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
-			pComputeObjectSpriteRenderer->SetMaterial(Resources::Find<Material>(PAINT_MATERIAL_KEY));
-			pComputeObject->AddComponent(pComputeObjectSpriteRenderer);
 
-			//BackgroundScript* pBackgroundScript = new BackgroundScript();
-			//pBattleSceneObject->AddComponent(pBackgroundScript);
+
+		// ComputeObject
+		{
+			//GameObject* pComputeObject = jh::object::Instantiate<GameObject>(eLayerType::MONSTER);
+			//pComputeObject->GetTransform()->SetPosition(Vector3(2.0f, 0.0f, 1.0f));
+			//SpriteRenderer* pComputeObjectSpriteRenderer = new SpriteRenderer();
+			//pComputeObjectSpriteRenderer->SetMesh(Resources::Find<Mesh>(RECT_MESH_KEY));
+			//pComputeObjectSpriteRenderer->SetMaterial(Resources::Find<Material>(PAINT_MATERIAL_KEY));
+			//pComputeObject->AddComponent(pComputeObjectSpriteRenderer);
+		}
+
+
+
+		{
+			//GameObject* pParticleObject = jh::object::Instantiate<GameObject>(eLayerType::PARTICLE);
+			//ParticleSystem* pParticleSystem = new ParticleSystem();
+			////pParticleObject->GetTransform()->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
+			//pParticleObject->AddComponent(pParticleSystem);
 		}
 		Scene::Initalize();
 	}
@@ -196,8 +206,6 @@ namespace jh
 	}
 	void TitleScene::OnEnter()
 	{
-
-
 		Scene::OnEnter();
 	}
 	void TitleScene::OnExit()

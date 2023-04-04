@@ -11,7 +11,7 @@ namespace jh
 		MONSTER, 
 		PLAYER,
 
-
+		PARTICLE,
 		UI,
 		COUNT = 16,
 	};

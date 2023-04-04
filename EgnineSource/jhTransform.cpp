@@ -82,5 +82,6 @@ namespace jh
 
 		pConstantBuffer->WriteConstantBufferAtGPU(&transformConstantBuffer);
 		pConstantBuffer->SetConstantBufferAtShader(eShaderStage::VERTEX_SHADER);
+		pConstantBuffer->SetConstantBufferAtShader(eShaderStage::GEOMETRY_SHADER);
 	}
 }

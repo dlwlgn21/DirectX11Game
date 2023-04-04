@@ -17,10 +17,6 @@ namespace jh
 		, mMaterialConstantBuffer{}
 		, mpTexture(nullptr)
 		, meRenderingMode(eRenderingMode::OPAQUEE)
-
-		// Added Part At 0327
-		, mpComputeShader(nullptr)
-		, mAccum(0.0f)
 	{
 		ZeroMemory(&mMaterialConstantBuffer, sizeof(MaterialConstantBuffer));
 	}
@@ -52,7 +48,6 @@ namespace jh
 		//assert(mpTexture != nullptr);
 		if (mpTexture != nullptr)
 		{
-			
 			// 요게 Shader의 texture2D defaultTexture : register(t0)로 연결됨. t0 그르니까 0번 슬롯 이라는 것.
 			mpTexture->SetShaderResourceView(eShaderStage::PIXEL_SHADER, 0);
 			
@@ -61,23 +56,12 @@ namespace jh
 		// AddedPART
 		ConstantBuffer* pConstantBuffer = renderer::pConstantBuffers[static_cast<UINT>(eConstantBufferType::MATERIAL)];
 		assert(pConstantBuffer != nullptr);
-		mAccum += Time::DeltaTime();
-		SetDataAtConstantBuffer(eGPUPrameterType::FLOAT, &mAccum);
+		//SetDataAtConstantBuffer(eGPUPrameterType::FLOAT, &mAccum);
 
 		pConstantBuffer->WriteConstantBufferAtGPU(&mMaterialConstantBuffer);
 		pConstantBuffer->SetConstantBufferAtShader(eShaderStage::VERTEX_SHADER);
 		pConstantBuffer->SetConstantBufferAtShader(eShaderStage::PIXEL_SHADER);
-		
-		// AddedPART
-		if (mpComputeShader != nullptr)
-		{
-			pConstantBuffer->SetConstantBufferAtShader(eShaderStage::COMPUTE_SHADER);
-			mpComputeShader->SetTarget(mpTexture);
-			mpComputeShader->OnExcute();
-			mpTexture->SetShaderResourceView(eShaderStage::PIXEL_SHADER, 0);
-
-		}
-		
+		pConstantBuffer->SetConstantBufferAtShader(eShaderStage::GEOMETRY_SHADER);
 		assert(mpShader != nullptr);
 		mpShader->SetPrimitiveTopologyAndIASetVertexAndPixelShader();
 	}
@@ -85,12 +69,6 @@ namespace jh
 	void Material::Clear()
 	{
 		mpTexture->Clear();
-		
-		// AddedPART
-		if (mpComputeShader != nullptr)
-		{
-			mpTexture->ClearUnorderdAccessView(0);
-		}
 	}
 
 

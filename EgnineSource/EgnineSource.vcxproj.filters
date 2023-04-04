@@ -256,9 +256,6 @@
     <ClCompile Include="jhLight.cpp">
       <Filter>Component\Ligit</Filter>
     </ClCompile>
-    <ClCompile Include="jhBackgroundScript.cpp">
-      <Filter>Component\Script</Filter>
-    </ClCompile>
     <ClCompile Include="jhComputeShader.cpp">
       <Filter>Resource\Shader\ComputeShader</Filter>
     </ClCompile>
@@ -276,6 +273,9 @@
     </ClCompile>
     <ClCompile Include="jhParicleSystem.cpp">
       <Filter>Component\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="jhBackgroundScript.cpp">
+      <Filter>Component\Script</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -367,9 +367,6 @@
     <ClInclude Include="jhRendererComponent.h">
       <Filter>Component\Renderer\Base</Filter>
     </ClInclude>
-    <ClInclude Include="jhRenderer.h">
-      <Filter>Resource</Filter>
-    </ClInclude>
     <ClInclude Include="jhGridScript.h">
       <Filter>Component\Script</Filter>
     </ClInclude>
@@ -435,6 +432,9 @@
     </ClInclude>
     <ClInclude Include="jhParicleSystem.h">
       <Filter>Component\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="jhRenderer.h">
+      <Filter>Renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

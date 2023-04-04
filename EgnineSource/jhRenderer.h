@@ -3,7 +3,6 @@
 #include "jhMath.h"
 #include "jhGraphicDeviceDX11.h"
 
-
 #include "jhMesh.h"
 #include "jhConstantBuffer.h"
 #include "jhCamera.h"
@@ -120,6 +119,7 @@ namespace jh::renderer
 	extern const std::wstring RECT_DEBUG_MESH_KEY;
 	extern const std::wstring CIRCLE_DEBUG_MESH_KEY;
 	extern const std::wstring BATTLE_SCENE_MESH_KEY;
+	extern const std::wstring POINT_MESH_KEY;
 
 	__forceinline void ifFailed(HRESULT hr) { if (FAILED(hr)) { assert(false); } }
 	void Initialize();

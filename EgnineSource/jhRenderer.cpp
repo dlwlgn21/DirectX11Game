@@ -60,9 +60,18 @@ namespace jh::renderer
 	static const std::wstring RECT_DEBUG_MESH_KEY = L"RectDebugMesh";
 	static const std::wstring CIRCLE_DEBUG_MESH_KEY = L"CircleDebugMesh";
 	static const std::wstring BATTLE_SCENE_MESH_KEY = L"BattleSceneMesh";
-	
+	static const std::wstring POINT_MESH_KEY = L"PointMesh";
+
 	__forceinline void CreateMeshAndVertexAndIndexBuffer()
 	{
+		// Point Mesh For ParticleSystem
+		Vertex pointVertex = {};
+		Mesh* pPointMesh = new Mesh();
+		Resources::Insert<Mesh>(POINT_MESH_KEY, pPointMesh);
+		pPointMesh->CreateVertexBuffer(&pointVertex, 1);
+		UINT pointIdx = 0;
+		pPointMesh->CreateIndexBuffer(&pointIdx, 1);
+
 		const int SLICE_COUNT = 80;
 		float radius = 0.5f;
 		float theta = XM_2PI / SLICE_COUNT;
@@ -185,9 +194,9 @@ namespace jh::renderer
 		Shader* pSpriteShader = new Shader();
 		pSpriteShader->Create(graphics::eShaderStage::VERTEX_SHADER, L"jhSpriteVertexShader.hlsl", "main");
 		pSpriteShader->Create(graphics::eShaderStage::PIXEL_SHADER, L"jhSpritePixelShader.hlsl", "main");
-		//pSpriteShader->SetRasterizerState(eRasterizerStateType::SOLID_NONE);
-		//pSpriteShader->SetDepthStencilState(eDepthStencilStateType::LESS_FIRST);
-		//pSpriteShader->SetBlendState(eBlendStateType::ALPHA_BLEND);
+		pSpriteShader->SetRasterizerState(eRasterizerStateType::SOLID_NONE);
+		pSpriteShader->SetDepthStencilState(eDepthStencilStateType::LESS_FIRST);
+		pSpriteShader->SetBlendState(eBlendStateType::ONE_ONE);
 		
 		Resources::Insert<Shader>(SPRITE_SHADER_KEY, pSpriteShader);
 
@@ -233,18 +242,22 @@ namespace jh::renderer
 		Resources::Insert<Shader>(BACK_GROUND_SHADER_KEY, pBackgroundShader);
 
 		// PaintShader
-		PaintShader* pPaintShader = new PaintShader();
-		pPaintShader->Create(L"PaintComputeShader.hlsl", "main");
-		Resources::Insert<ComputeShader>(PAINT_SHADER_KEY, pPaintShader);
+		{
+			//PaintShader* pPaintShader = new PaintShader();
+			//pPaintShader->Create(L"PaintComputeShader.hlsl", "main");
+			//Resources::Insert<ComputeShader>(PAINT_SHADER_KEY, pPaintShader);
+		}
 
 
 		// ParticleShader
 		Shader* pParticleShader = new Shader();
 		pParticleShader->Create(graphics::eShaderStage::VERTEX_SHADER, L"jhParticleVertexShader.hlsl", "main");
 		pParticleShader->Create(graphics::eShaderStage::PIXEL_SHADER, L"jhParticlePixelShader.hlsl", "main");
+		pParticleShader->Create(graphics::eShaderStage::GEOMETRY_SHADER, L"jhParticleGeometryShader.hlsl", "main");
 		pParticleShader->SetRasterizerState(eRasterizerStateType::SOLID_NONE);
 		pParticleShader->SetDepthStencilState(eDepthStencilStateType::NO_WRITE);
 		pParticleShader->SetBlendState(eBlendStateType::ALPHA_BLEND);
+		pParticleShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
 		Resources::Insert<Shader>(PARTICLE_SHADER_KEY, pParticleShader);
 
 	}
@@ -437,25 +450,30 @@ namespace jh::renderer
 		GetDevice()->CreateDepthStencilState(&dsDesc, cpDepthStencilStates[static_cast<UINT>(eDepthStencilStateType::NONE)].GetAddressOf());
 
 		// BlendState
-
 		cpBlendStates[static_cast<UINT>(eBlendStateType::DEFAULT)] = nullptr;
 		D3D11_BLEND_DESC blendDesc;
 		ZeroMemory(&blendDesc, sizeof(D3D11_BLEND_DESC));
 		blendDesc.AlphaToCoverageEnable = false;
 		blendDesc.IndependentBlendEnable = false;
 		blendDesc.RenderTarget[0].BlendEnable = true;
-		blendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP::D3D11_BLEND_OP_ADD;
 		blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
 		blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
-		blendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP::D3D11_BLEND_OP_ADD;
+		blendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP::D3D11_BLEND_OP_ADD;
+
 		blendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
 		blendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+		blendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP::D3D11_BLEND_OP_ADD;
 		blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 
 		GetDevice()->CreateBlendState(&blendDesc, cpBlendStates[static_cast<UINT>(eBlendStateType::ALPHA_BLEND)].GetAddressOf());
 
-		blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;
-		blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
+		blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;				// SRC -> PixelShader의 출력 RGB값
+		blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;		// Dest-> RenderTarget에 있는 RGB 값
+		blendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;				// 위 두 값을 연산하는 방법
+
+		blendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;			// PixelShader의 출력 Alpha값
+		blendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;			// RenderTarget에 있는 Alpha 값
+		blendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
 		GetDevice()->CreateBlendState(&blendDesc, cpBlendStates[static_cast<UINT>(eBlendStateType::ONE_ONE)].GetAddressOf());
 	}
 
@@ -549,15 +567,18 @@ namespace jh::renderer
 		// Patricle
 		Material* pPatricleMaterial = new Material();
 		pPatricleMaterial->SetShader(Resources::Find<Shader>(PARTICLE_SHADER_KEY));
-		pPatricleMaterial->SetTexture(Resources::Find<Texture>(BATTLE_SCENE_TEXTURE_KEY));
+		pPatricleMaterial->SetTexture(Resources::Find<Texture>(SMILE_TEXTURE_KEY));
 		Resources::Insert<Material>(PARTICLE_MATERIAL_KEY, pPatricleMaterial);
 
 
-		Material* pPaintMeterial = new Material();
-		pPaintMeterial->SetShader(Resources::Find<Shader>(SPRITE_SHADER_KEY));
-		pPaintMeterial->SetTexture(Resources::Find<Texture>(PAINT_TEXTURE_KEY));
-		Resources::Insert<Material>(PAINT_MATERIAL_KEY, pPaintMeterial);
-		pPaintMeterial->SetComputeShader(Resources::Find<PaintShader>(PAINT_SHADER_KEY));
+		// ComputeShader
+		{
+			//Material* pPaintMeterial = new Material();
+			//pPaintMeterial->SetShader(Resources::Find<Shader>(SPRITE_SHADER_KEY));
+			//pPaintMeterial->SetTexture(Resources::Find<Texture>(PAINT_TEXTURE_KEY));
+			//Resources::Insert<Material>(PAINT_MATERIAL_KEY, pPaintMeterial);
+		}
+		//pPaintMeterial->SetComputeShader(Resources::Find<PaintShader>(PAINT_SHADER_KEY));
 	}
 
 	__forceinline void CreateTexture()
@@ -571,10 +592,7 @@ namespace jh::renderer
 		Resources::Load<Texture>(ZELDA_TEXTURE_KEY,				L"ZeldaSprite.png");
 		Resources::Load<Texture>(ZOMBIE_TEXTURE_KEY, 			L"WildZombie.png");
 		Resources::Load<Texture>(BATTLE_SCENE_TEXTURE_KEY,		L"Merge.png");
-		Resources::Load<Texture>(SMILE_TEXTURE_KEY,				L"Smile.png");
-		//ZeldaSprite.png
-
-		//Resources::Find<Texture>(BATTLE_SCENE_TEXTURE_KEY)->CreateUAV(DXGI_FORMAT::DXGI_FORMAT_R8G8B8A8_UNORM);
+		Resources::Load<Texture>(SMILE_TEXTURE_KEY,				L"CartoonSmoke.png");
 
 		// CreateTexure
 		Texture* pUAVTexture = new Texture();

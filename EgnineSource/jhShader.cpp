@@ -21,7 +21,7 @@ namespace jh
 		, mPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
 		, meRasterizerStateType(eRasterizerStateType::SOLID_BACK)
 		, meDepthStencilStateType(eDepthStencilStateType::LESS_FIRST)
-		, meBlendStateType(eBlendStateType::ALPHA_BLEND)
+		, meBlendStateType(eBlendStateType::ONE_ONE)
 	{
 
 	}
@@ -55,7 +55,10 @@ namespace jh
 	{
 		setPrimitiveTopologyAndIA();
 		setVertexAndPixelShader();
-
+		if (mcpGeoShader != nullptr)
+		{
+			setGeometryShader();
+		}
 		GetDevice()->SetRasterizerState(renderer::cpRasterizerStates[static_cast<UINT>(meRasterizerStateType)].Get());
 		GetDevice()->SetDepthStencilStateAtOM(renderer::cpDepthStencilStates[static_cast<UINT>(meDepthStencilStateType)].Get());
 		GetDevice()->SetBlendStateAtOM(renderer::cpBlendStates[static_cast<UINT>(meBlendStateType)].Get());
@@ -128,6 +131,36 @@ namespace jh
 				mcpPixelShaderBlob->GetBufferSize(),
 				nullptr,
 				mcpPixelShader.ReleaseAndGetAddressOf()
+			);
+			break;
+
+		case jh::graphics::eShaderStage::GEOMETRY_SHADER:
+			psPath += shaderFileName;
+
+			hr = D3DCompileFromFile(
+				psPath.c_str(),
+				nullptr,
+				D3D_COMPILE_STANDARD_FILE_INCLUDE,
+				entryFuncName.c_str(),
+				"gs_5_0",
+				0,
+				0,
+				mcpGeoShaderBlob.ReleaseAndGetAddressOf(),
+				mcpErrorBlob.ReleaseAndGetAddressOf()
+			);
+
+			if (FAILED(hr))
+			{
+				OutputDebugStringA((char*)mcpErrorBlob->GetBufferPointer());
+				mcpErrorBlob.Reset();
+				assert(false);
+			}
+
+			graphics::GetDevice()->CreateGeometryShader(
+				mcpGeoShaderBlob->GetBufferPointer(),
+				mcpGeoShaderBlob->GetBufferSize(),
+				nullptr,
+				mcpGeoShader.ReleaseAndGetAddressOf()
 			);
 			break;
 		default:

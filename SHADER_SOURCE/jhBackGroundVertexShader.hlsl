@@ -32,7 +32,7 @@ VSOut main(VSIn _in)
     //output.Color = _in.Color;
     //output.UV = _in.UV;
     
-    output.Pos = float4(worldPos.xy * MESH_SCALE, 30.0f, 1.0f);
+    output.Pos = float4(worldPos.xy * MESH_SCALE, 10.0f, 1.0f);
     output.UV = _in.UV;
     
     return output;

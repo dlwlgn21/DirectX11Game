@@ -7,7 +7,7 @@ namespace jh
 	{
 	public:
 		ParticleSystem();
-		virtual ~ParticleSystem() = default;
+		virtual ~ParticleSystem();
 		void Initialize() override;
 		void Update() override;
 		void FixedUpdate() override;
@@ -15,6 +15,7 @@ namespace jh
 
 
 	private:
+		class graphics::StructuredBuffer* mpStructuredBuffer;
 		UINT		mParticleCount;
 		Vector4		mStartSize;
 		Vector4		mEndSize;

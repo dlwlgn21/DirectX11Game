@@ -142,17 +142,21 @@ namespace jh
 				{
 					if (pGameObject == nullptr) 
 						{continue;}
-					RendererComponent* pRenderer;
+					RendererComponent* pRenderer = nullptr;
 					void* pCacheMeshRenerer = pGameObject->GetComponentOrNull(eComponentType::MESH_RENDERER);
 					void* pCacheSpriteRenerer = pGameObject->GetComponentOrNull(eComponentType::SPRITE_RENDERER);
-					if (pCacheMeshRenerer == nullptr && pCacheSpriteRenerer == nullptr)
+					void* pCacheParticleRenerer = pGameObject->GetComponentOrNull(eComponentType::PARTICLE_SYSTEM);
+					if (pCacheMeshRenerer == nullptr && pCacheSpriteRenerer == nullptr && pCacheParticleRenerer == nullptr)
 						{continue;}
 
 					if (pCacheMeshRenerer != nullptr)
 						{ pRenderer = static_cast<RendererComponent*>(pCacheMeshRenerer); }
-					else
+					else if (pCacheSpriteRenerer != nullptr)
 						{ pRenderer = static_cast<RendererComponent*>(pCacheSpriteRenerer); }
-					
+					else
+					{
+						pRenderer = static_cast<RendererComponent*>(pCacheParticleRenerer);
+					}
 					pushGameObjectByMaterialRenderingMode(pRenderer, pGameObject);
 
 				}

@@ -16,7 +16,7 @@ namespace jh
 
 		void SetVertexAndIndexBufferAtIA();
 		void Render();
-
+		void RenderInstanced(const UINT count);
 	private:
 		Microsoft::WRL::ComPtr<ID3D11Buffer>		mcpVertexBuffer;
 		D3D11_BUFFER_DESC							mVertexBufferDesc;

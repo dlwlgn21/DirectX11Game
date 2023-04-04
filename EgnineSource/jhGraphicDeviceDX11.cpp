@@ -460,6 +460,21 @@ namespace jh::graphics
 		}
 		return true;
 	}
+	bool GraphicDevice_DX11::CreateGeometryShader(const void* pShaderByteCode, SIZE_T byteCodeLength, ID3D11ClassLinkage* pClassLinkage, ID3D11GeometryShader** ppGeometryShader)
+	{
+		HRESULT hr = mcpDevice->CreateGeometryShader(
+			pShaderByteCode,
+			byteCodeLength,
+			pClassLinkage,
+			ppGeometryShader
+		);
+		if (FAILED(hr))
+		{
+			assert(false);
+			return false;
+		}
+		return true;
+	}
 	bool graphics::GraphicDevice_DX11::CreatePixelShader(const void* pShaderByteCode, SIZE_T byteCodeLength, ID3D11ClassLinkage* pClassLinkage, ID3D11PixelShader** ppPixelShader)
 	{
 		HRESULT hr = mcpDevice->CreatePixelShader(
@@ -571,6 +586,15 @@ namespace jh::graphics
 		case jh::graphics::eShaderStage::PIXEL_SHADER:
 			mcpContext->PSSetConstantBuffers(static_cast<UINT>(eType), 1, &pBuffer);
 			break;
+		case jh::graphics::eShaderStage::HULL_SHADER:
+			mcpContext->HSSetConstantBuffers(static_cast<UINT>(eType), 1, &pBuffer);
+			break;
+		case jh::graphics::eShaderStage::GEOMETRY_SHADER:
+			mcpContext->GSSetConstantBuffers(static_cast<UINT>(eType), 1, &pBuffer);
+			break;
+		case jh::graphics::eShaderStage::DOMAIN_SHADER:
+			mcpContext->DSSetConstantBuffers(static_cast<UINT>(eType), 1, &pBuffer);
+			break;
 		case jh::graphics::eShaderStage::COMPUTE_SHADER:
 			mcpContext->CSSetConstantBuffers(static_cast<UINT>(eType), 1, &pBuffer);
 			break;
@@ -620,6 +644,11 @@ namespace jh::graphics
 		mcpContext->PSSetShader(pPixelShader, ppClassInstance, numClassInstances);
 	}
 
+	void GraphicDevice_DX11::SetGeometryShader(ID3D11GeometryShader* pGeometryShader, ID3D11ClassInstance* const* ppClassInstance, UINT numClassInstances)
+	{
+		mcpContext->GSSetShader(pGeometryShader, ppClassInstance, numClassInstances);
+	}
+
 	void GraphicDevice_DX11::SetComputeShader(ID3D11ComputeShader* pComputeShader, ID3D11ClassInstance* const* ppClassInstance, UINT numClassInstances)
 	{
 		mcpContext->CSSetShader(pComputeShader, ppClassInstance, numClassInstances);
@@ -634,6 +663,9 @@ namespace jh::graphics
 			break;
 		case jh::graphics::eShaderStage::PIXEL_SHADER:
 			mcpContext->PSSetShaderResources(slot, 1, ppShaderResourceViews);
+			break;
+		case jh::graphics::eShaderStage::GEOMETRY_SHADER:
+			mcpContext->GSSetShaderResources(slot, 1, ppShaderResourceViews);
 			break;
 		case jh::graphics::eShaderStage::COMPUTE_SHADER:
 			mcpContext->CSSetShaderResources(slot, 1, ppShaderResourceViews);
@@ -706,9 +738,14 @@ namespace jh::graphics
 		mcpContext->DrawIndexed(idxCount, startIdxLocation, baseVertexLocation);
 	}
 
+	void GraphicDevice_DX11::DrawIndexInstanced(const UINT IndexCountPerInstance, const UINT InstanceCount, const UINT StartIndexLocation, const INT BaseVertexLocation, const UINT StartInstanceLocation)
+	{
+		mcpContext->DrawIndexedInstanced(IndexCountPerInstance, InstanceCount, StartIndexLocation, BaseVertexLocation, StartInstanceLocation);
+	}
+
 	void GraphicDevice_DX11::ClearRenderTargetViewAndDepthStencilView()
 	{
-		const FLOAT BACK_GROUND_COLOR[4] = { 0.2f, 0.2f, 0.2f, 0.0f };
+		const FLOAT BACK_GROUND_COLOR[4] = { 0.2f, 0.2f, 0.2f, 1.0f };
 		mcpContext->ClearRenderTargetView(mcpRenderTargetView.Get(), BACK_GROUND_COLOR);
 		mcpContext->ClearDepthStencilView(
 			mspDepthStencilBuffer->GetDepthStencilView().Get(),

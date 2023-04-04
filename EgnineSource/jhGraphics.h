@@ -47,6 +47,26 @@ namespace jh::graphics
 		COUNT
 	};
 
+	// For 3D
+	enum class eTextureSlot
+	{
+		T0,
+		T1,
+		T2,
+		T3,
+		T4,
+		T5,
+		T6,
+		T7,
+
+		CUBE_T8,
+		CUBE_T9,
+
+		ARRAY_2DT10,
+		ARRAY_2DT11,
+		COUNT
+	};
+
 	struct GPUBuffer
 	{
 		enum class eBufferType

@@ -1,5 +1,5 @@
 #include "Light.hlsli"
-
+#include "Particle.hlsli"
 cbuffer Transform : register(b0)
 {
     row_major matrix worldMat;
@@ -39,6 +39,13 @@ cbuffer NumberOfLight : register(b5)
     uint NumberOfLight;
 }
 
+
+cbuffer ParticleSystem : register(b6)
+{
+    float4 ParticleColor;
+}
+    
+
 SamplerState pointSampler : register(s0);
 SamplerState linearSampler : register(s1);
 SamplerState anisotropicSampler : register(s2);
@@ -48,6 +55,7 @@ texture2D defaultTexture : register(t0);
 texture2D atlasTexture : register(t12);
 
 StructuredBuffer<LightAttribute> lightAttributes : register(t13);
+StructuredBuffer<Particle> particleBuffer : register(t15);
 
 void CalculateLight(in out LightColor pLightColor, float3 worldPosition, uint idx)
 {

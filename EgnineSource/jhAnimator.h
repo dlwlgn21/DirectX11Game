@@ -48,7 +48,7 @@ namespace jh
 			const std::wstring& animName,
 			 Texture* pAtalsImage,
 			const Vector2 leftTop,
-			const Vector2 size,
+			const Vector2 seperatingSize,
 			const Vector2 offset,
 			const UINT spriteCount,
 			const float duration,

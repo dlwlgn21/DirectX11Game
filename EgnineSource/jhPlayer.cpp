@@ -45,7 +45,7 @@ namespace jh
 			animSize,
 			offset,
 			9,
-			0.15f,
+			0.1f,
 			100
 		);
 		pPlayerAnimator->Create(
@@ -55,7 +55,7 @@ namespace jh
 			animSize,
 			offset,
 			6,
-			0.1f,
+			0.05f,
 			100
 		);
 		pPlayerAnimator->Create(
@@ -65,7 +65,7 @@ namespace jh
 			animSize,
 			offset,
 			5,
-			0.1f,
+			0.05f,
 			100
 		);
 		this->AddComponent(pPlayerAnimator);

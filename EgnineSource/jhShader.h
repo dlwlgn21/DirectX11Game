@@ -39,6 +39,10 @@ namespace jh
 			graphics::GetDevice()->SetPixelShader(mcpPixelShader.Get(), nullptr, 0);
 		}
 
+		__forceinline void setGeometryShader()
+		{
+			graphics::GetDevice()->SetGeometryShader(mcpGeoShader.Get(), nullptr, 0);
+		}
 
 	private:
 		Microsoft::WRL::ComPtr<ID3DBlob>				mcpVertexShaderBlob;

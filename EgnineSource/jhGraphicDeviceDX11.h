@@ -24,6 +24,7 @@ namespace jh::graphics
 		bool CreateAndSetShader();
 		bool CreateVertexShader(const void* pShaderByteCode, SIZE_T byteCodeLength, ID3D11ClassLinkage* pClassLincage, ID3D11VertexShader** ppVertexShader);
 		bool CreateComputeShader(const void* pShaderBytecode, SIZE_T BytecodeLength, ID3D11ClassLinkage* pClassLinkage, ID3D11ComputeShader** ppComputeShader);
+		bool CreateGeometryShader(const void* pShaderByteCode, SIZE_T byteCodeLength, ID3D11ClassLinkage* pClassLinkage, ID3D11GeometryShader** ppGeometryShader);
 		bool CreatePixelShader(const void* pShaderByteCode, SIZE_T byteCodeLength, ID3D11ClassLinkage* pClassLinkage, ID3D11PixelShader** ppPixelShader);
 		bool CreateSamplerState(const D3D11_SAMPLER_DESC* pSamplerDesc, ID3D11SamplerState** ppSamplerState);
 		bool CreateRasterizerState(const D3D11_RASTERIZER_DESC* pRasterizerDesc, ID3D11RasterizerState** ppRasterizerState);
@@ -41,6 +42,7 @@ namespace jh::graphics
 		void SetInputLayout(ID3D11InputLayout* pInputLayout);
 		void SetVertexShader(ID3D11VertexShader* pVertexShader, ID3D11ClassInstance* const* ppClassInstance, UINT numClassInstances);
 		void SetPixelShader(ID3D11PixelShader* pPixelShader, ID3D11ClassInstance* const* ppClassInstance, UINT numClassInstances);
+		void SetGeometryShader(ID3D11GeometryShader* pGeometryShader, ID3D11ClassInstance* const* ppClassInstance, UINT numClassInstances);
 		void SetComputeShader(ID3D11ComputeShader* pComputeShader, ID3D11ClassInstance* const* ppClassInstance, UINT numClassInstances);
 		void SetShaderResourceView(const eShaderStage eStage, const UINT slot, ID3D11ShaderResourceView* const* ppShaderResourceViews);
 		void SetUnorderedAccessView(const UINT startSlot, const UINT NumUAVs, ID3D11UnorderedAccessView* const* ppUnorderedAccessViews, const UINT* pUAVInitialCounts);
@@ -55,7 +57,7 @@ namespace jh::graphics
 		ID3D11DeviceContext* GetContext() const { return mcpContext.Get(); }
 		ID3D11Device* GetID3D11Device() const { return mcpDevice.Get(); }
 		void DrawIndexed(const UINT idxCount, const UINT startIdxLocation, const UINT baseVertexLocation);
-
+		void DrawIndexInstanced(const UINT IndexCountPerInstance, const UINT InstanceCount, const UINT StartIndexLocation, const INT BaseVertexLocation, const UINT StartInstanceLocation);
 
 		void ClearRenderTargetViewAndDepthStencilView();
 

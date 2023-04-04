@@ -71,4 +71,9 @@ namespace jh
 	{
 		graphics::GetDevice()->DrawIndexed(mIdxCount, 0, 0);
 	}
+
+	void Mesh::RenderInstanced(const UINT count)
+	{
+		graphics::GetDevice()->DrawIndexInstanced(mIdxCount, count, 0, 0, 0);
+	}
 }

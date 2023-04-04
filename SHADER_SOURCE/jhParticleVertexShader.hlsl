@@ -1,20 +1,22 @@
 #include "globals.hlsli"
 
-struct VSIn
+struct ParticleVSIn
 {
     float4 Pos : POSITION;
-    float4 Color : COLOR;
-    float2 UV : TEXCOORD;
+    uint iInstance : SV_InstanceID;         // 몇 번째 물체인지가 자동으로 이 변수로 들어옴
 };
 
-struct VSOut
+struct ParticleVSOut
 {
     float4 Pos : SV_POSITION;
-    float4 Color : COLOR;
-    float2 UV : TEXCOORD;
+    uint iInstance : SV_InstanceID;         // 몇 번째 물체인지가 자동으로 이 변수로 들어옴
 };
 
-float4 main( float4 pos : POSITION ) : SV_POSITION
+ParticleVSOut main(ParticleVSIn _pVin)
 {
-	return pos;
+    ParticleVSOut Out = (ParticleVSOut) 0.0f;
+    Out.Pos = _pVin.Pos;
+    Out.iInstance = _pVin.iInstance;
+
+    return Out;
 }
